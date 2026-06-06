@@ -1,0 +1,5 @@
+
+User-agent: *
+Allow: /
+
+Sitemap: https://robinfai.github.io/blog/sitemap-index.xml
