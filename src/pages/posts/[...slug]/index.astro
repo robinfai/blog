@@ -14,6 +14,7 @@ import ShareLinks from "./_components/ShareLinks.astro";
 import BackButton from "./_components/BackButton.astro";
 import BackToTopButton from "./_components/BackToTopButton.astro";
 import AdjacentPostNav from "./_components/AdjacentPostNav.astro";
+import GiscusComments from "./_components/GiscusComments.astro";
 import config from "@/config";
 
 export async function getStaticPaths() {
@@ -154,6 +155,15 @@ const ogImage = ogImageUrl
     </ul>
 
     <ShareLinks />
+
+    {
+      config.features.comments.enabled && (
+        <>
+          <hr class="my-8 border-dashed" />
+          <GiscusComments />
+        </>
+      )
+    }
 
     <hr class="my-8 border-dashed" />
 

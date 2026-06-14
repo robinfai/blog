@@ -1,0 +1,104 @@
+---
+import config from "@/config";
+
+const comments = config.features.comments;
+const giscus =
+  comments.enabled && comments.provider === "giscus" ? comments : null;
+
+const mapping = giscus?.mapping ?? "pathname";
+const strict = giscus?.strict ?? true;
+const reactionsEnabled = giscus?.reactionsEnabled ?? true;
+const emitMetadata = giscus?.emitMetadata ?? false;
+const inputPosition = giscus?.inputPosition ?? "bottom";
+const theme = giscus?.theme ?? "auto";
+const lang = giscus?.lang ?? config.site.lang;
+const loading = giscus?.loading ?? "lazy";
+
+const giscusLoaderScript = `
+(function () {
+  const host = document.getElementById("giscus-comments");
+  if (!host || host.dataset.loaded === "true") return;
+
+  function getTheme() {
+    const configuredTheme = host.dataset.theme || "auto";
+    if (configuredTheme !== "auto") return configuredTheme;
+    return document.documentElement.dataset.theme === "dark" ? "dark" : "light";
+  }
+
+  function syncTheme() {
+    const frame = document.querySelector("iframe.giscus-frame");
+    if (!frame || !frame.contentWindow) return;
+    frame.contentWindow.postMessage(
+      { giscus: { setConfig: { theme: getTheme() } } },
+      "https://giscus.app"
+    );
+  }
+
+  const script = document.createElement("script");
+  script.src = "https://giscus.app/client.js";
+  script.async = true;
+  script.crossOrigin = "anonymous";
+
+  const attrs = {
+    "data-repo": host.dataset.repo,
+    "data-repo-id": host.dataset.repoId,
+    "data-category": host.dataset.category,
+    "data-category-id": host.dataset.categoryId,
+    "data-mapping": host.dataset.mapping,
+    "data-term": host.dataset.term,
+    "data-strict": host.dataset.strict,
+    "data-reactions-enabled": host.dataset.reactionsEnabled,
+    "data-emit-metadata": host.dataset.emitMetadata,
+    "data-input-position": host.dataset.inputPosition,
+    "data-theme": getTheme(),
+    "data-lang": host.dataset.lang,
+    "data-loading": host.dataset.loading,
+  };
+
+  for (const [name, value] of Object.entries(attrs)) {
+    if (value) script.setAttribute(name, value);
+  }
+
+  script.addEventListener("load", function () {
+    window.setTimeout(syncTheme, 250);
+  });
+
+  host.dataset.loaded = "true";
+  host.appendChild(script);
+
+  if (!window.__giscusThemeObserver) {
+    window.__giscusThemeObserver = new MutationObserver(syncTheme);
+    window.__giscusThemeObserver.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["data-theme"],
+    });
+  }
+})();
+`;
+---
+
+{
+  giscus && (
+    <section class="mt-8 scroll-mt-20" aria-label="评论">
+      <div
+        id="giscus-comments"
+        class="giscus"
+        data-repo={giscus.repo}
+        data-repo-id={giscus.repoId}
+        data-category={giscus.category}
+        data-category-id={giscus.categoryId}
+        data-mapping={mapping}
+        data-term={mapping === "specific" ? giscus.term : undefined}
+        data-strict={strict ? "1" : "0"}
+        data-reactions-enabled={reactionsEnabled ? "1" : "0"}
+        data-emit-metadata={emitMetadata ? "1" : "0"}
+        data-input-position={inputPosition}
+        data-theme={theme}
+        data-lang={lang}
+        data-loading={loading}
+      />
+    </section>
+  )
+}
+
+{giscus && <script is:inline data-astro-rerun set:html={giscusLoaderScript} />}
