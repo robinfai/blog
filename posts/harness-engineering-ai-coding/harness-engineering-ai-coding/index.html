@@ -91,56 +91,56 @@
 	animation-name: astroFadeIn; }</style></head> <body class="bg-background font-app text-foreground selection:bg-accent/75 selection:text-accent-foreground flex min-h-svh flex-col">    <a id="skip-to-content" href="#main-content" class="bg-background text-accent absolute inset-s-16 -top-full z-50 px-3 py-2 backdrop-blur-lg transition-all focus:top-4"> 跳到正文 </a> <header class="app-layout flex flex-col items-center justify-between sm:flex-row"> <div class="border-border bg-background relative flex w-full items-baseline justify-between border-b py-4 sm:items-center sm:py-6"> <a href="/blog/" class="absolute py-1 text-xl leading-8 font-semibold whitespace-nowrap sm:static sm:my-auto sm:text-2xl sm:leading-none"> Robin 的笔记 </a> <nav id="nav-menu" class="flex w-full flex-col items-center sm:ms-2 sm:flex-row sm:justify-end sm:space-x-4 sm:py-0"> <button id="menu-btn" class="focus-outline self-end p-2 sm:hidden" aria-label="打开菜单" aria-expanded="false" aria-controls="menu-items" data-label-open="打开菜单" data-label-close="关闭菜单"> <svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="hidden" viewBox="0 0 24 24" id="close-icon"><path stroke="none" d="M0 0h24v24H0z" /><path d="M18 6 6 18M6 6l12 12" /></svg> <svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="icon icon-tabler icons-tabler-outline icon-tabler-menu-deep" viewBox="0 0 24 24" id="menu-icon"><path stroke="none" d="M0 0h24v24H0z" /><path d="M4 6h16M7 12h13M10 18h10" /></svg> </button> <ul id="menu-items" class="[&>li>a]:hover:text-accent mt-4 hidden w-44 grid-cols-2 place-content-center gap-2 sm:mt-0 sm:flex sm:w-auto sm:gap-x-5 sm:gap-y-0 sm:[&>li]:h-8 [&>li>a]:block [&>li>a]:px-4 [&>li>a]:py-3 [&>li>a]:text-center [&>li>a]:font-medium sm:[&>li>a]:px-2 sm:[&>li>a]:py-1"> <li class="col-span-2"> <a href="/blog/posts/" class="active-nav"> 文章 </a> </li> <li class="col-span-2"> <a href="/blog/tags/"> 标签 </a> </li> <li class="col-span-2"> <a href="/blog/about/"> 关于 </a> </li> <li class="col-span-2"> <a href="/blog/archives/" title="归档" aria-label="归档" class="group inline-flex items-center gap-1 hover:text-accent focus-outline flex size-full justify-center p-3 sm:relative sm:size-8 sm:p-0">  <svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="hidden sm:absolute sm:top-1/2 sm:left-1/2 sm:block sm:size-6 sm:-translate-x-1/2 sm:-translate-y-1/2" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M3 6a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v0a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8M10 12h4" /></svg> <span class="sm:sr-only">归档</span>  </a> </li> <li class="col-span-1 flex items-center justify-center"> <a href="/blog/search/" title="搜索" aria-label="搜索" class="group inline-flex items-center gap-1 hover:text-accent focus-outline relative size-8">  <svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="absolute top-1/2 left-1/2 size-6 -translate-x-1/2 -translate-y-1/2" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M3 10a7 7 0 1 0 14 0 7 7 0 1 0-14 0M21 21l-6-6" /></svg> <span class="sr-only">搜索</span>  </a> </li> <li class="col-span-1 flex items-center justify-center"> <button id="theme-btn" class="focus-outline hover:[&>svg]:stroke-accent relative size-12 p-4 sm:size-8" title="切换主题" aria-label="auto" aria-live="polite"> <svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="absolute top-[50%] left-[50%] translate-[-50%] scale-100 rotate-0 transition-all dark:scale-0 dark:-rotate-90" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M12 3h.393a7.5 7.5 0 0 0 7.92 12.446A9 9 0 1 1 12 2.992z" /></svg> <svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="absolute top-[50%] left-[50%] translate-[-50%] scale-0 rotate-90 transition-all dark:scale-100 dark:rotate-0" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M14.828 14.828a4 4 0 1 0-5.656-5.656 4 4 0 0 0 5.656 5.656M6.343 17.657l-1.414 1.414M6.343 6.343 4.929 4.929M17.657 6.343l1.414-1.414M17.657 17.657l1.414 1.414M4 12H2M12 4V2M20 12h2M12 20v2" /></svg> </button> </li> </ul> </nav> </div> </header> <script type="module">function c(){const e=document.querySelector("#menu-btn"),t=document.querySelector("#menu-items"),n=document.querySelector("#menu-icon"),s=document.querySelector("#close-icon");if(!e||!t||!n||!s)return;const a=e.dataset.labelOpen??"Open menu",l=e.dataset.labelClose??"Close menu";e.addEventListener("click",()=>{const o=e.getAttribute("aria-expanded")==="true";e.setAttribute("aria-expanded",o?"false":"true"),e.setAttribute("aria-label",o?a:l),t.classList.toggle("hidden"),t.classList.toggle("grid"),n.classList.toggle("hidden"),s.classList.toggle("hidden")})}c();document.addEventListener("astro:after-swap",c);</script> <div class="app-layout flex items-center justify-start"><a id="back-button" href="/blog/" class="group inline-flex items-center gap-1 hover:text-accent focus-outline hover:text-foreground/75 -ms-2 mt-8 mb-2"> <svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="inline-block size-6 rtl:rotate-180" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="m15 6-6 6 6 6" /></svg><span>返回</span> </a></div><script type="module">function o(){const t=document.querySelector("#back-button"),e=sessionStorage.getItem("backUrl");e&&t&&(t.href=e)}document.addEventListener("astro:page-load",o);o();</script> <main id="main-content" class="app-layout" data-pagefind-body> <h1 style="view-transition-name:harness-engineeringu00ff1au008fd0u00884cu0073afu005883u006784u005efau00624du00662f-ai-coding-u007684u005de5u007a0bu005316u0057fau0077f3" class="text-accent inline-block text-2xl font-bold sm:text-3xl"> Harness Engineering：运行环境构建才是 AI Coding 的工程化基石 </h1> <div class="my-2 flex items-center gap-2"> <div class="text-muted-foreground flex items-center gap-x-2"> <svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="inline-block size-6 min-w-5.5" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M4 7a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zM16 3v4M8 3v4M4 11h16M7 14h.013M10.01 14h.005M13.01 14h.005M16.015 14h.005M13.015 17h.005M7.01 17h.005M10.01 17h.005" /></svg>  <time class="text-sm sm:text-base" datetime="2026-03-13T09:14:00.000Z"> 2026年3月13日 </time> </div> <span aria-hidden="true" class="text-muted-foreground max-sm:hidden">
 |
 </span> <a href="https://github.com/robinfai/blog/edit/main/src/content/posts/harness-engineering-ai-coding/harness-engineering-ai-coding.md" target="_blank" rel="noopener noreferrer" class="hover:text-accent text-muted-foreground flex justify-baseline gap-1.5 max-sm:hidden"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="inline-block" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M7 7H6a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2-2v-1" /><path d="M20.385 6.585a2.1 2.1 0 0 0-2.97-2.97L9 12v3h3zM16 5l3 3" /></svg><span>编辑页面</span></a> </div> <article id="article" class="mt-8 w-full app-prose max-w-app prose-pre:bg-(--shiki-light-bg) dark:prose-pre:bg-(--shiki-dark-bg)"> <h2 id="从一次复杂排障说起">从一次复杂排障说起</h2>
-<p>事情的起因很简单。前面的功能开发和单元测试都已经完成了，我在 Cursor 的对话框里敲了一句“e2e 测试验证检查”，然后去忙别的了。</p>
+<p>起因很简单：前面的功能开发和单元测试都完成了，我在 Cursor 的对话框里敲了一句”e2e 测试验证检查”，然后去忙别的了。</p>
 <p>Cursor 里的 Opus 后面跑了很久，也占用了不小的计算成本。</p>
-<p>它在干什么？它在跟运行环境里的边缘问题搏斗。</p>
-<p>单元测试早就全绿了。代码逻辑没问题。但一到端到端环境，真实的操作系统进程、真实的伪终端、真实的用户 Shell 配置，各种问题就冒出来了。macOS 内核的缓冲区限制导致数据静默丢失，不同版本 Shell 的语法行为不一致，用户配置文件引入的第三方插件跟目标脚本冲突，网络传输的分片时序导致信号被拆散。它每修好一个，下一个又冒出来。</p>
-<p>关键在于：每次冒出来的都是<strong>不同的</strong>问题。</p>
-<p>这次排障之所以能持续迭代下去，不是因为模型在打转，而是因为端到端测试环境在工作。每次修改后跑出来的是新的、不同的错误信息，Opus 根据新的反馈做出新的判断和修改。如果环境不行，反复报同样的错误，模型很快就会判定这是环境问题而不是代码问题，自己停下来了。能让它持续推进的前提，恰恰是 Harness 给出的反馈足够精确、足够多样。</p>
+<p>它在跟运行环境里的边缘问题搏斗。</p>
+<p>单元测试早就全绿了。代码逻辑没问题。但一到端到端环境，真实的操作系统进程、真实的伪终端、真实的用户 Shell 配置，各种问题冒了出来。macOS 内核的缓冲区限制导致数据静默丢失，不同版本 Shell 的语法行为不一致，用户配置文件引入的第三方插件跟目标脚本冲突，网络传输的分片时序导致信号被拆散。它每修好一个，下一个又冒出来。</p>
+<p>而且每次冒出来的都是不同的问题。</p>
+<p>这次排障能持续迭代下去，不是因为模型在打转，而是端到端测试环境在工作。每次修改后跑出来的是新的、不同的错误信息，Opus 根据新的反馈做出新的判断和修改。如果环境不行，反复报同样的错误，模型很快会判定这是环境问题而不是代码问题，自己停下来了。能让它持续推进的前提，是 Harness 给出的反馈足够精确、足够多样。</p>
 <p>这笔成本不小。</p>
-<p>但这个开销是必要的。它不是在空转。它在做真正的工程工作：发现真实环境中的边缘问题，构建能覆盖这些问题的测试基础设施，把隐性的环境约束变成显性的自动化验收。这些事如果让人来做，时间只会更长，而且人多半会在第三个诡异问题出现时选择“先这样吧，以后再说”。Opus 不会。它会一直干到全部通过为止。</p>
-<p>这次排障产出的不只是功能代码，而是一整套 Harness。从此以后，同类问题就不需要再付出同样的排查成本了。</p>
-<p>这件事让我开始认真想一个问题：<strong>Agent 的效能天花板到底在哪里？</strong></p>
+<p>但开销是必要的。Opus 不是在空转，是在做真正的工程工作：发现真实环境中的边缘问题，构建能覆盖这些问题的测试基础设施，把隐性的环境约束变成显性的自动化验收。这些事如果让人来做，时间只会更长，而且人多半会在第三个诡异问题出现时选择”先这样吧，以后再说”。Opus 不会。它会一直干到全部通过为止。</p>
+<p>这次排障产出的不只是功能代码，而是一整套 Harness。从此以后同类问题不需要再付出同样的排查成本了。</p>
+<p>这件事让我开始认真想一个问题：Agent 的效能天花板到底在哪里？</p>
 <p>答案不在模型，在环境。准确说，在你愿不愿意为构建验证环境付出必要的成本。</p>
 <h2 id="环境才是-agent-的天花板">环境才是 Agent 的天花板</h2>
 <p>聊 AI Coding 的文章太多了。大部分在讨论 prompt 怎么写、模型怎么选、context window 够不够长。但真正拿 Agent 干过活的人会发现，这些都不是瓶颈。</p>
 <p>瓶颈是你的项目运行环境。</p>
-<p>这里说的“环境”不是指 Node.js 版本或者 Python 虚拟环境。是指一整套东西：测试怎么跑、依赖怎么起、验收标准是什么、失败了怎么判定。把这套东西攒到位了，Agent 能自己跑通“改代码 -> 跑验证 -> 看结果 -> 决定改实现还是改测试”这个闭环。攒不到位，Agent 就是一个会写代码但不知道对不对的打字机。</p>
-<p>这套东西，我管它叫 Harness。</p>
-<p>Harness Engineering 不是什么新造的概念。就是软件工程里讲了几十年的那些事：持续集成、自动化测试、环境隔离、可重复构建。只不过过去这些东西总是被“赶进度”给架空了，能跑就行，测试以后补，E2E 先跳过。现在不一样了，Agent 来了。Agent 不会偷懒，但它也不会主动去弥补环境的缺陷。你给它什么样的 Harness，它就能发挥什么样的水平。</p>
+<p>我说的”环境”不是 Node.js 版本或者 Python 虚拟环境，是一整套东西：测试怎么跑、依赖怎么起、验收标准是什么、失败了怎么判定。把这套东西攒到位了，Agent 能自己跑通”改代码→跑验证→看结果→决定改实现还是改测试”这个闭环。攒不到位，Agent 就是一个会写代码但不知道对不对的打字机。</p>
+<p>我把这套东西叫 Harness。</p>
+<p>Harness Engineering 不是什么新造的概念，就是软件工程里讲了几十年的那些事：持续集成、自动化测试、环境隔离、可重复构建。只不过过去这些东西总是被”赶进度”架空——能跑就行，测试以后补，E2E 先跳过。现在 Agent 来了：它不会偷懒，但它也不会主动弥补环境的缺陷。你给它什么样的 Harness，它就能发挥什么样的水平。</p>
 <p>跑通这个闭环大概需要四个条件同时满足：</p>
 <ul>
-<li><strong>模型不蠢。</strong> 当前的大模型在有需求背景的前提下，已经能分辨一个测试失败到底是 feature 变了还是代码有 bug，能自己决定是去改实现还是改测试用例。这个能力门槛已经过了。</li>
-<li><strong>验证环境接近幂等。</strong> 同样的代码、同样的输入，跑出来的判定必须一样。不能今天绿明天红，那 Agent 没法做决策。</li>
-<li><strong>验收条件够明确。</strong> pass 就是 pass，fail 就是 fail。不能是“看起来像对的”或者“大概率没问题”。</li>
-<li><strong>问题够边缘。</strong> 核心业务逻辑模型写得动，真正难的是运行环境带来的不确定性：操作系统行为差异、进程间通信时序、第三方依赖的副作用。这些问题的特征是每一个都不一样，每一个都需要不同的解法。这恰恰是 Harness 能发挥作用的场景。好的 Harness 在每一轮迭代中给出不同的、有针对性的错误反馈，让 Agent 能持续推进，而不是原地打转。如果问题不够边缘，比如反复报同一个配置错误，Agent 会很快判定这是环境问题而停下来；如果 Harness 不够好，比如只给一个笼统的“测试失败”，Agent 也推不动。只有“边缘问题 + 精确反馈”这个组合，才撑得起一个有效的持续迭代。</li>
+<li>模型不蠢。当前的大模型在有需求背景的前提下，已经能分辨一个测试失败到底是 feature 变了还是代码有 bug，能自己决定是去改实现还是改测试用例。这个能力门槛已经过了。</li>
+<li>验证环境接近幂等。同样的代码、同样的输入，跑出来的判定必须一样，不能今天绿明天红。</li>
+<li>验收条件够明确。pass 就是 pass，fail 就是 fail，不能是”看起来像对的”或者”大概率没问题”。</li>
+<li>问题够边缘。核心业务逻辑模型写得动，真正难的是运行环境带来的不确定性：操作系统行为差异、进程间通信时序、第三方依赖的副作用。这些问题的特征是每一个都不一样、每一个都需要不同的解法。好的 Harness 在每一轮迭代中给出不同的、有针对性的错误反馈，让 Agent 能持续推进而不是原地打转。如果问题不够边缘（比如反复报同一个配置错误），Agent 会很快判定这是环境问题而停下来。如果 Harness 不够好（比如只给一个笼统的”测试失败”），Agent 也推不动。只有”边缘问题+精确反馈”这个组合才撑得起有效迭代。</li>
 </ul>
-<p>四个条件里，后三个全是环境问题。而且它们互相依赖：幂等的环境产生稳定的信号，明确的信号让 Agent 能判断边缘问题的不同 root cause，逐个击破。任何一环断掉，闭环就跑不起来。</p>
+<p>四个条件里后三个全是环境问题，而且它们互相依赖：幂等的环境产生稳定的信号，稳定的信号让 Agent 能逐个击破不同 root cause。任何一环断掉，闭环就跑不起来。</p>
 <h2 id="运行环境的三个层次">运行环境的三个层次</h2>
-<p>Harness 不是一个东西，是一组分层的环境，每一层消灭一类不确定性。</p>
-<h3 id="隔离层消灭在我机器上能跑">隔离层：消灭“在我机器上能跑”</h3>
-<p>这是最基础的一层。目的只有一个：幂等。</p>
-<p>同一段代码在你的 MacBook 上跑和在 CI 的 Linux 容器里跑，结果必须一致。要做到这一点，至少要解决几件事：</p>
+<p>Harness 不是单一的东西，是一组分层的环境，每一层消灭一类不确定性。</p>
+<h3 id="隔离层消灭在我机器上能跑">隔离层：消灭”在我机器上能跑”</h3>
+<p>目的就一个：幂等。</p>
+<p>同一段代码在你的 MacBook 上跑和在 CI 的 Linux 容器里跑，结果必须一致。要做到这一点至少要解决几件事：</p>
 <ul>
-<li>测试运行在临时目录里，不碰用户的真实 HOME。用户的 dotfiles 是最大的不确定性来源。你不知道他的 <code>.bashrc</code> 里 source 了什么，不知道他的 conda 初始化要跑多久，不知道他的 shell 插件会不会改掉某个环境变量。全部隔离掉。</li>
+<li>测试运行在临时目录里，不碰用户的真实 HOME。用户的 dotfiles 是最大的不确定性来源——你不知道他的 <code>.bashrc</code> 里 source 了什么，不知道他的 conda 初始化要跑多久，不知道他的 shell 插件会不会改掉某个环境变量。全部隔离掉。</li>
 <li>环境变量受控。PATH 是最小集合，HOME 指向临时目录，跟业务无关的变量一律不传。</li>
 <li>外部依赖容器化。数据库、SSH 服务、消息队列，全部用容器拉起来，测试结束后销毁。不依赖开发者本机装了什么。</li>
 </ul>
-<p>这一层做得好不好，有一个简单的检验标准：把项目 clone 到一台全新的机器上，装好语言运行时和包管理器，跑 <code>npm test</code>（或对应命令），是否能一次通过。通不过，说明隔离层有漏洞。</p>
-<p>对 Agent 来说，隔离层就是它的“世界观基准”。如果同样的测试有时过有时不过，Agent 就没法判断自己改的代码到底对不对，只能反复猜。</p>
-<h3 id="进程层覆盖操作系统的意见">进程层：覆盖操作系统的“意见”</h3>
-<p>隔离层解决的是环境一致性。但很多项目的代码不只是在 Node.js 或 JVM 内部跑。它会 spawn 子进程、操作文件系统、通过管道跟其他进程通信。这些操作受操作系统内核直接约束，而内核的行为在不同平台、不同版本上可能不一样。</p>
-<p>举几个实际会遇到的问题：</p>
+<p>这一层有个简单的检验标准：把项目 clone 到一台全新机器上，装好语言运行时和包管理器，跑 <code>npm test</code>（或对应命令），能不能一次过。通不过，说明隔离层有漏洞。</p>
+<p>对 Agent 来说，隔离层就是它的”世界观基准”。同样的测试有时过有时不过，Agent 就没法判断自己改的代码到底对不对，只能反复猜。</p>
+<h3 id="进程层覆盖操作系统的意见">进程层：覆盖操作系统的”意见”</h3>
+<p>隔离层解决的是环境一致性，但很多项目的代码不只是在自己的运行时内部跑。它会 spawn 子进程、操作文件系统、通过管道跟其他进程通信。这些操作受操作系统内核直接约束，而内核的行为在不同平台、不同版本上可能不一样。</p>
+<p>举几个实际遇到过的：</p>
 <ul>
-<li>操作系统的输入缓冲区有大小限制。macOS 上一个伪终端的行规范缓冲区只有 1024 字节，Linux 是 4096。往 PTY 写一行超过 1024 字节的数据，macOS 上多出来的部分直接被内核丢掉。你的代码不会收到任何错误提示，只是静默丢数据。这种问题在 mock 环境里永远不会出现。</li>
-<li>同一个 Shell 的不同版本行为不一致。macOS 自带的 bash 是 3.2（2007 年），而 Linux 上通常是 5.x。一些看起来理所当然的语法，比如 <code>read -d ''</code> 读取多行输入，在两个版本上的行为细节就是不一样。</li>
-<li>用户配置文件引入不可预期的副作用。用户的 <code>.bashrc</code> 或 <code>.zshrc</code> 可能加载了几十个插件，这些插件可能会修改 Shell 的行为，比如安装 DEBUG trap、修改 PROMPT_COMMAND，甚至改变 readline 的缓冲策略。你的代码在干净环境下跑得好好的，一到用户的真实环境就出问题。</li>
+<li>操作系统输入缓冲区有大小限制。macOS 上伪终端的行规范缓冲区只有 1024 字节，Linux 是 4096。往 PTY 写一行超过 1024 字节的数据，macOS 上多出来的部分直接被内核丢掉。你的代码不会收到任何错误提示，只是静默丢数据。这种问题在 mock 环境里永远不会出现。</li>
+<li>同一个 Shell 的不同版本行为不一致。macOS 自带的 bash 是 3.2（2007 年），而 Linux 上通常是 5.x。一些看起来理所当然的语法，比如 <code>read -d ''</code> 读取多行输入，在两个版本上行为细节就是不一样。</li>
+<li>用户配置文件引入不可预期的副作用。用户的 <code>.bashrc</code> 或 <code>.zshrc</code> 可能加载了几十个插件，这些插件可能会修改 Shell 的行为，比如安装 DEBUG trap、修改 PROMPT_COMMAND，甚至改变 readline 的缓冲策略。代码在干净环境下跑得好好的，一到用户真实环境就出问题。</li>
 </ul>
-<p>进程层测试的做法是：spawn 真实的进程，用 stdin/stdout 作为唯一通信管道，在一个隔离的用户环境里验证行为。不 mock 文件系统，不 mock 子进程，不 mock 内核。就是真的跑。</p>
-<p>这一层暴露出来的问题往往是最诡异的，因为它们来自操作系统而不是你的代码。但正因为诡异，才更需要自动化覆盖。靠人记住“macOS 上这个缓冲区只有 1024 字节”是不现实的。靠 Agent 记住更不现实。只能靠测试兜住。</p>
+<p>进程层测试的做法：spawn 真实的进程，用 stdin/stdout 作为唯一通信管道，在一个隔离的用户环境里验证行为。不 mock 文件系统，不 mock 子进程，不 mock 内核，就是真的跑。</p>
+<p>这一层暴露出来的问题往往最诡异，因为它们来自操作系统而不是你的代码。但正因为诡异，才更需要自动化覆盖。靠人记住”macOS 上这个缓冲区只有 1024 字节”是不现实的，靠 Agent 记住更不现实，只能靠测试兜住。</p>
 <h3 id="栈层端到端才是验收基石">栈层：端到端才是验收基石</h3>
-<p>单元测试全绿，进程层测试也过了，上线还是挂，这种事不少见。原因是前两层都只覆盖了局部，没覆盖完整链路。</p>
-<p>栈层要做的事情是：把整个系统真的跑起来，从用户的入口一路走到底层的进程交互，验证完整链路。</p>
+<p>单元测试全绿，进程层测试也过了，上线还是挂——这种事不少见。原因是前两层都只覆盖了局部，没覆盖完整链路。</p>
+<p>栈层要做的事情：把整个系统真的跑起来，从用户入口一路走到底层的进程交互，验证完整链路。</p>
 <p>一个典型的栈层环境包括：</p>
 <ul>
 <li>浏览器自动化工具（Playwright、Cypress）驱动前端页面</li>
@@ -149,80 +149,38 @@
 <li>容器化的外部依赖（SSH 服务器、数据库等）</li>
 <li>全局 setup 负责拉起容器、预热服务、检测端口可用性</li>
 <li>全局 teardown 负责清理容器、回收资源</li>
-<li>测试按关注点分组（核心功能 / 安全 / 性能 / 集成），各组有独立的超时策略</li>
+<li>测试按关注点分组（核心功能/安全/性能/集成），各组有独立超时策略</li>
 </ul>
-<p>这一层测的不再是“代码逻辑对不对”，而是“系统能不能用”。网络传输会不会丢数据？WebSocket 分片会不会导致时序错乱？浏览器事件循环的调度会不会让某个异步操作被饿死？这些问题只有在完整栈上才能暴露。</p>
-<p>对 Agent 来说，栈层测试是最终的验收裁判。单元测试和进程层测试可以辅助定位，但只有栈层测试说“过了”，才能算这个任务完成。</p>
-<p>三层之间的关系不是替代，是互补。每一层消灭一类不确定性：</p>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<table><thead><tr><th>层</th><th>消灭的不确定性</th><th>反馈速度</th></tr></thead><tbody><tr><td>隔离层</td><td>逻辑错误、接口契约</td><td>秒级</td></tr><tr><td>进程层</td><td>操作系统行为差异、进程间交互</td><td>十秒级</td></tr><tr><td>栈层</td><td>完整链路集成、网络时序、并发竞态</td><td>分钟级</td></tr></tbody></table>
-<p>Agent 修一个栈层失败的时候，真正的 root cause 往往要回到隔离层或进程层去定位。三层联动才构成完整的 Harness。</p>
-<h2 id="harness-的设计原则">Harness 的设计原则</h2>
-<p>经过多轮 AI Coding 协作之后，有一些反复验证过的原则。</p>
-<h3 id="幂等优先">幂等优先</h3>
-<p>这一条怎么强调都不过分。验证环境的非幂等是 Agent 效能的头号杀手。</p>
-<p>环境不幂等的时候，Agent 会进入一种很典型的死循环：改了代码 -> 测试有时过有时不过 -> 无法判断是改对了还是环境波动 -> 继续改 -> 还是不稳定 -> 开始猜测各种可能原因 -> 耗费大量推理资源做无效分析。</p>
-<p>在一次实际的 Agent 协作中，因为开发环境的用户配置文件引入了一段明显延迟，Agent 花了不少推理去排查“为什么同样的操作有时候超时有时候不超时”。最后定位到根因是用户环境的副作用。</p>
-<p>但这件事换个角度看其实是好事。因为这是一个客户端库，最终要跑在千差万别的用户环境里。这个延迟如果不是在开发阶段撞上，就会在用户那里撞上。正确的做法不是把问题隔离掉让它在测试中不出现，而是让客户端实现本身具备处理这类情况的能力：拆分初始化步骤、每个步骤独立超时、超时后降级而不是挂死。Agent 最终也确实是这么做的。它没有绕开问题，而是重构了实现，让代码能在这种“不友好”的环境下正常工作。</p>
-<p>所以对于客户端项目来说，幂等有两层含义：单元测试和集成测试的环境要隔离干净，保证反馈的确定性；但端到端测试要故意暴露在真实环境下，让那些迟早要面对的边缘问题提前浮出来。隔离是为了让 Agent 的反馈循环稳定，暴露是为了让产品在真实世界里存活。</p>
-<h3 id="信号明确">信号明确</h3>
-<p>验收结果必须是机器可读的结构化信号。</p>
-<p>不能是“看终端输出像不像对的”，不能是“日志里没有 ERROR 字样”，更不能是“跑完没报错就算过了”。必须是明确的 pass/fail 信号。每一个验证步骤都应该有自己的完成信号，而且这个信号的格式得是可以被程序解析的，比如 JSON、exit code、结构化的协议消息。只要不需要人眼判断，形式并不重要。</p>
-<p>Agent 可以 grep，可以正则匹配，可以解析 JSON。但它没法“看一眼终端觉得大概对了”。信号越明确，Agent 的判断就越准确。</p>
-<h3 id="分层捕获">分层捕获</h3>
-<p>不同类型的失败在不同层暴露。这不是设计上的美学追求，是实践中的客观规律：</p>
-<ul>
-<li>一个字符串转义的 bug，在单元测试层就该挂掉。如果它漏到了栈层才暴露，排查成本会放大十倍。</li>
-<li>一个进程配置导致的行为异常，比如某个 Shell 变量设成 0 导致历史记录功能失效，只有进程层测试会暴露。单元测试 mock 了进程行为，根本碰不到这个问题。</li>
-<li>一个系统缓冲区溢出，比如写入数据超过内核限制导致静默截断，只有栈层测试会暴露。因为只有完整链路上数据才会经过内核的 PTY 子系统。</li>
-</ul>
-<p>每一层都有它不可替代的价值。跳过任何一层，就等于给那一类问题留了个免检通道。</p>
-<h3 id="超时和降级">超时和降级</h3>
-<p>这是经常被忽视的一点。Harness 里每个环节都应该有独立的超时，而超时不等于失败。超时是降级。</p>
-<p>为什么要区分？因为 Agent 需要根据失败类型决定下一步动作。如果一个操作超时了，可能是外部服务响应慢、网络抖动、容器启动还没完成。这些不是代码 bug，Agent 不应该去改代码。如果一个操作返回了错误的结果，那才是代码 bug。</p>
-<p>没有超时机制的 Harness 会让 Agent 面对一个无限等待的黑洞。加了超时和降级信号，Agent 就能区分“功能逻辑有 bug”和“外部环境暂时不可用”，从而做出正确的决策。</p>
+<p>这一层测的不再是”代码逻辑对不对”，而是”系统能不能用”。网络传输会不会丢数据？WebSocket 分片会不会导致时序错乱？浏览器事件循环的调度会不会让某个异步操作被饿死？这些问题只有在完整栈上才会暴露。</p>
+<p>对 Agent 来说，栈层测试是最终验收裁判。单元测试和进程层测试可以辅助定位，但只有栈层说”过了”，任务才算完成。</p>
+<p>三层之间不是替代是互补。每一层消灭一类不确定性：</p>
+<p>隔离层消灭逻辑错误和接口契约，反馈秒级；进程层消灭操作系统行为差异和进程间交互，反馈十秒级；栈层消灭完整链路集成、网络时序和并发竞态，反馈分钟级。Agent 修一个栈层失败的时候，真正的 root cause 往往要回到隔离层或进程层去定位。三层联动才构成完整的 Harness。</p>
+<h2 id="几个反复验证过的原则">几个反复验证过的原则</h2>
+<p>经过多轮 AI Coding 协作之后，有几条原则是反复被验证的，不展开长篇大论，只讲最要紧的。</p>
+<p>第一，幂等优先。验证环境的非幂等是 Agent 效能的头号杀手。环境不幂等的时候，Agent 会进入经典死循环：改了代码→测试有时过有时不过→无法判断是改对了还是环境波动→继续改→还是不稳定→开始猜测各种可能原因→耗费大量推理资源做无效分析。</p>
+<p>有一次 Agent 协作中，因为开发环境的用户配置文件引入了一段明显延迟，Agent 花了不少推理去排查”为什么同样的操作有时候超时有时候不超时”。最后根因是用户环境的副作用。</p>
+<p>但换个角度看，这件事其实是好事。这是一个客户端库，最终要跑在千差万别的用户环境里。这个延迟如果不是在开发阶段撞上，就会在用户那里撞上。正确的做法不是把问题隔离掉让它不出现，而是让客户端实现本身具备处理能力：拆分初始化步骤、每个步骤独立超时、超时后降级而不是挂死。Agent 最终也确实这么做了——没有绕开问题，而是重构了实现，让代码能在这种”不友好”的环境下正常工作。</p>
+<p>对于客户端项目，幂等有两层含义：单元测试和集成测试的环境要隔离干净，保证反馈的确定性；但端到端测试要故意暴露在真实环境下，让那些迟早要面对的边缘问题提前浮出来。隔离是为了反馈循环稳定，暴露是为了产品在真实世界里存活。</p>
+<p>第二，信号要明确。验收结果必须是机器可读的，不能是”看终端输出像不像对的”、“日志里没有 ERROR”、“跑完没报错就算过了”——Agent 可以 grep，可以正则匹配，可以解析 JSON，但它没法”看一眼终端觉得大概对了”。信号越明确，Agent 的判断越准。</p>
+<p>第三，分层捕获。不同类型的失败在不同层暴露：一个字符串转义的 bug 在单元测试层就该挂掉，漏到栈层才暴露的排查成本放大十倍。一个进程配置导致的行为异常只有进程层测试会暴露，因为单元测试 mock 了进程行为。一个系统缓冲区溢出只有栈层测试会暴露，因为只有完整链路上数据才会经过内核的 PTY 子系统。跳任何一层，就等于给那一类问题留了免检通道。</p>
+<p>第四，超时和降级。Harness 里每个环节都应该有独立超时，而超时不等于失败，是降级。Agent 需要根据失败类型决定下一步动作：超时可能是外部服务响应慢、网络抖动、容器启动还没完成，不是代码 bug，Agent 不该去改代码。返回了错误结果才是 bug。没有超时机制的 Harness 会让 Agent 面对无限等待的黑洞。加了超时和降级信号，Agent 就能区分”功能逻辑有 bug”和”外部环境暂时不可用”。</p>
 <h2 id="ai-coding-是放大器">AI Coding 是放大器</h2>
-<p>放大器这个比喻可能是对 AI Coding 最准确的描述了。</p>
-<p>工程基础好的项目，加上 Agent，效率爆炸。Harness 到位了，Agent 能在一次协作里完成多文件修改、跑几百个测试、反复 debug 直到全绿。每次修改后自动 type-check、lint、test，闭环反馈。遇到测试失败，它能根据错误信息和需求背景判断是自己写错了还是测试用例该更新了。</p>
-<p>工程基础差的项目，加上 Agent，灾难加速。没有 Harness 的时候，Agent 会“自信地”写出能编译、能通过 lint、但行为完全错误的代码。因为它没有任何手段验证自己写的东西是不是真的对。更糟糕的是，如果只有单元测试没有端到端验收，Agent 会“过拟合”到单元测试层。它会把单元测试调绿，但真实环境跑不通。因为单元测试覆盖的只是局部行为，不是系统行为。</p>
-<p>环境不幂等的时候，放大效应更明显。Agent 会陷入分析循环：环境不确定 -> 测试结果不稳定 -> 反复推理可能的原因 -> 尝试各种修复 -> 结果还是不稳定 -> 继续推理。不是模型蠢，是环境没给它一个稳定的锚点。</p>
-<p>但反过来看，开头那次 Cursor + Opus 的复杂排障恰好也说明了另一面：Agent 愿意在不确定的环境里一个问题一个问题地啃，直到把所有边缘情况都覆盖掉。这个过程的产出不只是修好了几个 bug，而是构建出了一套完整的 Harness。此后同类任务的 Agent 协作效率会完全不同。前期投入是一次性的基建成本，不是持续的运行开销。</p>
-<p>所以 Harness 的质量直接决定了 Agent 的效能上限。模型能力是一个及格线，当前的模型已经过了，但天花板是环境。</p>
+<p>放大器可能是对 AI Coding 最准确的描述了。</p>
+<p>工程基础好的项目加上 Agent，效率爆炸。Harness 到位了，Agent 能在一次协作里完成多文件修改、跑几百个测试、反复 debug 直到全绿。遇到测试失败，它能根据错误信息和需求背景判断是自己写错了还是测试用例该更新了。</p>
+<p>工程基础差的项目加上 Agent，灾难加速。没有 Harness 的时候，Agent 会”自信地”写出能编译、能通过 lint、但行为完全错误的代码——它没有任何手段验证自己写的东西是不是真的对。更糟糕的是，只有单元测试没有端到端验收时，Agent 会”过拟合”到单元测试层，把单元测试调绿但真实环境跑不通。</p>
+<p>环境不幂等的时候放大效应更明显。Agent 陷入分析循环：环境不确定→测试结果不稳定→反复推理→尝试各种修复→结果还是不稳定→继续推理。这不是模型蠢，是环境没给它稳定的锚点。</p>
+<p>但开头那次 Cursor+Opus 的复杂排障也说明另一面：Agent 愿意在不确定的环境里一个问题一个问题地啃，直到把所有边缘情况都覆盖掉。这个过程的产出不只是修好几个 bug，而是构建出一套完整的 Harness。此后同类任务的 Agent 协作效率会完全不同。前期投入是一次性的基建成本，不是持续的运行开销。</p>
+<p>Harness 的质量直接决定 Agent 的效能上限。模型能力是及格线，当前的模型已经过了，但天花板是环境。</p>
 <h3 id="accept-automation-才是目的">Accept Automation 才是目的</h3>
-<p>换个角度看 Harness Engineering，它的目标不是“写更多测试”，而是 <strong>Accept Automation</strong>：自动化验收。</p>
-<p>TDD、CI/CD、契约测试，这些理念一个比一个正确，一个比一个难落地。难在哪里？不是技术上做不到，是组织上总有理由不做。进度压力来了，先砍 E2E；deadline 到了，覆盖率“灵活处理”；手动验收点一点，“差不多就行”。这不是个别现象，是行业常态。</p>
-<p>Agent 改变了这个局面。它是第一个真正无法“跳过测试”的开发者。它没有偷懒的动机，没有赶进度的压力。它只认环境给它的反馈：测试过了就是过了，没过就继续改。你不给它 Harness，它就什么都验证不了。你给了它 Harness，它就会老老实实地跑。</p>
+<p>换个角度看 Harness Engineering，目标不是”写更多测试”，而是 Accept Automation——自动化验收。</p>
+<p>TDD、CI/CD、契约测试，这些理念一个比一个正确，一个比一个难落地。难在哪里？不是技术上做不到，是组织上总有理由不做。进度压力来了先砍 E2E，deadline 到了覆盖率”灵活处理”，手动验收点一点”差不多就行”。这不是个别现象，是行业常态。</p>
+<p>Agent 改变了这个局面。Agent 是第一个真正无法”跳过测试”的开发者。它没有偷懒的动机，没有赶进度的压力，它只认环境给它的反馈：测试过了就是过了，没过就继续改。你不给它 Harness，它什么都验证不了。你给了 Harness，它就会老老实实地跑。</p>
 <p>更有意思的是，为 Agent 构建的 Harness 并不是只有 Agent 能用。同样的隔离环境、同样的分层测试、同样的自动化验收流程，人类开发者一样受益。</p>
-<p>所以本质上，Harness Engineering 就是软件工程本身。没什么新东西。只是过去几十年里，因为人总能找到绕过它的理由，所以它从来没真正落地过。现在有了一个不会绕路的执行者，它才变成了必须品。</p>
-<h2 id="结语">结语</h2>
-<p>Prompt 告诉 Agent “做什么”。Harness 告诉 Agent “做对了没有”。</p>
-<p>前者是需求，后者是工程。没有后者，前者只是一句愿望。</p>
-<p>说到底也没什么特别的。就是讲了几十年的工程化，终于不用再假装达成了。</p>
-<p>而前期投入，就是认真做工程的代价。贵吗？贵。但它是一次性的。建好之后，每一次后续的 Agent 协作都在享受这笔投入的回报。</p> </article> <hr class="my-8 border-dashed"> <a href="https://github.com/robinfai/blog/edit/main/src/content/posts/harness-engineering-ai-coding/harness-engineering-ai-coding.md" target="_blank" rel="noopener noreferrer" class="hover:text-accent text-muted-foreground flex justify-baseline gap-1.5 sm:hidden"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="inline-block" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M7 7H6a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2-2v-1" /><path d="M20.385 6.585a2.1 2.1 0 0 0-2.97-2.97L9 12v3h3zM16 5l3 3" /></svg><span>编辑页面</span></a> <div id="btt-btn-container" class="fixed inset-e-4 bottom-8 z-50 md:sticky md:inset-e-auto md:float-end md:me-1 translate-y-14 opacity-0 transition duration-500"> <button data-button="back-to-top" class="group bg-background relative px-2 py-1 size-14 rounded-full shadow-xl md:h-8 md:w-fit md:rounded-md md:shadow-none md:focus-visible:rounded-none md:bg-background/35 md:bg-clip-padding md:backdrop-blur-lg"> <span id="progress-indicator" class="absolute inset-0 -z-10 block size-14 scale-110 rounded-full bg-transparent md:hidden md:h-8 md:rounded-md"></span> <svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="inline-block rotate-90 md:hidden" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M5 12h14M5 12l6 6M5 12l6-6" /></svg> <span class="group-hover:text-accent sr-only text-sm md:not-sr-only"> <svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="inline-block size-4" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M12 5v14M16 9l-4-4M8 9l4-4" /></svg> 回到顶部 </span> </button> </div> <script data-astro-rerun>
+<p>工程化讲了几十年，以前因为人总能找到绕过的理由，所以它从来没真正落地过。现在有了一个不会绕路的执行者，这件事才变成了必需品。</p>
+<hr>
+<p>Prompt 告诉 Agent”做什么”。Harness 告诉 Agent”做对了没有”。</p>
+<p>前者是需求，后者是工程。</p>
+<p>而前期投入，就是认真做工程的代价。贵，但它是一次性的。建好之后，每一次后续的 Agent 协作都在享受这笔投入的回报。</p> </article> <hr class="my-8 border-dashed"> <a href="https://github.com/robinfai/blog/edit/main/src/content/posts/harness-engineering-ai-coding/harness-engineering-ai-coding.md" target="_blank" rel="noopener noreferrer" class="hover:text-accent text-muted-foreground flex justify-baseline gap-1.5 sm:hidden"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="inline-block" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M7 7H6a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2-2v-1" /><path d="M20.385 6.585a2.1 2.1 0 0 0-2.97-2.97L9 12v3h3zM16 5l3 3" /></svg><span>编辑页面</span></a> <div id="btt-btn-container" class="fixed inset-e-4 bottom-8 z-50 md:sticky md:inset-e-auto md:float-end md:me-1 translate-y-14 opacity-0 transition duration-500"> <button data-button="back-to-top" class="group bg-background relative px-2 py-1 size-14 rounded-full shadow-xl md:h-8 md:w-fit md:rounded-md md:shadow-none md:focus-visible:rounded-none md:bg-background/35 md:bg-clip-padding md:backdrop-blur-lg"> <span id="progress-indicator" class="absolute inset-0 -z-10 block size-14 scale-110 rounded-full bg-transparent md:hidden md:h-8 md:rounded-md"></span> <svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="inline-block rotate-90 md:hidden" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M5 12h14M5 12l6 6M5 12l6-6" /></svg> <span class="group-hover:text-accent sr-only text-sm md:not-sr-only"> <svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="inline-block size-4" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M12 5v14M16 9l-4-4M8 9l4-4" /></svg> 回到顶部 </span> </button> </div> <script data-astro-rerun>
   function backToTop() {
     const rootElement = document.documentElement;
     const btnContainer = document.querySelector("#btt-btn-container");
