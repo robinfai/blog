@@ -1,19 +1,23 @@
 ---
 author: Robin
 pubDatetime: 2026-07-13T13:00:00+08:00
+modDatetime: 2026-07-15T10:00:00+08:00
 title: 为什么今天还有 Terminal？
 featured: true
 draft: false
 tags:
+  - 五彩斑斓的黑
   - Terminal
   - TUI
   - 产品设计
   - AI Agent
 ogImage: ./images/01-why-terminal-still-exists-hero.png
-description: 从 k9s 到 Coding Agent，理解 TUI 如何在已有终端环境中降低产品接入和视觉决策成本，以及 GUI 为何继续承担并行任务与长期状态的组织工作。
+description: 《五彩斑斓的黑》系列第一篇：从 k9s 到 Coding Agent，理解 TUI 如何在已有终端环境中降低产品接入和视觉决策成本，以及 GUI 为何继续承担并行任务与长期状态的组织工作。
 ---
 
 ![同一套计算能力通过命令行、终端交互界面和图形工作区呈现](./images/01-why-terminal-still-exists-hero.png)
+
+> 本文是《五彩斑斓的黑》系列的第一篇。这个系列不把 Terminal 当成一个理所当然存在的黑框，而是从它要解决的问题出发，逐步拆开 TTY、PTY、Shell、控制序列、屏幕模型和现代终端应用，理解一套诞生于大型机时代的交互约定为何一直延续到 Coding Agent 时代。
 
 管理 Kubernetes 集群，最直接的入口是 `kubectl`。`kubectl get pods` 返回一张列表，接下来要看日志、事件还是资源定义，再输入下一条命令。浏览器里的控制台走另一条路：资源、状态和操作被整理成页面、表格、按钮与表单。
 
@@ -123,6 +127,8 @@ GUI 已经承担了大量需要可发现、可约束和丰富呈现的任务。T
 k9s 说明按行列显示的终端界面足以承载成熟产品，Coding Agent 则说明 TUI 可以让新的交互方式较早进入真实工作流。有些工具会继续使用 TUI，有些会在交互稳定后扩展为更完整的 GUI。
 
 Terminal 今天仍然存在，因为它既能运行成熟工具，也能为新的交互方式提供低成本的验证环境。核心交互稳定以后，产品可以继续使用 TUI，也可以根据任务规模、信息密度和用户需求扩展为 GUI。
+
+这一篇先回答 Terminal 为什么没有消失。接下来，系列会回到它最容易混淆的基础边界：Terminal、Console、TTY 与 PTY 到底分别是什么，以及这些来自硬件时代的名字为什么仍然存在于今天的操作系统里。
 
 ## 源码与资料参考
 
