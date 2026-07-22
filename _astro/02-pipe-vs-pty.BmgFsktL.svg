@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="980" viewBox="0 0 720 980" role="img" aria-labelledby="title desc">
+  <title id="title">普通 Pipe 与 PTY 的能力对比</title>
+  <desc id="desc">Pipe 只提供单向或组合的数据通道，PTY 还提供终端身份、控制字符、信号、窗口尺寸和作业控制</desc>
+  <rect width="720" height="980" fill="#ebe7dc"/>
+  <text x="56" y="64" fill="#69706b" font-family="system-ui,sans-serif" font-size="18" letter-spacing="3">PIPE IS NOT A TERMINAL</text>
+  <g font-family="system-ui,sans-serif">
+    <rect x="56" y="104" width="608" height="330" rx="4" fill="#fbfaf6" stroke="#cbc5b8" stroke-width="2"/>
+    <text x="88" y="148" fill="#ad6a26" font-size="16" font-weight="800">A · ORDINARY PIPE</text>
+    <text x="88" y="194" fill="#171916" font-size="32" font-weight="800">process ─ bytes ─ consumer</text>
+    <path d="M88 226h544" stroke="#d6d0c3"/>
+    <text x="88" y="270" fill="#2d7e82" font-size="20">＋ 稳定传输字节</text>
+    <text x="88" y="310" fill="#2d7e82" font-size="20">＋ 适合批处理与组合</text>
+    <text x="88" y="350" fill="#9b765c" font-size="20">－ 没有终端身份</text>
+    <text x="88" y="390" fill="#9b765c" font-size="20">－ 没有窗口与作业控制</text>
+
+    <text x="360" y="486" text-anchor="middle" fill="#69706b" font-size="18" font-weight="900">VS</text>
+
+    <rect x="56" y="526" width="608" height="370" rx="4" fill="#dce9e6" stroke="#79aaa6" stroke-width="2"/>
+    <text x="88" y="570" fill="#2d7e82" font-size="16" font-weight="800">B · PSEUDO TERMINAL</text>
+    <rect x="88" y="600" width="544" height="72" rx="3" fill="#171b1b"/>
+    <text x="118" y="645" fill="#f4f0e7" font-size="24" font-weight="800">master ⇄ TTY contract ⇄ slave</text>
+    <text x="88" y="724" fill="#2d7e82" font-size="20">＋ 双向传输字节</text>
+    <text x="88" y="764" fill="#2d7e82" font-size="20">＋ 具备终端身份</text>
+    <text x="88" y="804" fill="#2d7e82" font-size="20">＋ 控制字符与信号</text>
+    <text x="88" y="844" fill="#2d7e82" font-size="20">＋ 窗口尺寸与前台进程组</text>
+    <text x="56" y="940" fill="#69706b" font-size="18">PTY 还提供终端身份、窗口尺寸、信号与作业控制。</text>
+  </g>
+</svg>

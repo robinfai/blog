@@ -1,0 +1,846 @@
+<!DOCTYPE html><html dir="ltr" lang="zh-CN" class="overflow-y-scroll scroll-smooth"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" type="image/svg+xml" href="/blog/favicon.svg"><link rel="canonical" href="https://robinfai.github.io/blog/posts/terminal-series/why-tty-still-exists/"><meta name="generator" content="Astro v6.4.2"><!-- Font --><style>@font-face{font-family:"Google Sans Code-1a30c214885cb404";src:url("/blog/_astro/fonts/02154cca78ac33f2.woff") format("woff"), url("/blog/_astro/fonts/478e42e4694872ef.ttf") format("truetype");font-display:swap;font-weight:300;font-style:italic;}@font-face{font-family:"Google Sans Code-1a30c214885cb404";src:url("/blog/_astro/fonts/3a32a7a7a67f4f58.woff") format("woff"), url("/blog/_astro/fonts/0863f4f6964aa89c.ttf") format("truetype");font-display:swap;font-weight:400;font-style:italic;}@font-face{font-family:"Google Sans Code-1a30c214885cb404";src:url("/blog/_astro/fonts/a5c5808c25effec9.woff") format("woff"), url("/blog/_astro/fonts/792eded6cb3f0350.ttf") format("truetype");font-display:swap;font-weight:500;font-style:italic;}@font-face{font-family:"Google Sans Code-1a30c214885cb404";src:url("/blog/_astro/fonts/14314705006234cb.woff") format("woff"), url("/blog/_astro/fonts/87d8fc1072d4917b.ttf") format("truetype");font-display:swap;font-weight:600;font-style:italic;}@font-face{font-family:"Google Sans Code-1a30c214885cb404";src:url("/blog/_astro/fonts/c33265ba093eb291.woff") format("woff"), url("/blog/_astro/fonts/ec883ed4db81a7d9.ttf") format("truetype");font-display:swap;font-weight:700;font-style:italic;}@font-face{font-family:"Google Sans Code-1a30c214885cb404";src:url("/blog/_astro/fonts/c26ad40d3b1d9169.woff") format("woff"), url("/blog/_astro/fonts/7a5ee0cfcde31b81.ttf") format("truetype");font-display:swap;font-weight:300;font-style:normal;}@font-face{font-family:"Google Sans Code-1a30c214885cb404";src:url("/blog/_astro/fonts/87ca066ba5b2c7cf.woff") format("woff"), url("/blog/_astro/fonts/f4e25dfe9d6152ec.ttf") format("truetype");font-display:swap;font-weight:400;font-style:normal;}@font-face{font-family:"Google Sans Code-1a30c214885cb404";src:url("/blog/_astro/fonts/a9a0e80c053be3d5.woff") format("woff"), url("/blog/_astro/fonts/a9df48ecd03749e4.ttf") format("truetype");font-display:swap;font-weight:500;font-style:normal;}@font-face{font-family:"Google Sans Code-1a30c214885cb404";src:url("/blog/_astro/fonts/da468df88542c99b.woff") format("woff"), url("/blog/_astro/fonts/90f9809471092714.ttf") format("truetype");font-display:swap;font-weight:600;font-style:normal;}@font-face{font-family:"Google Sans Code-1a30c214885cb404";src:url("/blog/_astro/fonts/f914de358bc554f6.woff") format("woff"), url("/blog/_astro/fonts/dbc9996f99c63e07.ttf") format("truetype");font-display:swap;font-weight:700;font-style:normal;}@font-face{font-family:"Google Sans Code-1a30c214885cb404 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:300;font-style:italic;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-1a30c214885cb404 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:400;font-style:italic;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-1a30c214885cb404 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:500;font-style:italic;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-1a30c214885cb404 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:600;font-style:italic;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-1a30c214885cb404 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:700;font-style:italic;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-1a30c214885cb404 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:300;font-style:normal;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-1a30c214885cb404 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:400;font-style:normal;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-1a30c214885cb404 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:500;font-style:normal;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-1a30c214885cb404 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:600;font-style:normal;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-1a30c214885cb404 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:700;font-style:normal;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}:root{--font-google-sans-code:"Google Sans Code-1a30c214885cb404","Google Sans Code-1a30c214885cb404 fallback: Courier New",monospace;}</style><!-- Primary meta --><title>硬件终端早已消失，为什么操作系统里还有 TTY？ | Robin 的笔记</title><meta name="title" content="硬件终端早已消失，为什么操作系统里还有 TTY？ | Robin 的笔记"><meta name="description" content="《五彩斑斓的黑》第二篇：区分 Terminal、Console、TTY 与 PTY，并通过 master/slave 数据流解释终端模拟器、Shell、SSH 和 tmux 如何连接操作系统的终端接口。"><meta name="author" content="Robin"><link rel="sitemap" href="/blog/sitemap-index.xml"><!-- Open Graph --><meta property="og:type" content="website"><meta property="og:site_name" content="Robin 的笔记"><meta property="og:title" content="硬件终端早已消失，为什么操作系统里还有 TTY？ | Robin 的笔记"><meta property="og:description" content="《五彩斑斓的黑》第二篇：区分 Terminal、Console、TTY 与 PTY，并通过 master/slave 数据流解释终端模拟器、Shell、SSH 和 tmux 如何连接操作系统的终端接口。"><meta property="og:url" content="https://robinfai.github.io/blog/posts/terminal-series/why-tty-still-exists/"><meta property="og:image" content="https://robinfai.github.io/blog/_astro/02-why-tty-still-exists-hero.BzzzxkqS.webp"><!-- Twitter / X --><meta property="twitter:card" content="summary_large_image"><meta property="twitter:url" content="https://robinfai.github.io/blog/posts/terminal-series/why-tty-still-exists/"><meta property="twitter:title" content="硬件终端早已消失，为什么操作系统里还有 TTY？ | Robin 的笔记"><meta property="twitter:description" content="《五彩斑斓的黑》第二篇：区分 Terminal、Console、TTY 与 PTY，并通过 master/slave 数据流解释终端模拟器、Shell、SSH 和 tmux 如何连接操作系统的终端接口。"><meta property="twitter:image" content="https://robinfai.github.io/blog/_astro/02-why-tty-still-exists-hero.BzzzxkqS.webp"><!-- RSS autodiscovery --><link rel="alternate" type="application/rss+xml" title="Robin 的笔记" href="https://robinfai.github.io/blog/rss.xml"><!-- Filled at runtime by theme.ts to match the current background colour --><meta name="theme-color" content=""><!-- Extra head content injected by child layouts (e.g. JSON-LD, article meta) -->  <meta property="og:type" content="article"> <meta property="article:published_time" content="2026-07-22T00:45:00.000Z"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"硬件终端早已消失，为什么操作系统里还有 TTY？ | Robin 的笔记","image":"https://robinfai.github.io/blog/_astro/02-why-tty-still-exists-hero.BzzzxkqS.webp","datePublished":"2026-07-22T00:45:00.000Z","author":[{"@type":"Person","name":"Robin","url":"https://github.com/robinfai"}]}</script> <!--
+      Inline FOUC-prevention script: sets data-theme on <html> before
+      the browser paints. Runs synchronously, no defer/async.
+    --><script>
+      (function () {
+        const stored = localStorage.getItem("theme");
+        const prefersDark = window.matchMedia(
+          "(prefers-color-scheme: dark)"
+        ).matches;
+        const theme = stored ?? (prefersDark ? "dark" : "light");
+        const root = document.firstElementChild;
+        root?.setAttribute("data-theme", theme);
+        root?.classList.toggle("dark", theme === "dark");
+        // Expose value so theme.ts can skip re-detection.
+        window.__theme = { value: theme };
+      })();
+    </script><meta name="astro-view-transitions-enabled" content="true"><meta name="astro-view-transitions-fallback" content="animate"><script type="module" src="/blog/_astro/ClientRouter.astro_astro_type_script_index_0_lang.CAqDO0tx.js"></script><link rel="stylesheet" href="/blog/_astro/Footer.DUK7Gk0i.css">
+<style>@keyframes astroFadeInOut{0%{opacity:1}to{opacity:0}}@keyframes astroFadeIn{0%{opacity:0;mix-blend-mode:plus-lighter}to{opacity:1;mix-blend-mode:plus-lighter}}@keyframes astroFadeOut{0%{opacity:1;mix-blend-mode:plus-lighter}to{opacity:0;mix-blend-mode:plus-lighter}}@keyframes astroSlideFromRight{0%{transform:translate(100%)}}@keyframes astroSlideFromLeft{0%{transform:translate(-100%)}}@keyframes astroSlideToRight{to{transform:translate(100%)}}@keyframes astroSlideToLeft{to{transform:translate(-100%)}}@media(prefers-reduced-motion){::view-transition-group(*),::view-transition-old(*),::view-transition-new(*){animation:none!important}[data-astro-transition-scope]{animation:none!important}}
+</style><style>[data-astro-transition-scope="astro-36ssibgs-1"] { view-transition-name: \4E94\5F69\6591\6593\7684\9ED1; }@layer astro { ::view-transition-old(\4E94\5F69\6591\6593\7684\9ED1) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }::view-transition-new(\4E94\5F69\6591\6593\7684\9ED1) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back]::view-transition-old(\4E94\5F69\6591\6593\7684\9ED1) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back]::view-transition-new(\4E94\5F69\6591\6593\7684\9ED1) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; } }[data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-36ssibgs-1"],
+			[data-astro-transition-fallback="old"][data-astro-transition-scope="astro-36ssibgs-1"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-36ssibgs-1"],
+			[data-astro-transition-fallback="new"][data-astro-transition-scope="astro-36ssibgs-1"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back][data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-36ssibgs-1"],
+			[data-astro-transition=back][data-astro-transition-fallback="old"][data-astro-transition-scope="astro-36ssibgs-1"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back][data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-36ssibgs-1"],
+			[data-astro-transition=back][data-astro-transition-fallback="new"][data-astro-transition-scope="astro-36ssibgs-1"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }</style><style>[data-astro-transition-scope="astro-36ssibgs-2"] { view-transition-name: terminal; }@layer astro { ::view-transition-old(terminal) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }::view-transition-new(terminal) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back]::view-transition-old(terminal) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back]::view-transition-new(terminal) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; } }[data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-36ssibgs-2"],
+			[data-astro-transition-fallback="old"][data-astro-transition-scope="astro-36ssibgs-2"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-36ssibgs-2"],
+			[data-astro-transition-fallback="new"][data-astro-transition-scope="astro-36ssibgs-2"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back][data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-36ssibgs-2"],
+			[data-astro-transition=back][data-astro-transition-fallback="old"][data-astro-transition-scope="astro-36ssibgs-2"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back][data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-36ssibgs-2"],
+			[data-astro-transition=back][data-astro-transition-fallback="new"][data-astro-transition-scope="astro-36ssibgs-2"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }</style><style>[data-astro-transition-scope="astro-36ssibgs-3"] { view-transition-name: tty; }@layer astro { ::view-transition-old(tty) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }::view-transition-new(tty) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back]::view-transition-old(tty) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back]::view-transition-new(tty) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; } }[data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-36ssibgs-3"],
+			[data-astro-transition-fallback="old"][data-astro-transition-scope="astro-36ssibgs-3"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-36ssibgs-3"],
+			[data-astro-transition-fallback="new"][data-astro-transition-scope="astro-36ssibgs-3"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back][data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-36ssibgs-3"],
+			[data-astro-transition=back][data-astro-transition-fallback="old"][data-astro-transition-scope="astro-36ssibgs-3"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back][data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-36ssibgs-3"],
+			[data-astro-transition=back][data-astro-transition-fallback="new"][data-astro-transition-scope="astro-36ssibgs-3"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }</style><style>[data-astro-transition-scope="astro-36ssibgs-4"] { view-transition-name: pty; }@layer astro { ::view-transition-old(pty) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }::view-transition-new(pty) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back]::view-transition-old(pty) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back]::view-transition-new(pty) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; } }[data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-36ssibgs-4"],
+			[data-astro-transition-fallback="old"][data-astro-transition-scope="astro-36ssibgs-4"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-36ssibgs-4"],
+			[data-astro-transition-fallback="new"][data-astro-transition-scope="astro-36ssibgs-4"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back][data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-36ssibgs-4"],
+			[data-astro-transition=back][data-astro-transition-fallback="old"][data-astro-transition-scope="astro-36ssibgs-4"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back][data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-36ssibgs-4"],
+			[data-astro-transition=back][data-astro-transition-fallback="new"][data-astro-transition-scope="astro-36ssibgs-4"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }</style><style>[data-astro-transition-scope="astro-36ssibgs-5"] { view-transition-name: \64CD\4F5C\7CFB\7EDF; }@layer astro { ::view-transition-old(\64CD\4F5C\7CFB\7EDF) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }::view-transition-new(\64CD\4F5C\7CFB\7EDF) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back]::view-transition-old(\64CD\4F5C\7CFB\7EDF) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back]::view-transition-new(\64CD\4F5C\7CFB\7EDF) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; } }[data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-36ssibgs-5"],
+			[data-astro-transition-fallback="old"][data-astro-transition-scope="astro-36ssibgs-5"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-36ssibgs-5"],
+			[data-astro-transition-fallback="new"][data-astro-transition-scope="astro-36ssibgs-5"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back][data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-36ssibgs-5"],
+			[data-astro-transition=back][data-astro-transition-fallback="old"][data-astro-transition-scope="astro-36ssibgs-5"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back][data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-36ssibgs-5"],
+			[data-astro-transition=back][data-astro-transition-fallback="new"][data-astro-transition-scope="astro-36ssibgs-5"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }</style></head> <body class="bg-background font-app text-foreground selection:bg-accent/75 selection:text-accent-foreground flex min-h-svh flex-col">    <a id="skip-to-content" href="#main-content" class="bg-background text-accent absolute inset-s-16 -top-full z-50 px-3 py-2 backdrop-blur-lg transition-all focus:top-4"> 跳到正文 </a> <header class="app-layout flex flex-col items-center justify-between sm:flex-row"> <div class="border-border bg-background relative flex w-full items-baseline justify-between border-b py-4 sm:items-center sm:py-6"> <a href="/blog/" class="absolute py-1 text-xl leading-8 font-semibold whitespace-nowrap sm:static sm:my-auto sm:text-2xl sm:leading-none"> Robin 的笔记 </a> <nav id="nav-menu" class="flex w-full flex-col items-center sm:ms-2 sm:flex-row sm:justify-end sm:space-x-4 sm:py-0"> <button id="menu-btn" class="focus-outline self-end p-2 sm:hidden" aria-label="打开菜单" aria-expanded="false" aria-controls="menu-items" data-label-open="打开菜单" data-label-close="关闭菜单"> <svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="hidden" viewBox="0 0 24 24" id="close-icon"><path stroke="none" d="M0 0h24v24H0z" /><path d="M18 6 6 18M6 6l12 12" /></svg> <svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="icon icon-tabler icons-tabler-outline icon-tabler-menu-deep" viewBox="0 0 24 24" id="menu-icon"><path stroke="none" d="M0 0h24v24H0z" /><path d="M4 6h16M7 12h13M10 18h10" /></svg> </button> <ul id="menu-items" class="[&>li>a]:hover:text-accent mt-4 hidden w-44 grid-cols-2 place-content-center gap-2 sm:mt-0 sm:flex sm:w-auto sm:gap-x-5 sm:gap-y-0 sm:[&>li]:h-8 [&>li>a]:block [&>li>a]:px-4 [&>li>a]:py-3 [&>li>a]:text-center [&>li>a]:font-medium sm:[&>li>a]:px-2 sm:[&>li>a]:py-1"> <li class="col-span-2"> <a href="/blog/posts/" class="active-nav"> 文章 </a> </li> <li class="col-span-2"> <a href="/blog/tags/"> 标签 </a> </li> <li class="col-span-2"> <a href="/blog/about/"> 关于 </a> </li> <li class="col-span-2"> <a href="/blog/archives/" title="归档" aria-label="归档" class="group inline-flex items-center gap-1 hover:text-accent focus-outline flex size-full justify-center p-3 sm:relative sm:size-8 sm:p-0">  <svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="hidden sm:absolute sm:top-1/2 sm:left-1/2 sm:block sm:size-6 sm:-translate-x-1/2 sm:-translate-y-1/2" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M3 6a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v0a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8M10 12h4" /></svg> <span class="sm:sr-only">归档</span>  </a> </li> <li class="col-span-1 flex items-center justify-center"> <a href="/blog/search/" title="搜索" aria-label="搜索" class="group inline-flex items-center gap-1 hover:text-accent focus-outline relative size-8">  <svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="absolute top-1/2 left-1/2 size-6 -translate-x-1/2 -translate-y-1/2" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M3 10a7 7 0 1 0 14 0 7 7 0 1 0-14 0M21 21l-6-6" /></svg> <span class="sr-only">搜索</span>  </a> </li> <li class="col-span-1 flex items-center justify-center"> <button id="theme-btn" class="focus-outline hover:[&>svg]:stroke-accent relative size-12 p-4 sm:size-8" title="切换主题" aria-label="auto" aria-live="polite"> <svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="absolute top-[50%] left-[50%] translate-[-50%] scale-100 rotate-0 transition-all dark:scale-0 dark:-rotate-90" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M12 3h.393a7.5 7.5 0 0 0 7.92 12.446A9 9 0 1 1 12 2.992z" /></svg> <svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="absolute top-[50%] left-[50%] translate-[-50%] scale-0 rotate-90 transition-all dark:scale-100 dark:rotate-0" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M14.828 14.828a4 4 0 1 0-5.656-5.656 4 4 0 0 0 5.656 5.656M6.343 17.657l-1.414 1.414M6.343 6.343 4.929 4.929M17.657 6.343l1.414-1.414M17.657 17.657l1.414 1.414M4 12H2M12 4V2M20 12h2M12 20v2" /></svg> </button> </li> </ul> </nav> </div> </header> <script type="module">function c(){const e=document.querySelector("#menu-btn"),t=document.querySelector("#menu-items"),n=document.querySelector("#menu-icon"),s=document.querySelector("#close-icon");if(!e||!t||!n||!s)return;const a=e.dataset.labelOpen??"Open menu",l=e.dataset.labelClose??"Close menu";e.addEventListener("click",()=>{const o=e.getAttribute("aria-expanded")==="true";e.setAttribute("aria-expanded",o?"false":"true"),e.setAttribute("aria-label",o?a:l),t.classList.toggle("hidden"),t.classList.toggle("grid"),n.classList.toggle("hidden"),s.classList.toggle("hidden")})}c();document.addEventListener("astro:after-swap",c);</script> <div class="app-layout flex items-center justify-start"><a id="back-button" href="/blog/" class="group inline-flex items-center gap-1 hover:text-accent focus-outline hover:text-foreground/75 -ms-2 mt-8 mb-2"> <svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="inline-block size-6 rtl:rotate-180" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="m15 6-6 6 6 6" /></svg><span>返回</span> </a></div><script type="module">function o(){const t=document.querySelector("#back-button"),e=sessionStorage.getItem("backUrl");e&&t&&(t.href=e)}document.addEventListener("astro:page-load",o);o();</script> <main id="main-content" class="app-layout" data-pagefind-body> <h1 style="view-transition-name:u00786cu004ef6u007ec8u007aefu0065e9u005df2u006d88u005931u00ff0cu004e3au004ec0u004e48u0064cdu004f5cu007cfbu007edfu0091ccu008fd8u006709-ttyu00ff1f" class="text-accent inline-block text-2xl font-bold sm:text-3xl"> 硬件终端早已消失，为什么操作系统里还有 TTY？ </h1> <div class="my-2 flex items-center gap-2"> <div class="text-muted-foreground flex items-center gap-x-2"> <svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="inline-block size-6 min-w-5.5" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M4 7a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zM16 3v4M8 3v4M4 11h16M7 14h.013M10.01 14h.005M13.01 14h.005M16.015 14h.005M13.015 17h.005M7.01 17h.005M10.01 17h.005" /></svg>  <time class="text-sm sm:text-base" datetime="2026-07-22T00:45:00.000Z"> 2026年7月22日 </time> </div> <span aria-hidden="true" class="text-muted-foreground max-sm:hidden">
+|
+</span> <a href="https://github.com/robinfai/blog/edit/main/src/content/posts/terminal-series/why-tty-still-exists.md" target="_blank" rel="noopener noreferrer" class="hover:text-accent text-muted-foreground flex justify-baseline gap-1.5 max-sm:hidden"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="inline-block" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M7 7H6a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2-2v-1" /><path d="M20.385 6.585a2.1 2.1 0 0 0-2.97-2.97L9 12v3h3zM16 5l3 3" /></svg><span>编辑页面</span></a> </div> <article id="article" class="mt-8 w-full app-prose max-w-app prose-pre:bg-(--shiki-light-bg) dark:prose-pre:bg-(--shiki-dark-bg)"> <p><img alt="物理电传终端通过双向字符流演变为现代终端窗口" loading="lazy" decoding="async" width="1672" height="941" src="/blog/_astro/02-why-tty-still-exists-hero.BzzzxkqS_1ysx7O.webp" srcset=""></p>
+<p><em>题图：物理终端被软件窗口替代后，程序仍通过 TTY/PTY 接口处理输入、信号和作业控制。</em></p>
+<blockquote><p>本文是《五彩斑斓的黑》系列的第二篇。上一篇回答 <a href="/blog/posts/terminal-series/why-terminal-still-exists/">Terminal 为什么没有消失</a>；这一篇只处理四个容易混淆的名字：Console、Terminal、TTY 和 PTY。后面讨论控制序列、SSH 和 tmux 时，会直接用到这些概念。</p></blockquote>
+<p>打开一个终端窗口，输入：</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="bash"><code><span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">tty</span></span></code></pre>
+<p>macOS 可能返回：</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="text"><code><span class="line"><span>/dev/ttys003</span></span></code></pre>
+<p>Linux 可能返回：</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="text"><code><span class="line"><span>/dev/pts/3</span></span></code></pre>
+<p>现在打开的是一个图形化终端窗口，但 <code>tty</code> 显示 Shell 仍连接着 TTY。TTY 原本指 Teletypewriter，也就是电传打字机。电脑里早已没有这种设备，这个名字为什么还留在操作系统里？</p>
+<p>更容易混乱的是另外几个词。有人把 Terminal 当成 Shell，有人把 Console 当成 Terminal 的正式叫法，还有人以为 PTY 就是一种看不见的终端窗口。它们看起来都在描述同一件事，实际上分别属于不同层次。</p>
+<p>今天的 Shell 通常连接 PTY slave。终端模拟器持有 master，把键盘输入写进去，再从中读取程序输出。TTY 这个名字留下来，是因为这套内核接口没有消失。</p>
+<h2 id="先分清四个词">先分清四个词</h2>
+<p>为了后面的讨论，先给这四个词划出边界：</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>概念</th><th>所在层次</th><th>它回答的问题</th></tr></thead><tbody><tr><td>Console</td><td>系统角色</td><td>谁负责启动、观察和抢救这台机器？</td></tr><tr><td>Terminal</td><td>交互端点</td><td>人在哪里输入，又在哪里看到结果？</td></tr><tr><td>TTY</td><td>内核接口</td><td>程序怎样使用传统终端的行为？</td></tr><tr><td>PTY</td><td>虚拟连接</td><td>软件怎样假装自己是一台终端？</td></tr></tbody></table>
+<p><img alt="Console、Terminal、PTY 与 TTY 分别表示系统角色、交互端点、虚拟连接和内核接口" loading="lazy" decoding="async" width="720" height="880" src="/blog/_astro/02-terms-layers.Dff5Tfq7_Z2m0c5S.svg" srcset=""></p>
+<p><em>图 1：Console 表示系统控制入口，Terminal 处理用户交互，PTY 连接控制程序与 Shell，TTY 提供内核终端接口。</em></p>
+<p>Console 更接近一种系统角色；Terminal 是人与计算机交互的端点；TTY 是操作系统向程序提供的终端行为；PTY 则是把这种行为虚拟出来的连接机制。它们会出现在同一条链路里，却不是四个可以互换的名字。</p>
+<h2 id="console最初是机器旁边的控制席">Console：最初是机器旁边的控制席</h2>
+<p>在计算机还占满房间的年代，Console 不是用户随手打开的应用，而是操作员控制机器的地方。开机、装载程序、查看系统状态和处理故障，都从这里完成。</p>
+<p>它与机器的关系特殊：普通用户的终端可以断开，系统仍要有一个入口输出关键消息并接受控制。Console 描述的首先不是一种通信协议，而是一个系统级角色。</p>
+<p>后来，灯和开关组成的控制面板被键盘与屏幕替代，操作系统又提供了虚拟控制台。图形界面普及后，启动信息、内核消息和故障恢复仍需要一个系统指定的入口，因此 Console 这个系统角色继续存在。</p>
+<p><img alt="Console 从机器控制面板演变为系统控制台、虚拟控制台和现代系统入口" loading="lazy" decoding="async" width="720" height="930" src="/blog/_astro/02-console-evolution.Ckr8v1WP_sdtDY.svg" srcset=""></p>
+<p><em>图 2：Console 从物理控制面板演变为系统指定的启动、消息输出和故障恢复入口。</em></p>
+<p>所以，Console 不是 Terminal 的正式英文名。一台机器可以同时存在许多 Terminal 会话，但系统只会把特定入口视为 Console。我们平时打开的终端窗口通常不是系统控制台，它只是一个普通用户会话的交互端点。</p>
+<h2 id="terminal为什么叫终端">Terminal：为什么叫“终端”</h2>
+<p>Terminal 的名字来自它所在的位置：通信线路的末端。</p>
+<p>早期分时系统把昂贵的计算能力放在中央主机，用户坐在远处，通过电传打字机输入字符，再把主机返回的字符打印到纸上。主机负责运行程序和管理多个用户，终端负责采集输入、呈现输出。</p>
+<p>这种分工让主机不必知道用户面前的键盘长什么样、纸张有多宽，只需要面对相对稳定的字符接口。</p>
+<p>视频终端后来用屏幕替代纸张。为了移动光标、擦除区域和改变显示属性，终端开始识别混在普通文字里的控制命令。再后来，物理终端被桌面软件模拟，但“程序运行在一端，交互设备位于另一端”的结构保留了下来。</p>
+<p>桌面终端模拟器接管输入和显示后，Shell 仍然通过 TTY 接口读写。</p>
+<h2 id="tty从设备名称到内核接口">TTY：从设备名称到内核接口</h2>
+<p>TTY 来自 Teletypewriter。最开始它确实是一类具体设备。</p>
+<p>Unix 面对的现实却是：终端型号很多，字符编码、波特率和控制方式各不相同。如果每个程序都直接适配硬件，编辑器、Shell 和交互式工具会被设备差异淹没。</p>
+<p>操作系统于是把这些差异收进终端驱动，对应用暴露统一的字符设备。程序只管读写，内核负责提供一组大家默认存在的终端行为：</p>
+<ul>
+<li>输入回显；</li>
+<li>按行提交；</li>
+<li>Canonical 与 Raw 模式；</li>
+<li>控制字符与信号；</li>
+<li>窗口尺寸；</li>
+<li>会话和控制终端；</li>
+<li>前台进程组与作业控制。</li>
+</ul>
+<p><img alt="输入字节经过 TTY Line Discipline 后，可能成为一行文本，也可能被转换为发送给前台进程组的信号" loading="lazy" decoding="async" width="720" height="900" src="/blog/_astro/02-line-discipline.CH1Mbd4z_2sl5Uu.svg" srcset=""></p>
+<p><em>图 3：输入到达应用之前会经过 Line Discipline，回显、按行提交和控制字符都在这里处理。</em></p>
+<h3 id="ctrl-c-为什么不是普通字符">Ctrl-C 为什么不是普通字符</h3>
+<p>默认模式下，用户按下 <code>Ctrl-C</code>，内核终端层可以识别这个控制字符，并向当前前台进程组发送 <code>SIGINT</code>。应用收到的往往不是两个按键组成的文本，而是一个中断信号。</p>
+<p>Vim、游戏和全屏 TUI 会把终端切换到 Raw 模式，尽量关闭内核的行编辑与特殊字符处理，再自行解释每一次按键。程序异常退出后，如果没有恢复 TTY 配置，终端就可能出现“不回显”或“回车错位”。</p>
+<p><code>/dev/tty</code> 也不是某一台固定设备。对一个拥有控制终端的进程来说，它表示“我的控制终端”。同一个路径由不同会话里的进程打开，可能落到不同的实际终端上。</p>
+<h2 id="pty用虚拟设备接上终端模拟器">PTY：用虚拟设备接上终端模拟器</h2>
+<p>物理终端退出主流以后，Shell、编辑器和交互式程序仍然使用 TTY 接口。Unix 用一对虚拟字符设备连接这些程序和新的软件控制端，这就是 Pseudo Terminal，伪终端。</p>
+<p>PTY 不是单个设备，而是一对相连的虚拟字符设备：</p>
+<ul>
+<li><strong>Master</strong> 交给终端模拟器、SSH、tmux 或其他控制程序；</li>
+<li><strong>Slave</strong> 交给 Shell 或前台应用，对它们表现得像经典 TTY。</li>
+</ul>
+<p><img alt="现代终端会话中，用户、Terminal Emulator、PTY master、PTY slave 与 Shell 之间的双向数据流" loading="lazy" decoding="async" width="720" height="1120" src="/blog/_astro/02-pty-data-flow.BQ7YYvIw_1eq31O.svg" srcset=""></p>
+<p><em>图 4：终端模拟器连接 master，Shell 和前台进程连接 slave；输入与输出沿相反方向经过同一对设备。</em></p>
+<p>写入 Master 的数据，会像用户在终端上输入一样到达 Slave；程序写入 Slave 的输出，可以从 Master 读取。Slave 一侧继续提供经典 TTY 的行为，Master 一侧则允许另一个软件驱动和观察会话。</p>
+<p>Shell 只看到 Slave 端，因此不需要区分 Master 另一侧是 Terminal.app、Ghostty、SSH 服务端、tmux、IDE，还是自动化工具。</p>
+<h2 id="一次按键和一段输出到底经过了哪里">一次按键和一段输出，到底经过了哪里</h2>
+<h3 id="输入方向按键不一定原样交给程序">输入方向：按键不一定原样交给程序</h3>
+<p>用户按下一个键，终端模拟器先把它编码成字节并写入 PTY Master。字节从 Slave 一侧进入内核终端层，可能经过回显、Canonical 行编辑和控制字符处理，最后才被 Shell 或前台应用读取。</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="text"><code><span class="line"><span>键盘</span></span>
+<span class="line"><span>  ↓</span></span>
+<span class="line"><span>Terminal Emulator</span></span>
+<span class="line"><span>  ↓</span></span>
+<span class="line"><span>PTY Master</span></span>
+<span class="line"><span>  ↓</span></span>
+<span class="line"><span>Line Discipline</span></span>
+<span class="line"><span>  ↓</span></span>
+<span class="line"><span>PTY Slave</span></span>
+<span class="line"><span>  ↓</span></span>
+<span class="line"><span>Shell 或前台程序</span></span></code></pre>
+<p>如果输入触发终端控制字符，内核还可能直接生成信号。程序看到的结果，未必是用户按下的原始字节。</p>
+<h3 id="输出方向pty-不知道什么是红色">输出方向：PTY 不知道什么是红色</h3>
+<p>程序向 stdout 写入数据，数据经 PTY Slave 到达 Master，再由终端模拟器读取。</p>
+<p>PTY 只传输字节，不知道字节代表普通文字、光标移动还是颜色变化。字符和控制序列由终端模拟器解析，最终再绘制成像素。</p>
+<p>TTY/PTY 保持终端式交互，Terminal Emulator 解释输出并显示结果。</p>
+<p>这个边界会直接引出系列的下一篇。</p>
+<h2 id="为什么普通管道不能完全替代-pty">为什么普通管道不能完全替代 PTY</h2>
+<p>Pipe 和 PTY 都能搬运字节，所以自动化脚本经常先尝试用管道连接程序。但交互式程序依赖的不只是字节，还依赖 TTY 语义。</p>
+<p>程序可以通过 <code>isatty()</code> 判断文件描述符是否连接终端，再选择颜色、缓冲、进度条和输入方式。</p>
+<p><img alt="普通 Pipe 与 PTY 在终端身份、控制字符、信号、窗口尺寸和作业控制方面的差异" loading="lazy" decoding="async" width="720" height="980" src="/blog/_astro/02-pipe-vs-pty.BmgFsktL_1wbRNt.svg" srcset=""></p>
+<p><em>图 5：Pipe 只连接输入输出；PTY 还提供终端身份、信号、窗口尺寸和作业控制。</em></p>
+<p>这解释了为什么一条命令直接运行时有颜色，接到 <code>| cat</code> 后颜色可能消失；也解释了为什么全屏 TUI 放进普通管道会失去正常交互。</p>
+<p><code>ssh -t</code> 和 <code>docker exec -t</code> 里的 <code>-t</code>，请求的正是一台伪终端，而不只是保持 stdin 打开。</p>
+<h2 id="pty-还被谁使用">PTY 还被谁使用</h2>
+<p>终端模拟器不是 PTY 的唯一控制端。只要程序需要驱动一个按 TTY 方式工作的进程，就可能站到 Master 一侧。</p>
+<h3 id="ssh把远端-shell-接回本地">SSH：把远端 Shell 接回本地</h3>
+<p>SSH 服务端为远端进程分配 PTY，再把 Master 一侧的字节通过网络转发。远端程序仍以为自己面对传统终端，本地用户则通过 SSH 客户端看到并控制它。</p>
+<h3 id="tmux-与-screen把会话从当前窗口剥离">tmux 与 screen：把会话从当前窗口剥离</h3>
+<p>tmux 自己持有 PTY Master。用户离开以后，Shell 和前台任务仍连接着 Slave 继续运行；用户重新连接时，tmux 再把保存的会话呈现出来。</p>
+<h3 id="容器和-ide给真实进程分配终端">容器和 IDE：给真实进程分配终端</h3>
+<p><code>docker run -it</code> 中的两个参数解决的不是同一个问题：</p>
+<ul>
+<li><code>-i</code> 保持输入流开放；</li>
+<li><code>-t</code> 分配 PTY。</li>
+</ul>
+<p>有输入流，不代表程序拥有终端语义。</p>
+<p>VS Code、JetBrains 等应用也持有 PTY Master，并把从中读到的输出显示在集成终端里。Shell 与命令行工具仍然运行在独立进程中，连接 PTY Slave。</p>
+<h3 id="自动化工具和-agent控制交互式程序">自动化工具和 Agent：控制交互式程序</h3>
+<p>有些程序只有检测到 TTY 才显示提示、读取密码或启用交互模式。<code>expect</code>、<code>script</code> 等工具站到 PTY Master 一侧，像人一样读取输出并写回输入。</p>
+<p>Agent 运行普通编译命令时，Pipe 往往更简单；但需要持续输出、中断、窗口尺寸或操作 TUI 时，也要决定是否分配 PTY。</p>
+<h2 id="在本机验证-tty-与-pty">在本机验证 TTY 与 PTY</h2>
+<h3 id="实验一找到当前-tty-和前台进程组">实验一：找到当前 TTY 和前台进程组</h3>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="bash"><code><span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">tty</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">ps</span><span style="--shiki-light:#2B5581;--shiki-dark:#82AAFF"> -o</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> pid,ppid,pgid,sid,tpgid,tty,stat,command</span><span style="--shiki-light:#2B5581;--shiki-dark:#82AAFF"> -p</span><span style="--shiki-light:#24292EFF;--shiki-dark:#7FDBCA"> $$</span></span></code></pre>
+<p>观察当前 TTY 设备名、Session ID、Process Group ID，以及当前终端的前台进程组。</p>
+<p>不同系统的 <code>ps</code> 参数略有差异。如果某一列不受支持，可以先删除该列继续观察。</p>
+<h3 id="实验二比较终端与管道">实验二：比较终端与管道</h3>
+<p>先直接运行：</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="bash"><code><span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">python3</span><span style="--shiki-light:#2B5581;--shiki-dark:#82AAFF"> -c</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD"> '</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">import os; print(os.isatty(0), os.isatty(1))</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">'</span></span></code></pre>
+<p>再把 stdout 接进管道：</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="bash"><code><span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">python3</span><span style="--shiki-light:#2B5581;--shiki-dark:#82AAFF"> -c</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD"> '</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">import os; print(os.isatty(0), os.isatty(1))</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">'</span><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA"> |</span><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic"> cat</span></span></code></pre>
+<p>第二条命令中，<code>isatty(1)</code> 会从 <code>True</code> 变为 <code>False</code>。程序仍能写出字节，但 stdout 已经不再连接终端。</p>
+<h3 id="实验三亲手创建一对-pty">实验三：亲手创建一对 PTY</h3>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="python"><code><span class="line"><span style="--shiki-light:#D32F2F;--shiki-light-font-style:inherit;--shiki-dark:#C792EA;--shiki-dark-font-style:italic">import</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> os</span></span>
+<span class="line"><span style="--shiki-light:#D32F2F;--shiki-light-font-style:inherit;--shiki-dark:#C792EA;--shiki-dark-font-style:italic">import</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> pty</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">master</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">,</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> slave </span><span style="--shiki-light:#D32F2F;--shiki-dark:#C792EA">=</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> pty</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">.</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B2CCD6">openpty</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">()</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#C5E478">print</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">(</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">master fd:</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#212121;--shiki-dark:#D9F5DD">,</span><span style="--shiki-light:#212121;--shiki-dark:#82AAFF"> master</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">)</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#C5E478">print</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">(</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">slave fd:</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#212121;--shiki-dark:#D9F5DD">,</span><span style="--shiki-light:#212121;--shiki-dark:#82AAFF"> slave</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">)</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#C5E478">print</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">(</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">slave name:</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#212121;--shiki-dark:#D9F5DD">,</span><span style="--shiki-light:#212121;--shiki-dark:#82AAFF"> os.</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B2CCD6">ttyname</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">(</span><span style="--shiki-light:#212121;--shiki-dark:#82AAFF">slave</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">))</span></span></code></pre>
+<p>这段代码还没有启动 Shell，也没有终端渲染器，但已经创建了控制端和带有终端设备名的 Slave。</p>
+<p>PTY 首先是一对文件描述符。Shell、会话、控制终端和渲染能力，由其他组件建立在这对连接之上。</p>
+<h2 id="结尾tty-这个名字为什么还在">结尾：TTY 这个名字为什么还在</h2>
+<p>终端模拟器连接 Master，把键盘输入写进去，并读取程序输出；Shell 和前台进程连接 Slave，继续使用 termios、控制终端、前台进程组和窗口尺寸等接口。这些接口仍在被程序使用，TTY 这个历史名称也就保留了下来。</p>
+<p>但 PTY 传输的终究只是一串字节。同一条字节流为什么既能显示普通文字，又能移动光标、改变颜色、清空屏幕，甚至修改窗口标题？</p>
+<blockquote><p><strong>下一篇：《Terminal 为什么能显示彩色文字？》</strong></p><p>从 ESC 开始，继续认识 CSI、OSC、DCS，以及普通文字和终端命令如何共享同一条字节流。</p></blockquote>
+<h2 id="资料参考">资料参考</h2>
+<ul>
+<li><a href="https://pubs.opengroup.org/onlinepubs/9799919799/basedefs/V1_chap11.html">The Open Group：General Terminal Interface</a></li>
+<li><a href="https://man7.org/linux/man-pages/man7/pty.7.html">Linux man-pages：pty(7)</a></li>
+<li><a href="https://man7.org/linux/man-pages/man4/tty.4.html">Linux man-pages：tty(4)</a></li>
+<li><a href="https://www.nokia.com/bell-labs/about/dennis-m-ritchie/hist.html">Dennis Ritchie：The Evolution of the Unix Time-sharing System</a></li>
+</ul>
+<p>本文以 POSIX 通用终端模型为主。设备路径、<code>ps</code> 参数和部分实现细节在 Linux、macOS 与 BSD 上会有所不同。</p> </article> <hr class="my-8 border-dashed"> <a href="https://github.com/robinfai/blog/edit/main/src/content/posts/terminal-series/why-tty-still-exists.md" target="_blank" rel="noopener noreferrer" class="hover:text-accent text-muted-foreground flex justify-baseline gap-1.5 sm:hidden"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="inline-block" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M7 7H6a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2-2v-1" /><path d="M20.385 6.585a2.1 2.1 0 0 0-2.97-2.97L9 12v3h3zM16 5l3 3" /></svg><span>编辑页面</span></a> <div id="btt-btn-container" class="fixed inset-e-4 bottom-8 z-50 md:sticky md:inset-e-auto md:float-end md:me-1 translate-y-14 opacity-0 transition duration-500"> <button data-button="back-to-top" class="group bg-background relative px-2 py-1 size-14 rounded-full shadow-xl md:h-8 md:w-fit md:rounded-md md:shadow-none md:focus-visible:rounded-none md:bg-background/35 md:bg-clip-padding md:backdrop-blur-lg"> <span id="progress-indicator" class="absolute inset-0 -z-10 block size-14 scale-110 rounded-full bg-transparent md:hidden md:h-8 md:rounded-md"></span> <svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="inline-block rotate-90 md:hidden" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M5 12h14M5 12l6 6M5 12l6-6" /></svg> <span class="group-hover:text-accent sr-only text-sm md:not-sr-only"> <svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="inline-block size-4" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M12 5v14M16 9l-4-4M8 9l4-4" /></svg> 回到顶部 </span> </button> </div> <script data-astro-rerun>
+  function backToTop() {
+    const rootElement = document.documentElement;
+    const btnContainer = document.querySelector("#btt-btn-container");
+    const backToTopBtn = document.querySelector("[data-button='back-to-top']");
+    const progressIndicator = document.querySelector("#progress-indicator");
+
+    if (!rootElement || !btnContainer || !backToTopBtn || !progressIndicator)
+      return;
+
+    backToTopBtn.addEventListener("click", () => {
+      document.body.scrollTop = 0;
+      document.documentElement.scrollTop = 0;
+    });
+
+    let lastVisible = null;
+    function handleScroll() {
+      const scrollTotal = rootElement.scrollHeight - rootElement.clientHeight;
+      const scrollTop = rootElement.scrollTop;
+      const scrollPercent = Math.floor((scrollTop / scrollTotal) * 100);
+
+      progressIndicator.style.setProperty(
+        "background-image",
+        `conic-gradient(var(--accent), var(--accent) ${scrollPercent}%, transparent ${scrollPercent}%)`
+      );
+
+      const isVisible = scrollTop / scrollTotal > 0.3;
+
+      if (isVisible !== lastVisible) {
+        btnContainer.classList.toggle("opacity-100", isVisible);
+        btnContainer.classList.toggle("translate-y-0", isVisible);
+        btnContainer.classList.toggle("opacity-0", !isVisible);
+        btnContainer.classList.toggle("translate-y-14", !isVisible);
+        lastVisible = isVisible;
+      }
+    }
+
+    let ticking = false;
+    document.addEventListener("scroll", () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          handleScroll();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    });
+  }
+  backToTop();
+</script> <ul class="mt-4 mb-8 flex flex-wrap gap-4 sm:my-8"> <li> <a href="/blog/tags/五彩斑斓的黑/" class="flex items-center gap-0.5 border-foreground border-b-2 border-dashed hover:border-accent hover:text-accent hover:-mt-0.5 focus-visible:text-accent focus-visible:border-none text-sm" data-astro-transition-scope="astro-36ssibgs-1"> <svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="opacity-80 size-4" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M5 9h14M5 15h14M11 4 7 20M17 4l-4 16" /></svg> 五彩斑斓的黑 </a> </li><li> <a href="/blog/tags/terminal/" class="flex items-center gap-0.5 border-foreground border-b-2 border-dashed hover:border-accent hover:text-accent hover:-mt-0.5 focus-visible:text-accent focus-visible:border-none text-sm" data-astro-transition-scope="astro-36ssibgs-2"> <svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="opacity-80 size-4" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M5 9h14M5 15h14M11 4 7 20M17 4l-4 16" /></svg> Terminal </a> </li><li> <a href="/blog/tags/tty/" class="flex items-center gap-0.5 border-foreground border-b-2 border-dashed hover:border-accent hover:text-accent hover:-mt-0.5 focus-visible:text-accent focus-visible:border-none text-sm" data-astro-transition-scope="astro-36ssibgs-3"> <svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="opacity-80 size-4" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M5 9h14M5 15h14M11 4 7 20M17 4l-4 16" /></svg> TTY </a> </li><li> <a href="/blog/tags/pty/" class="flex items-center gap-0.5 border-foreground border-b-2 border-dashed hover:border-accent hover:text-accent hover:-mt-0.5 focus-visible:text-accent focus-visible:border-none text-sm" data-astro-transition-scope="astro-36ssibgs-4"> <svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="opacity-80 size-4" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M5 9h14M5 15h14M11 4 7 20M17 4l-4 16" /></svg> PTY </a> </li><li> <a href="/blog/tags/操作系统/" class="flex items-center gap-0.5 border-foreground border-b-2 border-dashed hover:border-accent hover:text-accent hover:-mt-0.5 focus-visible:text-accent focus-visible:border-none text-sm" data-astro-transition-scope="astro-36ssibgs-5"> <svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="opacity-80 size-4" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M5 9h14M5 15h14M11 4 7 20M17 4l-4 16" /></svg> 操作系统 </a> </li> </ul> <div class="flex flex-none flex-col items-center justify-center gap-1 md:items-start"><span class="italic">分享这篇文章：</span><div class="text-center"><a href="https://wa.me/?text=https://robinfai.github.io/blog/posts/terminal-series/why-tty-still-exists/" title="分享到 Whatsapp" target="_blank" rel="noopener noreferrer" class="group inline-flex items-center gap-1 hover:text-accent scale-90 p-2 hover:rotate-6 sm:p-1"> <svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="m3 21 1.65-3.8a9 9 0 1 1 3.4 2.9z" /><path d="M9 10a.5.5 0 0 0 1 0V9a.5.5 0 0 0-1 0za5 5 0 0 0 5 5h1a.5.5 0 0 0 0-1h-1a.5.5 0 0 0 0 1" /></svg><span class="sr-only">分享到 Whatsapp</span> </a><a href="https://www.facebook.com/sharer.php?u=https://robinfai.github.io/blog/posts/terminal-series/why-tty-still-exists/" title="分享到 Facebook" target="_blank" rel="noopener noreferrer" class="group inline-flex items-center gap-1 hover:text-accent scale-90 p-2 hover:rotate-6 sm:p-1"> <svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M7 10v4h3v7h4v-7h3l1-4h-4V8a1 1 0 0 1 1-1h3V3h-3a5 5 0 0 0-5 5v2z" /></svg><span class="sr-only">分享到 Facebook</span> </a><a href="https://x.com/intent/post?url=https://robinfai.github.io/blog/posts/terminal-series/why-tty-still-exists/" title="分享到 X" target="_blank" rel="noopener noreferrer" class="group inline-flex items-center gap-1 hover:text-accent scale-90 p-2 hover:rotate-6 sm:p-1"> <svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="m4 4 11.733 16H20L8.267 4zM4 20l6.768-6.768m2.46-2.46L20 4" /></svg><span class="sr-only">分享到 X</span> </a><a href="https://t.me/share/url?url=https://robinfai.github.io/blog/posts/terminal-series/why-tty-still-exists/" title="分享到 Telegram" target="_blank" rel="noopener noreferrer" class="group inline-flex items-center gap-1 hover:text-accent scale-90 p-2 hover:rotate-6 sm:p-1"> <svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="m15 10-4 4 6 6 4-16-18 7 4 2 2 6 3-4" /></svg><span class="sr-only">分享到 Telegram</span> </a><a href="https://pinterest.com/pin/create/button/?url=https://robinfai.github.io/blog/posts/terminal-series/why-tty-still-exists/" title="分享到 Pinterest" target="_blank" rel="noopener noreferrer" class="group inline-flex items-center gap-1 hover:text-accent scale-90 p-2 hover:rotate-6 sm:p-1"> <svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="m8 20 4-9M10.7 14c.437 1.263 1.43 2 2.55 2 2.071 0 3.75-1.554 3.75-4a5 5 0 1 0-9.7 1.7" /><path d="M3 12a9 9 0 1 0 18 0 9 9 0 1 0-18 0" /></svg><span class="sr-only">分享到 Pinterest</span> </a><a href="mailto:?subject=See%20this%20post&amp;body=https://robinfai.github.io/blog/posts/terminal-series/why-tty-still-exists/" title="通过邮件分享" target="_blank" rel="noopener noreferrer" class="group inline-flex items-center gap-1 hover:text-accent scale-90 p-2 hover:rotate-6 sm:p-1"> <svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M3 7a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" /><path d="m3 7 9 6 9-6" /></svg><span class="sr-only">通过邮件分享</span> </a></div></div>  <hr class="my-8 border-dashed"> <section class="mt-8 scroll-mt-20" aria-label="评论"><div id="giscus-comments" class="giscus" data-repo="robinfai/blog" data-repo-id="R_kgDOKA0OfA" data-category="Announcements" data-category-id="DIC_kwDOKA0OfM4C_HMr" data-mapping="pathname" data-strict="1" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="auto" data-lang="zh-CN" data-loading="lazy"></div></section><script data-astro-rerun>
+(function () {
+  const host = document.getElementById("giscus-comments");
+  if (!host || host.dataset.loaded === "true") return;
+
+  function getTheme() {
+    const configuredTheme = host.dataset.theme || "auto";
+    if (configuredTheme !== "auto") return configuredTheme;
+    return document.documentElement.dataset.theme === "dark" ? "dark" : "light";
+  }
+
+  function syncTheme() {
+    const frame = document.querySelector("iframe.giscus-frame");
+    if (!frame || !frame.contentWindow) return;
+    frame.contentWindow.postMessage(
+      { giscus: { setConfig: { theme: getTheme() } } },
+      "https://giscus.app"
+    );
+  }
+
+  const script = document.createElement("script");
+  script.src = "https://giscus.app/client.js";
+  script.async = true;
+  script.crossOrigin = "anonymous";
+
+  const attrs = {
+    "data-repo": host.dataset.repo,
+    "data-repo-id": host.dataset.repoId,
+    "data-category": host.dataset.category,
+    "data-category-id": host.dataset.categoryId,
+    "data-mapping": host.dataset.mapping,
+    "data-term": host.dataset.term,
+    "data-strict": host.dataset.strict,
+    "data-reactions-enabled": host.dataset.reactionsEnabled,
+    "data-emit-metadata": host.dataset.emitMetadata,
+    "data-input-position": host.dataset.inputPosition,
+    "data-theme": getTheme(),
+    "data-lang": host.dataset.lang,
+    "data-loading": host.dataset.loading,
+  };
+
+  for (const [name, value] of Object.entries(attrs)) {
+    if (value) script.setAttribute(name, value);
+  }
+
+  script.addEventListener("load", function () {
+    window.setTimeout(syncTheme, 250);
+  });
+
+  host.dataset.loaded = "true";
+  host.appendChild(script);
+
+  if (!window.__giscusThemeObserver) {
+    window.__giscusThemeObserver = new MutationObserver(syncTheme);
+    window.__giscusThemeObserver.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["data-theme"],
+    });
+  }
+})();
+</script>  <hr class="my-8 border-dashed"> <div data-pagefind-ignore class="my-8 grid grid-cols-1 gap-6 sm:grid-cols-2">  <a href="/blog/posts/terminal-series/why-terminal-still-exists/" class="flex w-full justify-end gap-1 text-end hover:opacity-75 sm:col-start-2"> <div> <span>下一篇</span> <div class="text-accent/85 text-sm">为什么今天还有 Terminal？</div> </div> <svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="inline-block flex-none rtl:rotate-180" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M5 12h14M13 18l6-6M13 6l6 6" /></svg> </a> </div> </main> <footer class="app-layout mt-auto"> <div class="border-border flex flex-col items-center justify-between border-t py-6 sm:flex-row-reverse sm:py-4"> <div class="flex flex-wrap items-center gap-1"> <a href="https://github.com/robinfai/blog" title="Robin 的笔记 on Github" class="group inline-flex items-center gap-1 hover:text-accent p-2 hover:rotate-6 sm:p-1">  <svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6 0 0 0-1.3-3.2 4.2 4.2 0 0 0-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3 0 0 0-6.2 0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2 0 0 0-.1 3.2A4.6 4.6 0 0 0 4 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21" /></svg> <span class="sr-only">Robin 的笔记 on Github</span>  </a> </div> <div class="my-2 flex flex-col items-center whitespace-nowrap sm:flex-row"> <span>版权 &#169; 2026</span> <span class="hidden sm:inline">&nbsp;|&nbsp;</span> <span>保留所有权利。</span> </div> </div> </footer>   <script type="module">const c="theme",r="light",n="dark";function s(){const e=localStorage.getItem(c);return e||(window.matchMedia("(prefers-color-scheme: dark)").matches?n:r)}let t=window.__theme?.value??s();function a(){localStorage.setItem(c,t),m()}function m(){const e=document.firstElementChild;e?.setAttribute("data-theme",t),e?.classList.toggle("dark",t===n),document.querySelector("#theme-btn")?.setAttribute("aria-label",t);const o=window.getComputedStyle(document.body).backgroundColor;document.querySelector("meta[name='theme-color']")?.setAttribute("content",o)}function d(){m(),document.querySelector("#theme-btn")?.addEventListener("click",()=>{t=t===r?n:r,a()})}d();document.addEventListener("astro:after-swap",d);document.addEventListener("astro:before-swap",e=>{const o=document.querySelector("meta[name='theme-color']")?.getAttribute("content");o&&e.newDocument.querySelector("meta[name='theme-color']")?.setAttribute("content",o)});window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change",({matches:e})=>{t=e?n:r,a()});</script> </body> </html> <script data-astro-rerun>
+  function createProgressBar() {
+    const progressContainer = document.createElement("div");
+    progressContainer.className =
+      "progress-container fixed top-0 z-10 h-1 w-full bg-background";
+
+    const progressBar = document.createElement("div");
+    progressBar.className = "progress-bar h-1 w-0 bg-accent";
+    progressBar.id = "myBar";
+
+    progressContainer.appendChild(progressBar);
+    document.body.appendChild(progressContainer);
+  }
+  createProgressBar();
+
+  function updateScrollProgress() {
+    document.addEventListener("scroll", () => {
+      const winScroll =
+        document.body.scrollTop || document.documentElement.scrollTop;
+      const height =
+        document.documentElement.scrollHeight -
+        document.documentElement.clientHeight;
+      const scrolled = (winScroll / height) * 100;
+      if (document) {
+        const myBar = document.getElementById("myBar");
+        if (myBar) {
+          myBar.style.width = scrolled + "%";
+        }
+      }
+    });
+  }
+  updateScrollProgress();
+
+  function addHeadingLinks() {
+    const headings = Array.from(
+      document.querySelectorAll("h2, h3, h4, h5, h6")
+    );
+    for (const heading of headings) {
+      heading.classList.add("group");
+      const link = document.createElement("a");
+      link.className =
+        "heading-link ms-2 no-underline opacity-75 md:opacity-0 md:group-hover:opacity-100 md:focus:opacity-100";
+      link.href = "#" + heading.id;
+
+      const span = document.createElement("span");
+      span.ariaHidden = "true";
+      span.innerText = "#";
+      link.appendChild(span);
+      heading.appendChild(link);
+    }
+  }
+  addHeadingLinks();
+
+  function attachCopyButtons() {
+    const copyButtonLabel = "Copy";
+    const codeBlocks = Array.from(document.querySelectorAll("pre"));
+
+    for (const codeBlock of codeBlocks) {
+      const wrapper = document.createElement("div");
+      wrapper.style.position = "relative";
+
+      const computedStyle = getComputedStyle(codeBlock);
+      const hasFileNameOffset =
+        computedStyle.getPropertyValue("--file-name-offset").trim() !== "";
+
+      const topClass = hasFileNameOffset
+        ? "top-(--file-name-offset)"
+        : "-top-3";
+
+      const copyButton = document.createElement("button");
+      copyButton.className = `copy-code absolute end-3 ${topClass} rounded bg-muted border border-muted px-2 py-1 text-xs leading-4 text-foreground font-medium`;
+      copyButton.innerHTML = copyButtonLabel;
+      codeBlock.setAttribute("tabindex", "0");
+      codeBlock.appendChild(copyButton);
+
+      codeBlock?.parentNode?.insertBefore(wrapper, codeBlock);
+      wrapper.appendChild(codeBlock);
+
+      copyButton.addEventListener("click", async () => {
+        await copyCode(codeBlock, copyButton);
+      });
+    }
+
+    async function copyCode(block, button) {
+      const code = block.querySelector("code");
+      const text = code?.innerText;
+
+      await navigator.clipboard.writeText(text ?? "");
+
+      button.innerText = "Copied";
+
+      setTimeout(() => {
+        button.innerText = copyButtonLabel;
+      }, 700);
+    }
+  }
+  attachCopyButtons();
+
+  /** Accessible image lightbox for article images. */
+  function initLightbox() {
+    const article = document.getElementById("article");
+    if (!article) return;
+
+    const prefersReducedMotion = () =>
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    let overlay = null;
+    let lastFocused = null;
+
+    // Defer attribute mutations so they don't push the LCP timestamp.
+    // Event listeners below use delegation and don't need the attributes to exist yet.
+    requestAnimationFrame(() => {
+      const images = Array.from(article.querySelectorAll("img"));
+      for (const image of images) {
+        if (image.closest("a")) continue;
+        image.setAttribute("role", "button");
+        image.setAttribute("tabindex", "0");
+        image.setAttribute("aria-haspopup", "dialog");
+        image.setAttribute(
+          "aria-label",
+          image.alt ? `Zoom image: ${image.alt}` : "Zoom image"
+        );
+      }
+    });
+
+    function open(src, alt, trigger) {
+      if (overlay) return;
+      lastFocused = trigger ?? document.activeElement;
+
+      overlay = document.createElement("div");
+      overlay.setAttribute("role", "dialog");
+      overlay.setAttribute("aria-modal", "true");
+      overlay.setAttribute(
+        "aria-label",
+        alt ? `Image preview: ${alt}` : "Image preview"
+      );
+      overlay.className =
+        "fixed inset-0 z-50 flex cursor-zoom-out items-center justify-center bg-black/70 backdrop-blur-sm opacity-0 transition-opacity duration-200 motion-reduce:transition-none";
+
+      const closeButton = document.createElement("button");
+      closeButton.type = "button";
+      closeButton.setAttribute("aria-label", "Close image preview");
+      closeButton.className =
+        "absolute end-4 top-4 rounded p-2 text-3xl leading-none text-white";
+      closeButton.innerHTML = "&#10005;";
+      closeButton.addEventListener("click", close);
+
+      const image = document.createElement("img");
+      image.src = src;
+      image.alt = "";
+      image.className =
+        "max-h-[90dvh] max-w-[90dvw] cursor-default object-contain";
+
+      overlay.append(closeButton, image);
+      overlay.addEventListener("click", e => {
+        if (e.target === overlay && currentScale <= 1) close();
+      });
+
+      let currentScale = 1;
+      let translateX = 0;
+      let translateY = 0;
+      let initialDist = 0;
+      let initialScale = 1;
+      let panStartX = 0;
+      let panStartY = 0;
+      let panStartTranslateX = 0;
+      let panStartTranslateY = 0;
+      let lastTapTime = 0;
+
+      function applyTransform() {
+        image.style.transform = `scale(${currentScale}) translate(${translateX}px, ${translateY}px)`;
+      }
+
+      function resetTransform() {
+        currentScale = 1;
+        translateX = 0;
+        translateY = 0;
+        image.style.transform = "";
+      }
+
+      overlay.addEventListener(
+        "touchstart",
+        e => {
+          const t = e.touches;
+          if (t.length === 2) {
+            initialDist = Math.hypot(
+              t[1].clientX - t[0].clientX,
+              t[1].clientY - t[0].clientY
+            );
+            initialScale = currentScale;
+          } else if (t.length === 1) {
+            const now = Date.now();
+            if (now - lastTapTime < 300) {
+              e.preventDefault();
+              if (currentScale > 1) {
+                resetTransform();
+              } else {
+                currentScale = 2;
+                translateX = 0;
+                translateY = 0;
+                applyTransform();
+              }
+              lastTapTime = 0;
+              panStartX = t[0].clientX;
+              panStartY = t[0].clientY;
+              panStartTranslateX = translateX;
+              panStartTranslateY = translateY;
+            } else {
+              lastTapTime = now;
+              if (currentScale > 1) {
+                panStartX = t[0].clientX;
+                panStartY = t[0].clientY;
+                panStartTranslateX = translateX;
+                panStartTranslateY = translateY;
+              }
+            }
+          }
+        },
+        { passive: false }
+      );
+
+      overlay.addEventListener(
+        "touchmove",
+        e => {
+          const t = e.touches;
+          if (t.length === 2) {
+            e.preventDefault();
+            const dist = Math.hypot(
+              t[1].clientX - t[0].clientX,
+              t[1].clientY - t[0].clientY
+            );
+            currentScale = Math.min(
+              4,
+              Math.max(1, initialScale * (dist / initialDist))
+            );
+            applyTransform();
+          } else if (t.length === 1) {
+            if (currentScale > 1) {
+              e.preventDefault();
+              translateX =
+                panStartTranslateX + (t[0].clientX - panStartX) / currentScale;
+              translateY =
+                panStartTranslateY + (t[0].clientY - panStartY) / currentScale;
+              const maxX = Math.max(
+                0,
+                (image.clientWidth - overlay.clientWidth / currentScale) / 2
+              );
+              const maxY = Math.max(
+                0,
+                (image.clientHeight - overlay.clientHeight / currentScale) / 2
+              );
+              translateX = Math.min(maxX, Math.max(-maxX, translateX));
+              translateY = Math.min(maxY, Math.max(-maxY, translateY));
+              applyTransform();
+            } else {
+              e.preventDefault();
+            }
+          }
+        },
+        { passive: false }
+      );
+
+      overlay.addEventListener("touchend", e => {
+        if (e.touches.length === 0 && currentScale <= 1.05) {
+          resetTransform();
+        }
+      });
+
+      overlay.addEventListener("touchcancel", e => {
+        if (e.touches.length === 0 && currentScale <= 1.05) {
+          resetTransform();
+        }
+      });
+
+      document.body.appendChild(overlay);
+      document.body.style.overflow = "hidden";
+      document.addEventListener("keydown", onKeyDown);
+      window.__closeLightbox = close;
+
+      requestAnimationFrame(() => overlay?.classList.add("opacity-100"));
+      closeButton.focus();
+    }
+
+    function close() {
+      if (!overlay) return;
+      const el = overlay;
+      overlay = null;
+      window.__closeLightbox = null;
+
+      document.removeEventListener("keydown", onKeyDown);
+      document.body.style.overflow = "";
+      lastFocused?.focus();
+      lastFocused = null;
+
+      if (prefersReducedMotion()) {
+        el.remove();
+        return;
+      }
+      const remove = () => el.remove();
+      el.addEventListener("transitionend", remove, { once: true });
+      setTimeout(remove, 250); // fallback in case transitionend never fires
+      el.classList.remove("opacity-100");
+    }
+
+    function onKeyDown(e) {
+      if (e.key === "Escape") {
+        close();
+      } else if (e.key === "Tab") {
+        trapFocus(e);
+      }
+    }
+
+    // Keep keyboard focus inside the open dialog.
+    function trapFocus(e) {
+      if (!overlay) return;
+      const focusables = overlay.querySelectorAll(
+        'a[href], button, [tabindex]:not([tabindex="-1"])'
+      );
+      if (focusables.length === 0) return;
+      const first = focusables[0];
+      const last = focusables[focusables.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    }
+
+    function triggerFromEvent(e) {
+      const image = e.target.closest("img");
+      if (!image || !article.contains(image) || image.closest("a")) return null;
+      return image;
+    }
+
+    function activate(image) {
+      open(image.currentSrc || image.src, image.alt, image);
+    }
+
+    article.addEventListener("click", e => {
+      const image = triggerFromEvent(e);
+      if (!image) return;
+      e.preventDefault();
+      activate(image);
+    });
+
+    article.addEventListener("keydown", e => {
+      if (e.key !== "Enter" && e.key !== " " && e.key !== "Spacebar") return;
+      const image = triggerFromEvent(e);
+      if (!image) return;
+      e.preventDefault();
+      activate(image);
+    });
+  }
+  initLightbox();
+
+  if (!window.__lightboxSwapBound) {
+    window.__lightboxSwapBound = true;
+    document.addEventListener("astro:before-swap", () =>
+      window.__closeLightbox?.()
+    );
+  }
+
+  document.addEventListener("astro:after-swap", () =>
+    window.scrollTo({ left: 0, top: 0, behavior: "instant" })
+  );
+</script>
