@@ -200,47 +200,47 @@
 |
 </span> <a href="https://github.com/robinfai/blog/edit/main/src/content/posts/terminal-series/why-terminal-can-display-colors.md" target="_blank" rel="noopener noreferrer" class="hover:text-accent text-muted-foreground flex justify-baseline gap-1.5 max-sm:hidden"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="inline-block" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M7 7H6a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2-2v-1" /><path d="M20.385 6.585a2.1 2.1 0 0 0-2.97-2.97L9 12v3h3zM16 5l3 3" /></svg><span>编辑页面</span></a> </div> <article id="article" class="mt-8 w-full app-prose max-w-app prose-pre:bg-(--shiki-light-bg) dark:prose-pre:bg-(--shiki-dark-bg)"> <p><img alt="同一条字节流经过 Terminal Parser 后显示为彩色文字" loading="lazy" decoding="async" width="1200" height="675" src="/blog/_astro/03-color-byte-stream-hero.BBIN9kAB_DtljT.svg" srcset=""></p>
 <p><em>题图：同一条字节流里既有要显示的文字，也有改变终端状态的控制序列。</em></p>
-<blockquote><p>本文是《五彩斑斓的黑》系列第三篇。上一篇解释了 <a href="/blog/posts/terminal-series/why-tty-still-exists/">TTY 与 PTY 为什么还存在</a>；这一篇继续处理 PTY Master 读到的字节：Terminal 怎样判断哪些应该显示，哪些应该执行。</p></blockquote>
+<blockquote><p>本文是《五彩斑斓的黑》系列第三篇。上一篇解释了 <a href="/blog/posts/terminal-series/why-tty-still-exists/">TTY 与 PTY 为什么还存在</a>；这一篇接着看 PTY Master 读到的字节，Terminal 怎样区分需要显示的文字和需要执行的控制序列。</p></blockquote>
 <p>在终端里运行：</p>
 <pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="bash"><code><span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#C5E478;--shiki-dark-font-style:italic">printf</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD"> '</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">\033[31mred\033[0m\n</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">'</span></span></code></pre>
-<p>屏幕上会出现红色的 <code>red</code>。如果把同一段输出交给十六进制工具，看到的是：</p>
+<p>屏幕上会出现红色的 <code>red</code>。用十六进制工具查看同一段输出，可以看到：</p>
 <pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="text"><code><span class="line"><span>1b 5b 33 31 6d 72 65 64 1b 5b 30 6d 0a</span></span></code></pre>
-<p>这串数据没有图片、CSS，也没有单独的“颜色通道”。其中的 <code>72 65 64</code> 是字母 <code>red</code>，前后的字节负责修改终端状态。PTY 不解释这些内容，Shell 也不会替文字上色。真正完成解析和显示的是 Terminal Emulator。</p>
+<p>这串数据里没有图片、CSS，也没有单独的“颜色通道”。其中的 <code>72 65 64</code> 对应字母 <code>red</code>，前后的控制字节用来修改终端状态。PTY 不解释这些字节的颜色语义，Shell 也不负责上色；Terminal Emulator 解析控制序列，再把结果绘制到屏幕上。</p>
 <h2 id="pty-传来的只有字节">PTY 传来的只有字节</h2>
 <p>程序把内容写入 stdout。stdout 连接 PTY Slave 时，数据经过内核到达 Master，再被终端模拟器读取。到这里为止，数据仍然只是一串字节。</p>
 <p><img alt="程序输出经过 PTY、Terminal Parser、Screen Buffer 和 Renderer 的处理流程" loading="lazy" decoding="async" width="720" height="1040" src="/blog/_astro/03-output-pipeline.XF2Lq6Qx_ZYgPsE.svg" srcset=""></p>
-<p><em>图 1：PTY 负责连接程序和终端模拟器，颜色从解析器修改屏幕状态之后才出现。</em></p>
-<p>因此，“命令有颜色”和“命令运行在 PTY 中”不是同一件事。程序通常先用 <code>isatty()</code> 判断 stdout 是否连接终端，再决定是否输出颜色序列。PTY 提供终端身份，颜色仍由程序请求、终端渲染。</p>
+<p><em>图 1：PTY 在程序与终端模拟器之间传输字节；解析器修改终端状态后，Renderer 才会绘制出颜色。</em></p>
+<p>“命令有颜色”并不等于“命令运行在 PTY 中”。程序通常先用 <code>isatty()</code> 判断 stdout 是否连接终端，再决定是否输出颜色序列。PTY 提供终端接口；程序决定是否输出颜色序列，终端决定具体怎样显示。</p>
 <h2 id="视频终端需要在文字之外控制屏幕">视频终端需要在文字之外控制屏幕</h2>
-<p>电传打字机把字符打印到纸上，输出基本沿着一个方向前进。回车、换行、退格和响铃可以分别使用 <code>CR</code>、<code>LF</code>、<code>BS</code>、<code>BEL</code> 这样的单字节控制字符表示。</p>
-<p>视频终端带来了可以反复更新的屏幕。主机不仅要发送文字，还要告诉终端把光标移动到第几行第几列、擦除哪一块区域、是否反色、滚动范围在哪里。操作数量增多以后，给每个动作分配一个单独字节不再现实，参数也没有地方表达。</p>
-<p>最终采用的办法，是把可变长度的控制指令直接嵌入字符数据中。<a href="https://ecma-international.org/publications-and-standards/standards/ecma-48/">ECMA-48</a> 对这类控制功能的定义，就是让它们嵌入字符编码数据中交换。传输层仍然只有一条，接收端根据特定字节切换解释方式。</p>
+<p>电传打字机把字符打印到纸上，打印过程基本只向前推进。回车、换行、退格和响铃可以分别使用 <code>CR</code>、<code>LF</code>、<code>BS</code>、<code>BEL</code> 这样的单字节控制字符表示。</p>
+<p>到了视频终端，屏幕内容可以反复改写。主机除了发送文字，还要告诉终端把光标移动到第几行第几列、擦除哪一块区域、是否反色、滚动范围在哪里。操作数量增多以后，无法再为每个动作分配一个单独字节，还要解决参数的表示问题。</p>
+<p>终端协议把可变长度的控制指令直接嵌入字符数据。<a href="https://ecma-international.org/publications-and-standards/standards/ecma-48/">ECMA-48</a> 规定了这类控制功能在字符编码数据中的表示方式。数据仍通过同一条通道传输，接收端读到特定字节后切换解析状态。</p>
 <p><img alt="终端控制能力从单字节控制字符演进为 CSI、OSC 与 DCS" loading="lazy" decoding="async" width="720" height="1040" src="/blog/_astro/03-control-evolution.-7floM_A_EI5Bj.svg" srcset=""></p>
 <p><em>图 2：控制能力从少量单字节动作，扩展成可以携带参数和字符串的序列。</em></p>
-<p>这是一种带内控制协议：文字和命令走同一条链路。它不需要额外连接，也能穿过串口、PTY、SSH 和日志管道；代价是接收端必须持续解析，不能把输出简单当作普通字符串。</p>
-<h2 id="esc-让后续字节暂时换一种解释方式">ESC 让后续字节暂时换一种解释方式</h2>
-<p><code>ESC</code> 的字节值是十六进制 <code>1B</code>。终端在普通状态看到它，不会绘制一个字符，而是进入 Escape 状态，等待后面的字节说明这是什么类型的控制序列。</p>
+<p>这是一种带内控制协议：文字和命令走同一条链路。它不需要额外连接，可以和普通文本一起通过串口、PTY、SSH 或日志管道传输；代价是接收端必须持续解析，不能把输出简单地当作普通字符串。</p>
+<h2 id="esc-改变后续字节的解析方式">ESC 改变后续字节的解析方式</h2>
+<p><code>ESC</code> 的字节值是十六进制 <code>1B</code>。解析器在 Ground 状态读到它时，不会将它写入屏幕，而是切换到 Escape 状态，继续读取后续字节，以确定控制序列的类型。</p>
 <p>以设置红色前景为例：</p>
 <pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="text"><code><span class="line"><span>ESC  [  31  m</span></span>
 <span class="line"><span> │   │   │  └─ 执行 SGR</span></span>
-<span class="line"><span> │   │   └──── 参数：前景色槽位 1</span></span>
+<span class="line"><span> │   │   └──── 参数：红色前景色</span></span>
 <span class="line"><span> │   └──────── 进入 CSI</span></span>
 <span class="line"><span> └──────────── 控制序列开始</span></span></code></pre>
-<p><code>ESC [</code> 是 CSI（Control Sequence Introducer）的常用 7-bit 写法。<code>31</code> 是参数，最后的 <code>m</code> 决定要执行 SGR（Select Graphic Rendition）。只有读到 final byte，解析器才知道这条 CSI 完整了。</p>
+<p><code>ESC [</code> 是 CSI（Control Sequence Introducer）的常用 7-bit 写法。<code>31</code> 是颜色参数，最后的 <code>m</code> 是最终字节（final byte），用来选择 SGR（Select Graphic Rendition）操作并结束这条 CSI。只有 <code>m</code> 到达后，<code>31</code> 才会被按 SGR 参数解释，解析器随后把前景色切换为红色。</p>
 <p><img alt="Terminal Parser 从 Ground 进入 Escape 和 CSI 再返回 Ground 的状态转换" loading="lazy" decoding="async" width="720" height="1060" src="/blog/_astro/03-parser-state.DHAOpZzC_1byd5z.svg" srcset=""></p>
 <p><em>图 3：简化后的状态转换。真实解析器还要处理取消、忽略、字符串和错误恢复等分支。</em></p>
-<p>控制序列不保证一次读取完整到达。PTY 的两次读取可能把 <code>ESC [</code> 和 <code>31m</code> 分开，SSH 包和 WebSocket 消息也可能在任意位置切段。Parser 必须跨数据块保存状态。用正则表达式逐块删除 ANSI 序列，很容易在序列被截断时漏掉一半。</p>
-<p><a href="https://invisible-island.net/xterm/ctlseqs/ctlseqs.html">XTerm Control Sequences</a> 对这个边界有更严格的描述：每个字节根据当前状态落入控制、参数、结束或普通字符等类别；序列完成或者遇到错误后，解析器再回到 Ground 状态。</p>
+<p>一次读取不一定能拿到完整的控制序列。PTY 的两次读取可能分别得到 <code>ESC [</code> 和 <code>31m</code>，SSH 数据包或 WebSocket 消息的边界也可能落在序列中间。Parser 必须跨数据块保存状态。逐块使用正则表达式删除 ANSI 序列，可能漏掉被拆开的部分。</p>
+<p><a href="https://invisible-island.net/xterm/ctlseqs/ctlseqs.html">XTerm Control Sequences</a> 使用更完整的状态机描述这类边界：解析器根据当前状态把每个字节归为控制、参数、结束或普通字符；序列结束或发生错误后，再回到 Ground 状态。</p>
 <h2 id="颜色是终端状态不是字符的一部分">颜色是终端状态，不是字符的一部分</h2>
 <p>SGR 不会修改后面的字符编码。它更新的是“当前显示属性”：前景色、背景色、粗体、下划线等。解析器随后遇到普通字符时，把字符和当前属性一起写入 Screen Buffer。</p>
 <p><img alt="SGR 修改当前显示状态并让后续字符单元继承前景色" loading="lazy" decoding="async" width="720" height="1030" src="/blog/_astro/03-sgr-state.BtBp2XFu_1hyD6K.svg" srcset=""></p>
 <p><em>图 4：SGR 先修改当前状态，之后写入的字符单元继承这些显示属性。</em></p>
-<p>常见的 <code>31</code> 更接近一个语义颜色或调色板槽位，而不是固定的 RGB。深色主题可以把它显示成偏亮的红色，浅色主题可以使用更深的红色。256 色通常使用 <code>38;5;n</code>，True Color 常见写法是 <code>38;2;r;g;b</code>，但最终仍要由终端实现解释。</p>
-<p>这也解释了颜色“串到下一行”的现象。程序输出 <code>ESC[31m</code> 后如果没有再输出 <code>ESC[0m</code>，终端状态仍然是红色，后续文字自然继续使用它。Reset 不是删除已经写出的颜色，而是把当前属性恢复为默认值。</p>
+<p><code>31</code> 表示基础调色板中的红色前景，并不对应固定的 RGB 值。深色主题可以把它显示成偏亮的红色，浅色主题也可以使用更深的红色。256 色通常使用 <code>38;5;n</code>，True Color 常见写法是 <code>38;2;r;g;b</code>，具体色值仍由终端主题和实现决定。</p>
+<p>颜色会“串到下一行”，是因为程序输出 <code>ESC[31m</code> 后没有再输出 <code>ESC[0m</code>。此时终端的当前属性仍然是红色，后续文字也会继续显示为红色。Reset 不会修改已经写入的字符单元，只会把当前显示属性恢复为默认值。</p>
 <h2 id="csiosc-与-dcs-解决不同类型的控制">CSI、OSC 与 DCS 解决不同类型的控制</h2>
-<p>终端控制并不都适合“若干数字参数加一个结束字节”。ECMA-48 和后续终端实现使用了不同形式的控制字符串。</p>
+<p>有些控制操作可以使用“若干数字参数加一个结束字节”，有些则需要携带字符串或设备数据。因此，ECMA-48 和后续终端实现采用了多种控制序列结构。</p>
 <p><img alt="CSI、OSC 和 DCS 的结构、用途与常见示例" loading="lazy" decoding="async" width="720" height="1260" src="/blog/_astro/03-control-families.DJ01yY-4_1H3bQ.svg" srcset=""></p>
-<p><em>图 5：CSI 偏向有限参数的控制，OSC 与 DCS 可以继续读取字符串，直到 ST 等终止符出现。</em></p>
+<p><em>图 5：CSI 适合参数有限的控制操作；OSC 与 DCS 可以继续读取字符串，直到遇到 ST 等终止符。</em></p>
 <h3 id="csi参数化的屏幕控制">CSI：参数化的屏幕控制</h3>
 <p>CSI 常用于光标、屏幕区域和终端模式：</p>
 <ul>
@@ -249,42 +249,42 @@
 <li><code>J</code> 擦除屏幕；</li>
 <li><code>h</code>、<code>l</code> 设置或重置模式。</li>
 </ul>
-<p>参数范围有限，并由 final byte 确定具体操作，适合表示“移动到第几行”或“启用哪个模式”。</p>
-<h3 id="osc把字符串交给终端宿主">OSC：把字符串交给终端宿主</h3>
-<p>OSC（Operating System Command）通常携带命令编号和一段字符串，用于修改窗口标题、声明超链接或请求剪贴板操作。它已经越过字符网格，开始影响承载终端的窗口和桌面环境。</p>
-<p>OSC 经常以 ST（String Terminator）结束。很多终端也为历史兼容接受 <code>BEL</code>，所以一条 OSC 的边界不能只靠固定长度判断。</p>
+<p>CSI 携带有限数量的参数，最终字节决定具体操作，适合表示“移动到第几行”或“启用哪个模式”。</p>
+<h3 id="osc面向终端宿主的字符串指令">OSC：面向终端宿主的字符串指令</h3>
+<p>OSC（Operating System Command）通常携带命令编号和一段字符串，用于修改窗口标题、声明超链接或请求剪贴板操作。这些操作不再局限于字符网格，还会影响终端窗口和桌面环境。</p>
+<p>OSC 经常以 ST（String Terminator）结束。出于兼容性，很多终端也接受 <code>BEL</code>，所以不能只靠固定长度判断一条 OSC 的边界。</p>
 <h3 id="dcs承载设备控制数据">DCS：承载设备控制数据</h3>
-<p>DCS（Device Control String）可以承载设备状态查询、用户定义键和 Sixel 等图形数据。解析器识别 DCS 的头部后，会持续消费数据，直到收到字符串终止符。</p>
+<p>DCS（Device Control String）可以承载设备状态查询、用户定义键和 Sixel 等图形数据。解析器识别 DCS 的头部后，会继续读取数据，直到收到字符串终止符。</p>
 <p>CSI、OSC 和 DCS 不是三个协议版本，也不是由低到高的能力等级。它们解决的是不同的封装问题。</p>
 <h2 id="标准统一了结构没有统一所有终端">标准统一了结构，没有统一所有终端</h2>
-<p>日常所说的“ANSI 转义码”混合了多层来源。ECMA-48 定义了控制功能和编码结构；DEC 终端实现了一组标准能力，也增加了私有模式；xterm、aixterm 和现代终端模拟器又继续加入颜色、鼠标、超链接、图片和宿主集成。</p>
-<p>VT100 推动了 ANSI 兼容序列的普及，但它不是今天这套 256 色或 True Color 能力的完整来源。它主要使用单色屏幕，SGR 可以改变反色、强调等显示属性；更多颜色能力来自后续终端和扩展。<a href="https://vt100.net/docs/vt100-ug/chapter3.html">VT100 Programmer Information</a> 可以看到 ANSI 模式与 DEC Private Mode 同时存在。</p>
-<p>ECMA-48 本身也明确允许设备只实现适合自己的子集。因此，“语法正确”不等于“当前终端支持”。应用可以通过 <code>$TERM</code> 和 terminfo 查询能力，也可以针对明确的终端协议协商扩展。把所有序列硬编码成一张永远正确的表，最终会碰到兼容性边界。</p>
+<p>日常所说的“ANSI 转义码”包含多种来源。ECMA-48 定义了控制功能和编码结构；DEC 终端实现了一组标准能力，也增加了私有模式；xterm、aixterm 和现代终端模拟器又加入了颜色、鼠标、超链接、图片和宿主集成。</p>
+<p>VT100 推动了 ANSI 兼容序列的普及，但它不是今天这套 256 色或 True Color 能力的完整来源。VT100 主要使用单色屏幕，SGR 可以改变反色、强调等显示属性；后来的终端和扩展补充了更多颜色能力。<a href="https://vt100.net/docs/vt100-ug/chapter3.html">VT100 Programmer Information</a> 同时列出了 ANSI 模式与 DEC Private Mode。</p>
+<p>ECMA-48 本身也明确允许设备只实现适合自己的子集。因此，“语法正确”不等于“当前终端支持”。应用可以通过 <code>$TERM</code> 和 terminfo 查询能力，也可以针对明确的终端协议协商扩展。如果把所有序列直接硬编码成固定表，仍然会遇到兼容性问题。</p>
 <blockquote><p><strong>一个实用判断</strong></p><p>PTY 解决“程序是否面对终端”，控制序列解决“程序怎样要求终端改变状态”，<code>$TERM</code> 与 terminfo 解决“这个终端声称支持哪些能力”。三者不要混在一起。</p></blockquote>
-<h2 id="控制序列也是输入边界">控制序列也是输入边界</h2>
-<p>Terminal 接收的并不是纯文本，而是一种会改变显示和宿主状态的协议。可信程序用它绘制 TUI；未经处理的文件、日志和远端输出同样可以携带控制序列。</p>
-<p>影响可能只是清屏或修改标题，也可能涉及超链接、剪贴板和终端特有扩展。终端实现通常会限制敏感能力，日志系统和 Web Terminal 也需要决定哪些序列允许执行、哪些只记录、哪些必须过滤。</p>
-<p>对 Terminal Agent 来说，只保存屏幕上最后留下的文字并不完整。控制序列可能覆盖旧内容、移动光标，或者让显示结果与原始输出不同。需要审计时，原始字节流、解析后的事件和最终屏幕状态承担不同用途，不能相互替代。</p>
+<h2 id="控制序列也需要安全边界">控制序列也需要安全边界</h2>
+<p>Terminal 接收的是一套会改变显示和宿主状态的协议，不是纯文本。可信程序用它绘制 TUI；未经处理的文件、日志和远端输出同样可以携带控制序列。</p>
+<p>这些序列可以清屏或修改标题，也可能涉及超链接、剪贴板和终端特有扩展。终端实现通常会限制敏感能力，日志系统和 Web Terminal 也需要明确哪些序列允许执行、哪些只记录、哪些必须过滤。</p>
+<p>对 Terminal Agent 来说，只保存最终屏幕上的文字还不够。控制序列可能覆盖旧内容、移动光标，或者让显示结果与原始输出不同。需要审计时，应根据用途分别保留原始字节流、解析后的事件和最终屏幕状态，三者不能相互替代。</p>
 <h2 id="在本机看见这些字节">在本机看见这些字节</h2>
 <h3 id="实验一比较渲染结果和原始内容">实验一：比较渲染结果和原始内容</h3>
 <pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="bash"><code><span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#C5E478;--shiki-dark-font-style:italic">printf</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD"> '</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">\033[31mred\033[0m\n</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">'</span><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA"> ></span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> /tmp/color.txt</span></span>
 <span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">od</span><span style="--shiki-light:#2B5581;--shiki-dark:#82AAFF"> -An</span><span style="--shiki-light:#2B5581;--shiki-dark:#82AAFF"> -tx1</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> /tmp/color.txt</span></span>
 <span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">cat</span><span style="--shiki-light:#2B5581;--shiki-dark:#82AAFF"> -v</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> /tmp/color.txt</span></span>
 <span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">cat</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> /tmp/color.txt</span></span></code></pre>
-<p><code>od</code> 显示十六进制字节，<code>cat -v</code> 尝试把不可见控制字符表示出来，最后一条命令则把同一文件重新交给当前终端解析。文件没有“红色格式”，其中保存的仍是控制序列和普通字符。</p>
+<p><code>od</code> 显示十六进制字节，<code>cat -v</code> 尝试把不可见控制字符表示出来，最后一条命令让当前终端解析同一个文件。文件没有“红色格式”，其中保存的仍是控制序列和普通字符。</p>
 <h3 id="实验二观察没有-reset-的结果">实验二：观察没有 Reset 的结果</h3>
 <pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="bash"><code><span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#C5E478;--shiki-dark-font-style:italic">printf</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD"> '</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">\033[31mred</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">'</span></span>
 <span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#C5E478;--shiki-dark-font-style:italic">printf</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD"> '</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D"> still red?\n</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">'</span></span>
 <span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#C5E478;--shiki-dark-font-style:italic">printf</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD"> '</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">\033[0m</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">'</span></span></code></pre>
-<p>第二次 <code>printf</code> 没有设置颜色，却可能继续显示为红色，因为终端的当前属性还没有恢复。第三条命令负责 Reset。</p>
+<p>第二次 <code>printf</code> 没有设置颜色，却会继续显示为红色，因为终端的当前属性还没有恢复。第三条命令再执行 Reset。</p>
 <h3 id="实验三把序列拆成两次写入">实验三：把序列拆成两次写入</h3>
 <pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="bash"><code><span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#C5E478;--shiki-dark-font-style:italic">printf</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD"> '</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">\033[</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">'</span></span>
 <span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#C5E478;--shiki-dark-font-style:italic">printf</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD"> '</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">31mred\033[0m\n</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">'</span></span></code></pre>
 <p>两次写入仍能组成一条完整 CSI。解析器保存的是协议状态，不要求控制序列与某一次系统调用、PTY 读取或网络消息对齐。</p>
-<h2 id="结尾颜色只是终端协议最容易看到的一部分">结尾：颜色只是终端协议最容易看到的一部分</h2>
-<p>程序输出 <code>ESC[31m</code>，PTY 原样传输，Terminal Parser 把它识别为 CSI SGR 并修改当前显示属性。接下来的字符进入 Screen Buffer 时继承这项属性，Renderer 再把它画成主题对应的红色。</p>
-<p>同一套机制也负责移动光标、擦除区域、切换模式、设置标题和承载图形。Terminal 能在一条字节流上构建完整交互界面，关键不在颜色数量，而在这套可以持续解析、可以扩展、同时保留历史兼容的控制协议。</p>
-<blockquote><p><strong>下一篇：《Terminal 为什么可以原地更新屏幕？》</strong></p><p>继续拆开 CSI、光标移动、擦除区域与滚动范围，看看 TUI 如何维护一块持续变化的字符屏幕。</p></blockquote>
+<h2 id="颜色只是终端协议最容易看到的一部分">颜色只是终端协议最容易看到的一部分</h2>
+<p>程序输出 <code>ESC[31m</code>，PTY 原样传输，Terminal Parser 把它识别为 CSI SGR，并修改当前显示属性。接下来的字符进入 Screen Buffer 时继承这项属性，Renderer 按当前主题把它绘制成红色。</p>
+<p>同一套机制还能移动光标、擦除区域、切换模式、设置标题和承载图形。颜色只是最简单的例子。这套协议支持增量解析和扩展，同时兼容历史实现，使 Terminal 可以在一条字节流上构建完整的交互界面。</p>
+<blockquote><p><strong>下一篇：《Terminal 为什么可以原地更新屏幕？》</strong></p><p>下一篇继续介绍 CSI、光标移动、擦除区域与滚动范围，以及 TUI 如何维护一块持续变化的字符屏幕。</p></blockquote>
 <h2 id="资料参考">资料参考</h2>
 <ul>
 <li><a href="https://ecma-international.org/publications-and-standards/standards/ecma-48/">ECMA-48：Control Functions for Coded Character Sets</a>：控制功能、7-bit/8-bit 表示与开放式结构。</li>
