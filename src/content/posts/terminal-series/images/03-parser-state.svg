@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="1060" viewBox="0 0 720 1060" role="img" aria-labelledby="title desc">
+  <title id="title">ESC CSI 的简化解析状态机</title>
+  <desc id="desc">解析器从 Ground 状态进入 Escape、CSI，执行 SGR 后回到 Ground</desc>
+  <rect width="720" height="1060" fill="#ebe7dc"/>
+  <text x="56" y="62" fill="#69706b" font-family="system-ui,sans-serif" font-size="18" letter-spacing="3">A STREAMING PARSER</text>
+  <g font-family="system-ui,sans-serif">
+    <rect x="86" y="102" width="548" height="156" rx="4" fill="#dce9e6" stroke="#79aaa6" stroke-width="2"/>
+    <text x="116" y="143" fill="#2d7e82" font-size="16" font-weight="800">STATE 01</text>
+    <text x="116" y="190" fill="#171916" font-family="ui-monospace,monospace" font-size="34" font-weight="800">GROUND</text>
+    <text x="116" y="226" fill="#686b63" font-size="19">普通字符直接进入屏幕</text>
+
+    <path d="M360 258v78" stroke="#2d7e82" stroke-width="4"/>
+    <path d="m348 322 12 15 12-15" fill="none" stroke="#2d7e82" stroke-width="4"/>
+    <rect x="398" y="282" width="94" height="38" rx="19" fill="#171b1b"/>
+    <text x="445" y="307" text-anchor="middle" fill="#8bc2bb" font-family="ui-monospace,monospace" font-size="16">ESC</text>
+
+    <rect x="86" y="338" width="548" height="156" rx="4" fill="#fbfaf6" stroke="#cbc5b8" stroke-width="2"/>
+    <text x="116" y="379" fill="#92704c" font-size="16" font-weight="800">STATE 02</text>
+    <text x="116" y="426" fill="#171916" font-family="ui-monospace,monospace" font-size="34" font-weight="800">ESCAPE</text>
+    <text x="116" y="462" fill="#686b63" font-size="19">识别后续控制序列的类型</text>
+
+    <path d="M360 494v78" stroke="#2d7e82" stroke-width="4"/>
+    <path d="m348 558 12 15 12-15" fill="none" stroke="#2d7e82" stroke-width="4"/>
+    <rect x="398" y="518" width="94" height="38" rx="19" fill="#171b1b"/>
+    <text x="445" y="544" text-anchor="middle" fill="#f4f0e7" font-family="ui-monospace,monospace" font-size="18">[</text>
+
+    <rect x="86" y="574" width="548" height="176" rx="4" fill="#f2e4d2" stroke="#d0b184" stroke-width="2"/>
+    <text x="116" y="615" fill="#ad6a26" font-size="16" font-weight="800">STATE 03</text>
+    <text x="116" y="662" fill="#171916" font-family="ui-monospace,monospace" font-size="34" font-weight="800">CSI PARAM</text>
+    <text x="116" y="699" fill="#686b63" font-size="19">持续收集参数：3 → 31</text>
+    <text x="116" y="730" fill="#686b63" font-size="17">即使数据被拆成多次读取，状态也不会丢失</text>
+
+    <path d="M360 750v78" stroke="#2d7e82" stroke-width="4"/>
+    <path d="m348 814 12 15 12-15" fill="none" stroke="#2d7e82" stroke-width="4"/>
+    <rect x="398" y="774" width="94" height="38" rx="19" fill="#171b1b"/>
+    <text x="445" y="800" text-anchor="middle" fill="#d7a6ee" font-family="ui-monospace,monospace" font-size="18">m</text>
+
+    <rect x="86" y="830" width="548" height="154" rx="4" fill="#171b1b"/>
+    <text x="116" y="871" fill="#82bbb5" font-size="16" font-weight="800">DISPATCH → GROUND</text>
+    <text x="116" y="918" fill="#f4f0e7" font-size="31" font-weight="800">执行 SGR 31</text>
+    <text x="116" y="953" fill="#ff766b" font-size="19">当前前景色切换到 red 槽位</text>
+  </g>
+  <text x="56" y="1027" fill="#69706b" font-family="system-ui,sans-serif" font-size="17">final byte 决定动作；完成后继续处理同一条字节流。</text>
+</svg>
