@@ -1,46 +1,67 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc">
-  <title id="title">同一条字节流显示为彩色文字</title>
-  <desc id="desc">终端解析器把控制序列解释为显示状态，把普通字符绘制成红色文字</desc>
+  <title id="title">ESC[31m 控制序列的组成</title>
+  <desc id="desc">ESC 左方括号标记 CSI 开始，参数 31 把前景色设为红色，最终字节 m 确定执行 SGR 并结束控制序列，后面的 red 作为普通文字继承红色状态</desc>
   <rect width="1200" height="675" fill="#ebe7dc"/>
-  <text x="76" y="58" fill="#69706b" font-family="system-ui,sans-serif" font-size="18" letter-spacing="4">ONE BYTE STREAM · TWO MEANINGS</text>
+  <text x="76" y="58" fill="#69706b" font-family="system-ui,sans-serif" font-size="18" letter-spacing="4">ONE BYTE STREAM · FOUR ROLES</text>
+
   <rect x="76" y="88" width="1048" height="514" rx="18" fill="#171b1b"/>
   <rect x="76" y="88" width="1048" height="58" rx="18" fill="#242b2a"/>
   <rect x="76" y="128" width="1048" height="18" fill="#242b2a"/>
   <circle cx="113" cy="117" r="8" fill="#d66559"/>
   <circle cx="139" cy="117" r="8" fill="#d7a24c"/>
   <circle cx="165" cy="117" r="8" fill="#66a967"/>
-  <text x="1078" y="123" text-anchor="end" fill="#83908b" font-family="ui-monospace,monospace" font-size="14">byte-stream</text>
-  <g font-family="ui-monospace,monospace" font-size="21" text-anchor="middle">
-    <rect x="147" y="211" width="86" height="68" rx="7" fill="#24302f" stroke="#53827d"/>
-    <text x="190" y="253" fill="#8fd0c7">1B</text>
-    <rect x="246" y="211" width="86" height="68" rx="7" fill="#24302f" stroke="#53827d"/>
-    <text x="289" y="253" fill="#8fd0c7">5B</text>
-    <rect x="345" y="211" width="86" height="68" rx="7" fill="#332f25" stroke="#816d42"/>
-    <text x="388" y="253" fill="#e4c06b">33</text>
-    <rect x="444" y="211" width="86" height="68" rx="7" fill="#332f25" stroke="#816d42"/>
-    <text x="487" y="253" fill="#e4c06b">31</text>
-    <rect x="543" y="211" width="86" height="68" rx="7" fill="#30273a" stroke="#74558e"/>
-    <text x="586" y="253" fill="#d2a3ed">6D</text>
-    <rect x="642" y="211" width="86" height="68" rx="7" fill="#242b2a" stroke="#465451"/>
-    <text x="685" y="253" fill="#f4f0e7">72</text>
-    <rect x="741" y="211" width="86" height="68" rx="7" fill="#242b2a" stroke="#465451"/>
-    <text x="784" y="253" fill="#f4f0e7">65</text>
-    <rect x="840" y="211" width="86" height="68" rx="7" fill="#242b2a" stroke="#465451"/>
-    <text x="883" y="253" fill="#f4f0e7">64</text>
-  </g>
-  <g font-family="system-ui,sans-serif" font-size="15" text-anchor="middle">
-    <text x="239" y="309" fill="#78b8b0">ESC + CSI</text>
-    <text x="487" y="309" fill="#c9a85d">PARAMETER</text>
-    <text x="586" y="309" fill="#b58bcf">FINAL</text>
-    <text x="784" y="309" fill="#aeb8b4">TEXT</text>
-  </g>
-  <path d="M600 338v62" stroke="#5f746f" stroke-width="4"/>
-  <path d="m588 388 12 14 12-14" fill="none" stroke="#5f746f" stroke-width="4"/>
-  <rect x="345" y="426" width="510" height="94" rx="9" fill="#101413" stroke="#35423f"/>
-  <text x="388" y="485" fill="#8fd0c7" font-family="ui-monospace,monospace" font-size="31">$</text>
-  <text x="438" y="485" fill="#ff766b" font-family="ui-monospace,monospace" font-size="38" font-weight="700">red</text>
-  <rect x="507" y="452" width="14" height="38" fill="#e8eee9"/>
+  <text x="1078" y="123" text-anchor="end" fill="#83908b" font-family="ui-monospace,monospace" font-size="14">ESC [ 31 m red</text>
+
   <g font-family="system-ui,sans-serif">
-    <text x="76" y="638" fill="#69706b" font-size="18">PTY 只传字节；Terminal Parser 决定哪些字节改变状态，哪些字节进入屏幕。</text>
+    <rect x="116" y="184" width="226" height="204" rx="12" fill="#203332" stroke="#53827d" stroke-width="2"/>
+    <text x="229" y="226" text-anchor="middle" fill="#78b8b0" font-size="17" font-weight="800">CSI 序列开头</text>
+    <text x="229" y="278" text-anchor="middle" fill="#f4f0e7" font-family="ui-monospace,monospace" font-size="34" font-weight="700">ESC [</text>
+    <text x="229" y="310" text-anchor="middle" fill="#8fd0c7" font-family="ui-monospace,monospace" font-size="17">1B 5B</text>
+    <line x1="146" y1="332" x2="312" y2="332" stroke="#426561"/>
+    <text x="229" y="362" text-anchor="middle" fill="#c2cfcb" font-size="17">进入 CSI 解析</text>
+
+    <path d="M342 286h24" stroke="#5f746f" stroke-width="3"/>
+    <path d="m356 278 10 8-10 8" fill="none" stroke="#5f746f" stroke-width="3"/>
+
+    <rect x="366" y="184" width="226" height="204" rx="12" fill="#332f25" stroke="#a38443" stroke-width="2"/>
+    <text x="479" y="226" text-anchor="middle" fill="#e4c06b" font-size="17" font-weight="800">颜色参数 31</text>
+    <text x="479" y="278" text-anchor="middle" fill="#f4f0e7" font-family="ui-monospace,monospace" font-size="34" font-weight="700">31</text>
+    <text x="479" y="310" text-anchor="middle" fill="#e4c06b" font-family="ui-monospace,monospace" font-size="17">33 31</text>
+    <line x1="396" y1="332" x2="562" y2="332" stroke="#725f39"/>
+    <text x="479" y="356" text-anchor="middle" fill="#e7d9b7" font-size="16">在 SGR 中表示</text>
+    <text x="479" y="377" text-anchor="middle" fill="#e7d9b7" font-size="16">红色前景</text>
+
+    <path d="M592 286h24" stroke="#5f746f" stroke-width="3"/>
+    <path d="m606 278 10 8-10 8" fill="none" stroke="#5f746f" stroke-width="3"/>
+
+    <rect x="616" y="184" width="226" height="204" rx="12" fill="#30273a" stroke="#74558e" stroke-width="2"/>
+    <text x="729" y="226" text-anchor="middle" fill="#d2a3ed" font-size="17" font-weight="800">最终字节 m</text>
+    <text x="729" y="278" text-anchor="middle" fill="#f4f0e7" font-family="ui-monospace,monospace" font-size="34" font-weight="700">m</text>
+    <text x="729" y="310" text-anchor="middle" fill="#d2a3ed" font-family="ui-monospace,monospace" font-size="17">6D</text>
+    <line x1="646" y1="332" x2="812" y2="332" stroke="#654979"/>
+    <text x="729" y="356" text-anchor="middle" fill="#ddc8e9" font-size="16">选择 SGR 解释参数</text>
+    <text x="729" y="377" text-anchor="middle" fill="#ddc8e9" font-size="16">同时结束这条 CSI</text>
+
+    <path d="M842 286h24" stroke="#5f746f" stroke-width="3"/>
+    <path d="m856 278 10 8-10 8" fill="none" stroke="#5f746f" stroke-width="3"/>
+
+    <rect x="866" y="184" width="218" height="204" rx="12" fill="#242b2a" stroke="#52605d" stroke-width="2"/>
+    <text x="975" y="226" text-anchor="middle" fill="#aeb8b4" font-size="17" font-weight="800">普通文本</text>
+    <text x="975" y="278" text-anchor="middle" fill="#ff766b" font-family="ui-monospace,monospace" font-size="34" font-weight="700">red</text>
+    <text x="975" y="310" text-anchor="middle" fill="#b8c2bd" font-family="ui-monospace,monospace" font-size="17">72 65 64</text>
+    <line x1="896" y1="332" x2="1054" y2="332" stroke="#465451"/>
+    <text x="975" y="356" text-anchor="middle" fill="#c2cfcb" font-size="16">继承当前红色状态</text>
+    <text x="975" y="377" text-anchor="middle" fill="#c2cfcb" font-size="16">写入 Screen Buffer</text>
   </g>
+
+  <path d="M390 405v10h428v-10" fill="none" stroke="#8d7651" stroke-width="3"/>
+  <text x="604" y="442" text-anchor="middle" fill="#e4c06b" font-family="system-ui,sans-serif" font-size="18" font-weight="700">31 + m → 执行 SGR：前景色切换为红色</text>
+  <path d="M604 452v28" stroke="#5f746f" stroke-width="4"/>
+  <path d="m592 468 12 14 12-14" fill="none" stroke="#5f746f" stroke-width="4"/>
+  <rect x="345" y="492" width="510" height="76" rx="9" fill="#101413" stroke="#35423f"/>
+  <text x="388" y="543" fill="#8fd0c7" font-family="ui-monospace,monospace" font-size="29">$</text>
+  <text x="438" y="543" fill="#ff766b" font-family="ui-monospace,monospace" font-size="36" font-weight="700">red</text>
+  <rect x="507" y="515" width="14" height="34" fill="#e8eee9"/>
+
+  <text x="76" y="638" fill="#69706b" font-family="system-ui,sans-serif" font-size="18">PTY 只传字节；Terminal Parser 用开头识别 CSI，用参数选颜色，用最终字节确定操作并结束序列。</text>
 </svg>
