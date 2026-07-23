@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="1040" viewBox="0 0 720 1040" role="img" aria-labelledby="title desc">
+  <title id="title">程序输出到终端像素的处理流程</title>
+  <desc id="desc">程序经过 PTY、Terminal Parser、Screen Buffer 和 Renderer 生成最终像素</desc>
+  <rect width="720" height="1040" fill="#ebe7dc"/>
+  <text x="56" y="62" fill="#69706b" font-family="system-ui,sans-serif" font-size="18" letter-spacing="3">FROM STDOUT TO PIXELS</text>
+  <g font-family="system-ui,sans-serif">
+    <rect x="76" y="104" width="568" height="128" rx="4" fill="#fbfaf6" stroke="#cbc5b8" stroke-width="2"/>
+    <text x="106" y="144" fill="#92704c" font-size="16" font-weight="800">01 · PRODUCER</text>
+    <text x="106" y="190" fill="#171916" font-size="32" font-weight="800">程序写入 stdout</text>
+    <path d="M360 232v54" stroke="#2d7e82" stroke-width="4"/>
+    <path d="m349 272 11 14 11-14" fill="none" stroke="#2d7e82" stroke-width="4"/>
+
+    <rect x="76" y="286" width="568" height="128" rx="4" fill="#f2e4d2" stroke="#d0b184" stroke-width="2"/>
+    <text x="106" y="326" fill="#ad6a26" font-size="16" font-weight="800">02 · TRANSPORT</text>
+    <text x="106" y="372" fill="#171916" font-size="32" font-weight="800">PTY 传输字节</text>
+    <text x="106" y="400" fill="#686b63" font-size="18">不知道什么是颜色、光标或文字</text>
+    <path d="M360 414v54" stroke="#2d7e82" stroke-width="4"/>
+    <path d="m349 454 11 14 11-14" fill="none" stroke="#2d7e82" stroke-width="4"/>
+
+    <rect x="76" y="468" width="568" height="142" rx="4" fill="#dce9e6" stroke="#79aaa6" stroke-width="2"/>
+    <text x="106" y="508" fill="#2d7e82" font-size="16" font-weight="800">03 · PROTOCOL</text>
+    <text x="106" y="554" fill="#171916" font-size="32" font-weight="800">Terminal Parser</text>
+    <text x="106" y="585" fill="#686b63" font-size="18">区分普通字符与控制序列</text>
+    <path d="M360 610v54" stroke="#2d7e82" stroke-width="4"/>
+    <path d="m349 650 11 14 11-14" fill="none" stroke="#2d7e82" stroke-width="4"/>
+
+    <rect x="76" y="664" width="568" height="164" rx="4" fill="#171b1b"/>
+    <text x="106" y="706" fill="#82bbb5" font-size="16" font-weight="800">04 · TERMINAL STATE</text>
+    <text x="106" y="754" fill="#f4f0e7" font-size="32" font-weight="800">Screen Buffer</text>
+    <text x="106" y="788" fill="#b8c2bd" font-size="18">字符 + 前景色 + 背景色 + 显示属性</text>
+    <path d="M360 828v54" stroke="#2d7e82" stroke-width="4"/>
+    <path d="m349 868 11 14 11-14" fill="none" stroke="#2d7e82" stroke-width="4"/>
+
+    <rect x="76" y="882" width="568" height="104" rx="4" fill="#fbfaf6" stroke="#cbc5b8" stroke-width="2"/>
+    <text x="106" y="922" fill="#92704c" font-size="16" font-weight="800">05 · RENDERER</text>
+    <text x="106" y="966" fill="#d34e43" font-size="31" font-weight="800">绘制彩色像素</text>
+  </g>
+  <text x="56" y="1018" fill="#69706b" font-family="system-ui,sans-serif" font-size="17">颜色在终端状态中出现，不在 PTY 传输层中出现。</text>
+</svg>

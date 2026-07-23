@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="1030" viewBox="0 0 720 1030" role="img" aria-labelledby="title desc">
+  <title id="title">SGR 通过当前状态改变字符显示属性</title>
+  <desc id="desc">ESC 31m 设置红色前景，red 三个字符继承属性，ESC 0m 恢复默认</desc>
+  <rect width="720" height="1030" fill="#ebe7dc"/>
+  <text x="56" y="62" fill="#69706b" font-family="system-ui,sans-serif" font-size="18" letter-spacing="3">COLOR IS TERMINAL STATE</text>
+  <g font-family="system-ui,sans-serif">
+    <rect x="76" y="104" width="568" height="132" rx="4" fill="#f2e4d2" stroke="#d0b184" stroke-width="2"/>
+    <text x="106" y="145" fill="#ad6a26" font-size="16" font-weight="800">01 · SGR COMMAND</text>
+    <text x="106" y="194" fill="#b94239" font-family="ui-monospace,monospace" font-size="33" font-weight="800">ESC [ 31 m</text>
+    <path d="M360 236v62" stroke="#2d7e82" stroke-width="4"/>
+    <path d="m348 284 12 15 12-15" fill="none" stroke="#2d7e82" stroke-width="4"/>
+
+    <rect x="76" y="300" width="568" height="244" rx="4" fill="#171b1b"/>
+    <text x="106" y="342" fill="#82bbb5" font-size="16" font-weight="800">02 · CURRENT RENDITION</text>
+    <text x="106" y="393" fill="#ff766b" font-family="ui-monospace,monospace" font-size="27" font-weight="800">foreground: red</text>
+    <text x="106" y="437" fill="#b8c2bd" font-family="ui-monospace,monospace" font-size="22">background: default</text>
+    <text x="106" y="477" fill="#b8c2bd" font-family="ui-monospace,monospace" font-size="22">underline: off</text>
+    <text x="106" y="517" fill="#b8c2bd" font-family="ui-monospace,monospace" font-size="22">intensity: normal</text>
+    <path d="M360 544v62" stroke="#2d7e82" stroke-width="4"/>
+    <path d="m348 592 12 15 12-15" fill="none" stroke="#2d7e82" stroke-width="4"/>
+
+    <rect x="76" y="608" width="568" height="176" rx="4" fill="#fbfaf6" stroke="#cbc5b8" stroke-width="2"/>
+    <text x="106" y="649" fill="#92704c" font-size="16" font-weight="800">03 · SCREEN CELLS</text>
+    <g font-family="ui-monospace,monospace" font-size="38" font-weight="800" text-anchor="middle">
+      <rect x="189" y="683" width="92" height="72" rx="4" fill="#171b1b"/>
+      <text x="235" y="730" fill="#ff766b">r</text>
+      <rect x="314" y="683" width="92" height="72" rx="4" fill="#171b1b"/>
+      <text x="360" y="730" fill="#ff766b">e</text>
+      <rect x="439" y="683" width="92" height="72" rx="4" fill="#171b1b"/>
+      <text x="485" y="730" fill="#ff766b">d</text>
+    </g>
+    <path d="M360 784v62" stroke="#2d7e82" stroke-width="4"/>
+    <path d="m348 832 12 15 12-15" fill="none" stroke="#2d7e82" stroke-width="4"/>
+
+    <rect x="76" y="848" width="568" height="112" rx="4" fill="#dce9e6" stroke="#79aaa6" stroke-width="2"/>
+    <text x="106" y="889" fill="#2d7e82" font-size="16" font-weight="800">04 · RESET</text>
+    <text x="106" y="934" fill="#171916" font-family="ui-monospace,monospace" font-size="30" font-weight="800">ESC [ 0 m → default</text>
+  </g>
+  <text x="56" y="1002" fill="#69706b" font-family="system-ui,sans-serif" font-size="17">Reset 修改后续状态，不会重写已经进入屏幕的字符单元。</text>
+</svg>

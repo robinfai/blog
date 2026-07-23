@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc">
+  <title id="title">同一条字节流显示为彩色文字</title>
+  <desc id="desc">终端解析器把控制序列解释为显示状态，把普通字符绘制成红色文字</desc>
+  <rect width="1200" height="675" fill="#ebe7dc"/>
+  <text x="76" y="58" fill="#69706b" font-family="system-ui,sans-serif" font-size="18" letter-spacing="4">ONE BYTE STREAM · TWO MEANINGS</text>
+  <rect x="76" y="88" width="1048" height="514" rx="18" fill="#171b1b"/>
+  <rect x="76" y="88" width="1048" height="58" rx="18" fill="#242b2a"/>
+  <rect x="76" y="128" width="1048" height="18" fill="#242b2a"/>
+  <circle cx="113" cy="117" r="8" fill="#d66559"/>
+  <circle cx="139" cy="117" r="8" fill="#d7a24c"/>
+  <circle cx="165" cy="117" r="8" fill="#66a967"/>
+  <text x="1078" y="123" text-anchor="end" fill="#83908b" font-family="ui-monospace,monospace" font-size="14">byte-stream</text>
+  <g font-family="ui-monospace,monospace" font-size="21" text-anchor="middle">
+    <rect x="147" y="211" width="86" height="68" rx="7" fill="#24302f" stroke="#53827d"/>
+    <text x="190" y="253" fill="#8fd0c7">1B</text>
+    <rect x="246" y="211" width="86" height="68" rx="7" fill="#24302f" stroke="#53827d"/>
+    <text x="289" y="253" fill="#8fd0c7">5B</text>
+    <rect x="345" y="211" width="86" height="68" rx="7" fill="#332f25" stroke="#816d42"/>
+    <text x="388" y="253" fill="#e4c06b">33</text>
+    <rect x="444" y="211" width="86" height="68" rx="7" fill="#332f25" stroke="#816d42"/>
+    <text x="487" y="253" fill="#e4c06b">31</text>
+    <rect x="543" y="211" width="86" height="68" rx="7" fill="#30273a" stroke="#74558e"/>
+    <text x="586" y="253" fill="#d2a3ed">6D</text>
+    <rect x="642" y="211" width="86" height="68" rx="7" fill="#242b2a" stroke="#465451"/>
+    <text x="685" y="253" fill="#f4f0e7">72</text>
+    <rect x="741" y="211" width="86" height="68" rx="7" fill="#242b2a" stroke="#465451"/>
+    <text x="784" y="253" fill="#f4f0e7">65</text>
+    <rect x="840" y="211" width="86" height="68" rx="7" fill="#242b2a" stroke="#465451"/>
+    <text x="883" y="253" fill="#f4f0e7">64</text>
+  </g>
+  <g font-family="system-ui,sans-serif" font-size="15" text-anchor="middle">
+    <text x="239" y="309" fill="#78b8b0">ESC + CSI</text>
+    <text x="487" y="309" fill="#c9a85d">PARAMETER</text>
+    <text x="586" y="309" fill="#b58bcf">FINAL</text>
+    <text x="784" y="309" fill="#aeb8b4">TEXT</text>
+  </g>
+  <path d="M600 338v62" stroke="#5f746f" stroke-width="4"/>
+  <path d="m588 388 12 14 12-14" fill="none" stroke="#5f746f" stroke-width="4"/>
+  <rect x="345" y="426" width="510" height="94" rx="9" fill="#101413" stroke="#35423f"/>
+  <text x="388" y="485" fill="#8fd0c7" font-family="ui-monospace,monospace" font-size="31">$</text>
+  <text x="438" y="485" fill="#ff766b" font-family="ui-monospace,monospace" font-size="38" font-weight="700">red</text>
+  <rect x="507" y="452" width="14" height="38" fill="#e8eee9"/>
+  <g font-family="system-ui,sans-serif">
+    <text x="76" y="638" fill="#69706b" font-size="18">PTY 只传字节；Terminal Parser 决定哪些字节改变状态，哪些字节进入屏幕。</text>
+  </g>
+</svg>
