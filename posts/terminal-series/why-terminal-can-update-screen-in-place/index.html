@@ -1,0 +1,819 @@
+<!DOCTYPE html><html dir="ltr" lang="zh-CN" class="overflow-y-scroll scroll-smooth"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" type="image/svg+xml" href="/blog/favicon.svg"><link rel="canonical" href="https://robinfai.github.io/blog/posts/terminal-series/why-terminal-can-update-screen-in-place/"><meta name="generator" content="Astro v6.4.2"><!-- Font --><style>@font-face{font-family:"Google Sans Code-1a30c214885cb404";src:url("/blog/_astro/fonts/02154cca78ac33f2.woff") format("woff"), url("/blog/_astro/fonts/478e42e4694872ef.ttf") format("truetype");font-display:swap;font-weight:300;font-style:italic;}@font-face{font-family:"Google Sans Code-1a30c214885cb404";src:url("/blog/_astro/fonts/3a32a7a7a67f4f58.woff") format("woff"), url("/blog/_astro/fonts/0863f4f6964aa89c.ttf") format("truetype");font-display:swap;font-weight:400;font-style:italic;}@font-face{font-family:"Google Sans Code-1a30c214885cb404";src:url("/blog/_astro/fonts/a5c5808c25effec9.woff") format("woff"), url("/blog/_astro/fonts/792eded6cb3f0350.ttf") format("truetype");font-display:swap;font-weight:500;font-style:italic;}@font-face{font-family:"Google Sans Code-1a30c214885cb404";src:url("/blog/_astro/fonts/14314705006234cb.woff") format("woff"), url("/blog/_astro/fonts/87d8fc1072d4917b.ttf") format("truetype");font-display:swap;font-weight:600;font-style:italic;}@font-face{font-family:"Google Sans Code-1a30c214885cb404";src:url("/blog/_astro/fonts/c33265ba093eb291.woff") format("woff"), url("/blog/_astro/fonts/ec883ed4db81a7d9.ttf") format("truetype");font-display:swap;font-weight:700;font-style:italic;}@font-face{font-family:"Google Sans Code-1a30c214885cb404";src:url("/blog/_astro/fonts/c26ad40d3b1d9169.woff") format("woff"), url("/blog/_astro/fonts/7a5ee0cfcde31b81.ttf") format("truetype");font-display:swap;font-weight:300;font-style:normal;}@font-face{font-family:"Google Sans Code-1a30c214885cb404";src:url("/blog/_astro/fonts/87ca066ba5b2c7cf.woff") format("woff"), url("/blog/_astro/fonts/f4e25dfe9d6152ec.ttf") format("truetype");font-display:swap;font-weight:400;font-style:normal;}@font-face{font-family:"Google Sans Code-1a30c214885cb404";src:url("/blog/_astro/fonts/a9a0e80c053be3d5.woff") format("woff"), url("/blog/_astro/fonts/a9df48ecd03749e4.ttf") format("truetype");font-display:swap;font-weight:500;font-style:normal;}@font-face{font-family:"Google Sans Code-1a30c214885cb404";src:url("/blog/_astro/fonts/da468df88542c99b.woff") format("woff"), url("/blog/_astro/fonts/90f9809471092714.ttf") format("truetype");font-display:swap;font-weight:600;font-style:normal;}@font-face{font-family:"Google Sans Code-1a30c214885cb404";src:url("/blog/_astro/fonts/f914de358bc554f6.woff") format("woff"), url("/blog/_astro/fonts/dbc9996f99c63e07.ttf") format("truetype");font-display:swap;font-weight:700;font-style:normal;}@font-face{font-family:"Google Sans Code-1a30c214885cb404 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:300;font-style:italic;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-1a30c214885cb404 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:400;font-style:italic;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-1a30c214885cb404 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:500;font-style:italic;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-1a30c214885cb404 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:600;font-style:italic;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-1a30c214885cb404 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:700;font-style:italic;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-1a30c214885cb404 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:300;font-style:normal;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-1a30c214885cb404 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:400;font-style:normal;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-1a30c214885cb404 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:500;font-style:normal;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-1a30c214885cb404 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:600;font-style:normal;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-1a30c214885cb404 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:700;font-style:normal;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}:root{--font-google-sans-code:"Google Sans Code-1a30c214885cb404","Google Sans Code-1a30c214885cb404 fallback: Courier New",monospace;}</style><!-- Primary meta --><title>Terminal 为什么可以原地更新屏幕？ | Robin 的笔记</title><meta name="title" content="Terminal 为什么可以原地更新屏幕？ | Robin 的笔记"><meta name="description" content="《五彩斑斓的黑》第四篇：从回车覆盖一行开始，理解光标、擦除操作、Screen Buffer 和 TUI diff 如何让终端在同一块字符网格上持续更新。"><meta name="author" content="Robin"><link rel="sitemap" href="/blog/sitemap-index.xml"><!-- Open Graph --><meta property="og:type" content="website"><meta property="og:site_name" content="Robin 的笔记"><meta property="og:title" content="Terminal 为什么可以原地更新屏幕？ | Robin 的笔记"><meta property="og:description" content="《五彩斑斓的黑》第四篇：从回车覆盖一行开始，理解光标、擦除操作、Screen Buffer 和 TUI diff 如何让终端在同一块字符网格上持续更新。"><meta property="og:url" content="https://robinfai.github.io/blog/posts/terminal-series/why-terminal-can-update-screen-in-place/"><meta property="og:image" content="https://robinfai.github.io/blog/_astro/04-in-place-update-hero.-k7gHaJR.svg"><!-- Twitter / X --><meta property="twitter:card" content="summary_large_image"><meta property="twitter:url" content="https://robinfai.github.io/blog/posts/terminal-series/why-terminal-can-update-screen-in-place/"><meta property="twitter:title" content="Terminal 为什么可以原地更新屏幕？ | Robin 的笔记"><meta property="twitter:description" content="《五彩斑斓的黑》第四篇：从回车覆盖一行开始，理解光标、擦除操作、Screen Buffer 和 TUI diff 如何让终端在同一块字符网格上持续更新。"><meta property="twitter:image" content="https://robinfai.github.io/blog/_astro/04-in-place-update-hero.-k7gHaJR.svg"><!-- RSS autodiscovery --><link rel="alternate" type="application/rss+xml" title="Robin 的笔记" href="https://robinfai.github.io/blog/rss.xml"><!-- Filled at runtime by theme.ts to match the current background colour --><meta name="theme-color" content=""><!-- Extra head content injected by child layouts (e.g. JSON-LD, article meta) -->  <meta property="og:type" content="article"> <meta property="article:published_time" content="2026-08-21T13:05:00.000Z"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"Terminal 为什么可以原地更新屏幕？ | Robin 的笔记","image":"https://robinfai.github.io/blog/_astro/04-in-place-update-hero.-k7gHaJR.svg","datePublished":"2026-08-21T13:05:00.000Z","author":[{"@type":"Person","name":"Robin","url":"https://github.com/robinfai"}]}</script> <!--
+      Inline FOUC-prevention script: sets data-theme on <html> before
+      the browser paints. Runs synchronously, no defer/async.
+    --><script>
+      (function () {
+        const stored = localStorage.getItem("theme");
+        const prefersDark = window.matchMedia(
+          "(prefers-color-scheme: dark)"
+        ).matches;
+        const theme = stored ?? (prefersDark ? "dark" : "light");
+        const root = document.firstElementChild;
+        root?.setAttribute("data-theme", theme);
+        root?.classList.toggle("dark", theme === "dark");
+        // Expose value so theme.ts can skip re-detection.
+        window.__theme = { value: theme };
+      })();
+    </script><meta name="astro-view-transitions-enabled" content="true"><meta name="astro-view-transitions-fallback" content="animate"><script type="module" src="/blog/_astro/ClientRouter.astro_astro_type_script_index_0_lang.CAqDO0tx.js"></script><link rel="stylesheet" href="/blog/_astro/Footer.DUK7Gk0i.css">
+<style>@keyframes astroFadeInOut{0%{opacity:1}to{opacity:0}}@keyframes astroFadeIn{0%{opacity:0;mix-blend-mode:plus-lighter}to{opacity:1;mix-blend-mode:plus-lighter}}@keyframes astroFadeOut{0%{opacity:1;mix-blend-mode:plus-lighter}to{opacity:0;mix-blend-mode:plus-lighter}}@keyframes astroSlideFromRight{0%{transform:translate(100%)}}@keyframes astroSlideFromLeft{0%{transform:translate(-100%)}}@keyframes astroSlideToRight{to{transform:translate(100%)}}@keyframes astroSlideToLeft{to{transform:translate(-100%)}}@media(prefers-reduced-motion){::view-transition-group(*),::view-transition-old(*),::view-transition-new(*){animation:none!important}[data-astro-transition-scope]{animation:none!important}}
+</style><style>[data-astro-transition-scope="astro-36ssibgs-1"] { view-transition-name: \4E94\5F69\6591\6593\7684\9ED1; }@layer astro { ::view-transition-old(\4E94\5F69\6591\6593\7684\9ED1) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }::view-transition-new(\4E94\5F69\6591\6593\7684\9ED1) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back]::view-transition-old(\4E94\5F69\6591\6593\7684\9ED1) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back]::view-transition-new(\4E94\5F69\6591\6593\7684\9ED1) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; } }[data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-36ssibgs-1"],
+			[data-astro-transition-fallback="old"][data-astro-transition-scope="astro-36ssibgs-1"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-36ssibgs-1"],
+			[data-astro-transition-fallback="new"][data-astro-transition-scope="astro-36ssibgs-1"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back][data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-36ssibgs-1"],
+			[data-astro-transition=back][data-astro-transition-fallback="old"][data-astro-transition-scope="astro-36ssibgs-1"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back][data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-36ssibgs-1"],
+			[data-astro-transition=back][data-astro-transition-fallback="new"][data-astro-transition-scope="astro-36ssibgs-1"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }</style><style>[data-astro-transition-scope="astro-36ssibgs-2"] { view-transition-name: terminal; }@layer astro { ::view-transition-old(terminal) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }::view-transition-new(terminal) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back]::view-transition-old(terminal) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back]::view-transition-new(terminal) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; } }[data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-36ssibgs-2"],
+			[data-astro-transition-fallback="old"][data-astro-transition-scope="astro-36ssibgs-2"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-36ssibgs-2"],
+			[data-astro-transition-fallback="new"][data-astro-transition-scope="astro-36ssibgs-2"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back][data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-36ssibgs-2"],
+			[data-astro-transition=back][data-astro-transition-fallback="old"][data-astro-transition-scope="astro-36ssibgs-2"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back][data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-36ssibgs-2"],
+			[data-astro-transition=back][data-astro-transition-fallback="new"][data-astro-transition-scope="astro-36ssibgs-2"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }</style><style>[data-astro-transition-scope="astro-36ssibgs-3"] { view-transition-name: ansi; }@layer astro { ::view-transition-old(ansi) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }::view-transition-new(ansi) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back]::view-transition-old(ansi) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back]::view-transition-new(ansi) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; } }[data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-36ssibgs-3"],
+			[data-astro-transition-fallback="old"][data-astro-transition-scope="astro-36ssibgs-3"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-36ssibgs-3"],
+			[data-astro-transition-fallback="new"][data-astro-transition-scope="astro-36ssibgs-3"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back][data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-36ssibgs-3"],
+			[data-astro-transition=back][data-astro-transition-fallback="old"][data-astro-transition-scope="astro-36ssibgs-3"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back][data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-36ssibgs-3"],
+			[data-astro-transition=back][data-astro-transition-fallback="new"][data-astro-transition-scope="astro-36ssibgs-3"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }</style><style>[data-astro-transition-scope="astro-36ssibgs-4"] { view-transition-name: \63A7\5236\5E8F\5217; }@layer astro { ::view-transition-old(\63A7\5236\5E8F\5217) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }::view-transition-new(\63A7\5236\5E8F\5217) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back]::view-transition-old(\63A7\5236\5E8F\5217) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back]::view-transition-new(\63A7\5236\5E8F\5217) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; } }[data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-36ssibgs-4"],
+			[data-astro-transition-fallback="old"][data-astro-transition-scope="astro-36ssibgs-4"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-36ssibgs-4"],
+			[data-astro-transition-fallback="new"][data-astro-transition-scope="astro-36ssibgs-4"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back][data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-36ssibgs-4"],
+			[data-astro-transition=back][data-astro-transition-fallback="old"][data-astro-transition-scope="astro-36ssibgs-4"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back][data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-36ssibgs-4"],
+			[data-astro-transition=back][data-astro-transition-fallback="new"][data-astro-transition-scope="astro-36ssibgs-4"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }</style><style>[data-astro-transition-scope="astro-36ssibgs-5"] { view-transition-name: tui; }@layer astro { ::view-transition-old(tui) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }::view-transition-new(tui) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back]::view-transition-old(tui) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back]::view-transition-new(tui) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; } }[data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-36ssibgs-5"],
+			[data-astro-transition-fallback="old"][data-astro-transition-scope="astro-36ssibgs-5"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-36ssibgs-5"],
+			[data-astro-transition-fallback="new"][data-astro-transition-scope="astro-36ssibgs-5"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back][data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-36ssibgs-5"],
+			[data-astro-transition=back][data-astro-transition-fallback="old"][data-astro-transition-scope="astro-36ssibgs-5"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back][data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-36ssibgs-5"],
+			[data-astro-transition=back][data-astro-transition-fallback="new"][data-astro-transition-scope="astro-36ssibgs-5"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }</style></head> <body class="bg-background font-app text-foreground selection:bg-accent/75 selection:text-accent-foreground flex min-h-svh flex-col">    <a id="skip-to-content" href="#main-content" class="bg-background text-accent absolute inset-s-16 -top-full z-50 px-3 py-2 backdrop-blur-lg transition-all focus:top-4"> 跳到正文 </a> <header class="app-layout flex flex-col items-center justify-between sm:flex-row"> <div class="border-border bg-background relative flex w-full items-baseline justify-between border-b py-4 sm:items-center sm:py-6"> <a href="/blog/" class="absolute py-1 text-xl leading-8 font-semibold whitespace-nowrap sm:static sm:my-auto sm:text-2xl sm:leading-none"> Robin 的笔记 </a> <nav id="nav-menu" class="flex w-full flex-col items-center sm:ms-2 sm:flex-row sm:justify-end sm:space-x-4 sm:py-0"> <button id="menu-btn" class="focus-outline self-end p-2 sm:hidden" aria-label="打开菜单" aria-expanded="false" aria-controls="menu-items" data-label-open="打开菜单" data-label-close="关闭菜单"> <svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="hidden" viewBox="0 0 24 24" id="close-icon"><path stroke="none" d="M0 0h24v24H0z" /><path d="M18 6 6 18M6 6l12 12" /></svg> <svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="icon icon-tabler icons-tabler-outline icon-tabler-menu-deep" viewBox="0 0 24 24" id="menu-icon"><path stroke="none" d="M0 0h24v24H0z" /><path d="M4 6h16M7 12h13M10 18h10" /></svg> </button> <ul id="menu-items" class="[&>li>a]:hover:text-accent mt-4 hidden w-44 grid-cols-2 place-content-center gap-2 sm:mt-0 sm:flex sm:w-auto sm:gap-x-5 sm:gap-y-0 sm:[&>li]:h-8 [&>li>a]:block [&>li>a]:px-4 [&>li>a]:py-3 [&>li>a]:text-center [&>li>a]:font-medium sm:[&>li>a]:px-2 sm:[&>li>a]:py-1"> <li class="col-span-2"> <a href="/blog/posts/" class="active-nav"> 文章 </a> </li> <li class="col-span-2"> <a href="/blog/tags/"> 标签 </a> </li> <li class="col-span-2"> <a href="/blog/about/"> 关于 </a> </li> <li class="col-span-2"> <a href="/blog/archives/" title="归档" aria-label="归档" class="group inline-flex items-center gap-1 hover:text-accent focus-outline flex size-full justify-center p-3 sm:relative sm:size-8 sm:p-0">  <svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="hidden sm:absolute sm:top-1/2 sm:left-1/2 sm:block sm:size-6 sm:-translate-x-1/2 sm:-translate-y-1/2" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M3 6a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v0a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8M10 12h4" /></svg> <span class="sm:sr-only">归档</span>  </a> </li> <li class="col-span-1 flex items-center justify-center"> <a href="/blog/search/" title="搜索" aria-label="搜索" class="group inline-flex items-center gap-1 hover:text-accent focus-outline relative size-8">  <svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="absolute top-1/2 left-1/2 size-6 -translate-x-1/2 -translate-y-1/2" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M3 10a7 7 0 1 0 14 0 7 7 0 1 0-14 0M21 21l-6-6" /></svg> <span class="sr-only">搜索</span>  </a> </li> <li class="col-span-1 flex items-center justify-center"> <button id="theme-btn" class="focus-outline hover:[&>svg]:stroke-accent relative size-12 p-4 sm:size-8" title="切换主题" aria-label="auto" aria-live="polite"> <svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="absolute top-[50%] left-[50%] translate-[-50%] scale-100 rotate-0 transition-all dark:scale-0 dark:-rotate-90" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M12 3h.393a7.5 7.5 0 0 0 7.92 12.446A9 9 0 1 1 12 2.992z" /></svg> <svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="absolute top-[50%] left-[50%] translate-[-50%] scale-0 rotate-90 transition-all dark:scale-100 dark:rotate-0" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M14.828 14.828a4 4 0 1 0-5.656-5.656 4 4 0 0 0 5.656 5.656M6.343 17.657l-1.414 1.414M6.343 6.343 4.929 4.929M17.657 6.343l1.414-1.414M17.657 17.657l1.414 1.414M4 12H2M12 4V2M20 12h2M12 20v2" /></svg> </button> </li> </ul> </nav> </div> </header> <script type="module">function c(){const e=document.querySelector("#menu-btn"),t=document.querySelector("#menu-items"),n=document.querySelector("#menu-icon"),s=document.querySelector("#close-icon");if(!e||!t||!n||!s)return;const a=e.dataset.labelOpen??"Open menu",l=e.dataset.labelClose??"Close menu";e.addEventListener("click",()=>{const o=e.getAttribute("aria-expanded")==="true";e.setAttribute("aria-expanded",o?"false":"true"),e.setAttribute("aria-label",o?a:l),t.classList.toggle("hidden"),t.classList.toggle("grid"),n.classList.toggle("hidden"),s.classList.toggle("hidden")})}c();document.addEventListener("astro:after-swap",c);</script> <div class="app-layout flex items-center justify-start"><a id="back-button" href="/blog/" class="group inline-flex items-center gap-1 hover:text-accent focus-outline hover:text-foreground/75 -ms-2 mt-8 mb-2"> <svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="inline-block size-6 rtl:rotate-180" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="m15 6-6 6 6 6" /></svg><span>返回</span> </a></div><script type="module">function o(){const t=document.querySelector("#back-button"),e=sessionStorage.getItem("backUrl");e&&t&&(t.href=e)}document.addEventListener("astro:page-load",o);o();</script> <main id="main-content" class="app-layout" data-pagefind-body> <h1 style="view-transition-name:terminal-u004e3au004ec0u004e48u0053efu004ee5u00539fu005730u0066f4u0065b0u005c4fu005e55u00ff1f" class="text-accent inline-block text-2xl font-bold sm:text-3xl"> Terminal 为什么可以原地更新屏幕？ </h1> <div class="my-2 flex items-center gap-2"> <div class="text-muted-foreground flex items-center gap-x-2"> <svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="inline-block size-6 min-w-5.5" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M4 7a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zM16 3v4M8 3v4M4 11h16M7 14h.013M10.01 14h.005M13.01 14h.005M16.015 14h.005M13.015 17h.005M7.01 17h.005M10.01 17h.005" /></svg>  <time class="text-sm sm:text-base" datetime="2026-08-21T13:05:00.000Z"> 2026年8月21日 </time> </div> <span aria-hidden="true" class="text-muted-foreground max-sm:hidden">
+|
+</span> <a href="https://github.com/robinfai/blog/edit/main/src/content/posts/terminal-series/why-terminal-can-update-screen-in-place.md" target="_blank" rel="noopener noreferrer" class="hover:text-accent text-muted-foreground flex justify-baseline gap-1.5 max-sm:hidden"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="inline-block" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M7 7H6a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2-2v-1" /><path d="M20.385 6.585a2.1 2.1 0 0 0-2.97-2.97L9 12v3h3zM16 5l3 3" /></svg><span>编辑页面</span></a> </div> <article id="article" class="mt-8 w-full app-prose max-w-app prose-pre:bg-(--shiki-light-bg) dark:prose-pre:bg-(--shiki-dark-bg)"> <p><img alt="进度信息通过回车、擦除和重新写入在同一行更新" loading="lazy" decoding="async" width="1200" height="675" src="/blog/_astro/04-in-place-update-hero.-k7gHaJR_Z2spiDr.svg" srcset=""></p>
+<p><em>题图：程序没有修改已经输出的字节，而是移动光标、清理旧单元格，再写入新的内容。</em></p>
+<blockquote><p>本文是《五彩斑斓的黑》系列第四篇。上一篇解释了 <a href="/blog/posts/terminal-series/why-terminal-can-display-colors/">Terminal 为什么能显示彩色文字</a>；这一篇继续看同一条字节流，Terminal 怎样用光标和 Screen Buffer 改写已经显示出来的内容。</p></blockquote>
+<p>下载进度、构建状态和命令行里的 Spinner 经常停在同一行变化：</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="bash"><code><span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#C5E478;--shiki-dark-font-style:italic">printf</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD"> '</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">progress: 20%%</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">'</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">; </span><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">sleep</span><span style="--shiki-light:#1976D2;--shiki-dark:#F78C6C"> 1</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">; </span><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#C5E478;--shiki-dark-font-style:italic">printf</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD"> '</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">\r\033[Kprogress: 80%%\n</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">'</span></span></code></pre>
+<p>如果 stdout 只能不断向后追加，进度每变化一次就应该多出一行。这里没有发生这种情况，因为 Terminal 维护的不是一张打印完就不能修改的纸，而是一块带光标的字符网格。</p>
+<p>上面的第二次 <code>printf</code> 做了三件事：</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="text"><code><span class="line"><span>\r         光标回到当前行最左侧</span></span>
+<span class="line"><span>ESC [ K    从光标位置擦除到行尾</span></span>
+<span class="line"><span>progress…  从当前位置写入新内容</span></span></code></pre>
+<p>这里的“原地更新”，就是改变下一次写入的位置，再修改那里的字符单元。</p>
+<h2 id="从纸上的回车到屏幕上的光标">从纸上的回车到屏幕上的光标</h2>
+<p><code>CR</code>（Carriage Return）来自打字机的机械动作：让字车回到左边界。到了视频终端，它变成了一个光标操作，字节值是 <code>0D</code>。</p>
+<p><a href="https://vt100.net/docs/tp83/appendixb.html">VT100 系列的控制字符说明</a> 对 <code>CR</code> 的定义很直接：把光标移动到当前行的左边界。它不换行，也不清除这一行已有的内容。</p>
+<p>这两条命令的差别很容易看到：</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="bash"><code><span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">{</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#C5E478;--shiki-dark-font-style:italic">  printf</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD"> '</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">downloading 100%%\rDone\n</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">'</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#C5E478;--shiki-dark-font-style:italic">  printf</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD"> '</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">downloading 100%%\r\033[KDone\n</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">'</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">}</span></span></code></pre>
+<p>第一条会留下类似 <code>Doneloading 100%</code> 的结果。<code>Done</code> 只覆盖了开头四个字符，后面的旧字符仍在。第二条在写入 <code>Done</code> 前执行 <code>EL</code>（Erase in Line），旧内容才会被清掉。</p>
+<p><img alt="CR 只移动光标，EL 才会清除旧字符" loading="lazy" decoding="async" width="720" height="1040" src="/blog/_astro/04-cr-and-erase.CIDY1jxP_ZfG19Y.svg" srcset=""></p>
+<p><em>图 1：移动光标与擦除内容是两个操作。新文本比旧文本短时，只有 <code>CR</code> 不够。</em></p>
+<p><code>LF</code> 与 <code>CR</code> 也不是同一个动作。<code>LF</code> 把活动位置移到下一行，<code>CR</code> 回到当前行左侧。常见的 Unix TTY 输出处理会把 <code>\n</code> 转换成 <code>CR + LF</code>，但终端协议仍保留了这两个独立概念。</p>
+<h2 id="screen-buffer-是一块有状态的字符网格">Screen Buffer 是一块有状态的字符网格</h2>
+<p>终端模拟器收到普通字符后，不会直接把像素永久画在窗口上。它先把字符写入 Screen Buffer 中光标指向的单元格，再移动光标。Renderer 根据缓冲区内容绘制当前画面。</p>
+<p>一个字符单元通常不只有字符本身，还包含前景色、背景色、粗体、下划线、宽度等显示信息。整个终端状态还包括：</p>
+<ul>
+<li>当前光标的行列位置；</li>
+<li>可见区域和历史回滚位置；</li>
+<li>当前显示属性；</li>
+<li>自动换行、插入模式等终端模式；</li>
+<li>滚动区域的上下边界。</li>
+</ul>
+<p><img alt="Screen Buffer 使用字符单元、光标和视口保存当前终端画面" loading="lazy" decoding="async" width="720" height="1040" src="/blog/_astro/04-screen-buffer.DxgqsihW_Vj6Gk.svg" srcset=""></p>
+<p><em>图 2：输出字符时，Parser 修改的是光标位置和字符单元；Renderer 再把缓冲区绘制成像素。</em></p>
+<p><a href="https://xtermjs.org/docs/api/terminal/interfaces/ibuffer/">xterm.js 的 Buffer API</a> 也公开了这套模型中的关键状态：<code>cursorX</code>、<code>cursorY</code>、<code>viewportY</code>、Buffer 类型以及逐行读取接口。不同终端内部实现并不相同，但对应用呈现出的抽象接近：一个可以定位和改写的字符网格。</p>
+<p>“改写屏幕”并不是修改 stdout。已经传输的字节不会倒流，程序只是继续输出新的控制序列和字符；Terminal Parser 按顺序修改 Screen Buffer，后来的状态覆盖了先前的显示结果。</p>
+<h2 id="csi-把光标移动和擦除扩展到整块屏幕">CSI 把光标移动和擦除扩展到整块屏幕</h2>
+<p><code>CR</code> 只能回到当前行左侧。全屏程序还需要上下移动、跳到指定坐标、清除一段区域。CSI 为这些操作提供了带参数的形式。</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>操作</th><th>常见写法</th><th>作用</th></tr></thead><tbody><tr><td>回到当前行左侧</td><td><code>CR</code> / <code>\r</code></td><td>移动列位置，不擦除</td></tr><tr><td>上、下、右、左移动</td><td><code>CSI n A/B/C/D</code></td><td>相对当前位置移动光标</td></tr><tr><td>跳到指定坐标</td><td><code>CSI row;col H</code></td><td>把光标放到指定行列</td></tr><tr><td>擦除行内区域</td><td><code>CSI Ps K</code></td><td>擦除光标前、后或整行</td></tr><tr><td>擦除屏幕区域</td><td><code>CSI Ps J</code></td><td>擦除光标前、后或整个显示区</td></tr></tbody></table>
+<p><a href="https://vt100.net/docs/vt220-rm/chapter4.html">VT220 Programmer Reference</a> 把“编辑”和“擦除”分成了不同操作。擦除只把目标单元格变为空白，不移动光标，也不让右侧内容自动向左补位；插入和删除字符则会移动同一行里的其他单元格。</p>
+<p>这个区别在实现 TUI 时很重要。清空一块区域、删除一个字符、用空格覆盖，屏幕看起来可能相似，但它们对光标位置、字符属性和后续内容的影响并不相同。</p>
+<h2 id="滚动不是整屏重画">滚动不是整屏重画</h2>
+<p>日志不断增加时，终端通常会向上滚动。全屏 TUI 还可能要求顶部标题和底部状态栏保持不动，只让中间区域滚动。</p>
+<p><code>DECSTBM</code>（Set Top and Bottom Margins）使用 <code>CSI top;bottom r</code> 设置上下边界。光标位于滚动区域底部时，继续换行会让区域内的行向上移动，边界外的内容保持原位。</p>
+<p><img alt="滚动区域只移动中间内容，标题和状态栏保持不变" loading="lazy" decoding="async" width="720" height="1040" src="/blog/_astro/04-scroll-region.DP_PMhSS_YvKdu.svg" srcset=""></p>
+<p><em>图 3：滚动是 Screen Buffer 的区域操作，不需要应用重新发送整块屏幕。</em></p>
+<p>VT100 的文档已经定义了这项能力。更早的 <a href="https://www.vt100.net/docs/vt52-mm/chapter4.html">VT52 维护手册</a> 还能看到硬件实现思路：滚动时不必复制并重写每一行显存，只需改变哪一行被映射为屏幕顶部。现代终端的内部结构已经不同，但“移动逻辑行或改变映射，而不是重画所有像素”的思路仍然成立。</p>
+<p>设置滚动区域后，还要处理边界条件。光标是否受上下边界限制，会受到 Origin Mode 等模式影响；不同序列在区域内外的行为并不完全相同。应用可以通过 terminfo 或成熟的 TUI 库使用这些能力，不应假设所有终端都实现同一组细节。</p>
+<h2 id="tui-更新的是差异不是重复打印整页文本">TUI 更新的是差异，不是重复打印整页文本</h2>
+<p>Terminal Emulator 只执行移动、擦除、写字符等操作。它并不知道屏幕上哪里是列表、按钮或对话框。把业务状态变成终端更新序列，是 TUI 应用或渲染库的工作。</p>
+<p>经典的 curses 维护两份屏幕状态：</p>
+<ul>
+<li>physical screen：程序认为终端当前显示的内容；</li>
+<li>virtual screen：程序希望下一帧显示的内容。</li>
+</ul>
+<p><code>doupdate()</code> 比较两者，再把必要的更新发送给终端。<a href="https://invisible-island.net/ncurses/man/curs_refresh.3x.html">ncurses 的 <code>curs_refresh</code> 文档</a> 说明了这一过程，也解释了为什么先合并多个窗口的变化，再统一刷新，可以减少输出次数和传输字符。</p>
+<p><a href="https://docs.rs/ratatui/latest/ratatui/struct.Terminal.html">Ratatui 的 <code>Terminal</code> 渲染流程</a> 采用类似思路。应用每一帧仍然描述完整 UI，库比较当前 Buffer 和上一帧 Buffer，只把变化的字符单元交给后端。界面代码可以按“重画整帧”来写，发往 Terminal 的通常只是差异。</p>
+<p><img alt="TUI 比较前后两帧，只把变化转换成终端更新序列" loading="lazy" decoding="async" width="720" height="1120" src="/blog/_astro/04-tui-diff.a29-tAyE_213gf.svg" srcset=""></p>
+<p><em>图 4：应用描述目标画面，TUI 库计算差异，Terminal Parser 执行光标与字符更新。</em></p>
+<p>“只发送变化”也不等于逐单元格机械比较。移动光标本身有成本，连续写一段字符有时比频繁跳转更便宜，整屏变化时直接清屏重画也可能更合适。成熟库会结合终端能力和输出成本选择更新方式。</p>
+<h2 id="原地更新最容易在哪些地方出错">原地更新最容易在哪些地方出错</h2>
+<p>原地更新要求应用与终端对屏幕状态保持一致。两边一旦不同步，界面就会出现残影、错位或闪烁。</p>
+<h3 id="字符不一定只占一个单元格">字符不一定只占一个单元格</h3>
+<p>ASCII 字符通常占一格，但 CJK 字符、Emoji、组合字符和零宽字符更复杂。应用计算出的显示宽度如果与终端不同，后面的光标定位会整体偏移。这里需要处理的是 grapheme 和 cell width，而不是字符串字节数。</p>
+<h3 id="窗口大小会变化">窗口大小会变化</h3>
+<p>终端列数或行数变化后，旧的换行位置、布局和 Buffer 尺寸可能全部失效。Unix 环境通常通过 <code>SIGWINCH</code> 通知前台进程，TUI 重新计算布局，并在必要时做一次完整重画。</p>
+<h3 id="tui-运行期间不能随意混入其他输出">TUI 运行期间不能随意混入其他输出</h3>
+<p>渲染库根据上一帧推算终端当前状态。如果其他线程、日志库或子进程绕过渲染器直接写 stdout，physical screen 的假设就会失效。下一次 diff 可能从错误的位置继续更新。</p>
+<h3 id="退出时要恢复终端状态">退出时要恢复终端状态</h3>
+<p>全屏 TUI 往往还会隐藏光标、启用 Raw Mode，或者切换到 Alternate Screen。程序异常退出而没有恢复这些状态，就会留下不可见光标、错乱的输入模式或停留在备用屏幕。成熟框架通常用清理守卫和 panic/signal handler 处理退出路径。</p>
+<h2 id="在本机观察原地更新">在本机观察原地更新</h2>
+<h3 id="实验一比较-cr-与-cr--el">实验一：比较 CR 与 CR + EL</h3>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="bash"><code><span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">{</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#C5E478;--shiki-dark-font-style:italic">  printf</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD"> '</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">long message\rshort\n</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">'</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#C5E478;--shiki-dark-font-style:italic">  printf</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD"> '</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">long message\r\033[Kshort\n</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">'</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">}</span></span></code></pre>
+<p>第一行会留下旧文本的尾部，第二行不会。<code>CR</code> 只移动光标，<code>EL</code> 才负责清理旧单元格。</p>
+<h3 id="实验二返回上一行修改内容">实验二：返回上一行修改内容</h3>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="bash"><code><span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">{</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#C5E478;--shiki-dark-font-style:italic">  printf</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD"> '</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">task A: pending\ntask B: pending\n</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">'</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#C5E478;--shiki-dark-font-style:italic">  printf</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD"> '</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">\033[2A\r\033[Ktask A: done</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">'</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#C5E478;--shiki-dark-font-style:italic">  printf</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD"> '</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">\033[2B\r</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">'</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">}</span></span></code></pre>
+<p><code>CSI 2 A</code> 把光标上移两行，随后重新写入第一项。最后再把光标移回下方，避免 Shell Prompt 出现在列表中间。</p>
+<h3 id="实验三观察一次简单的进度更新">实验三：观察一次简单的进度更新</h3>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="bash"><code><span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">{</span></span>
+<span class="line"><span style="--shiki-light:#D32F2F;--shiki-light-font-style:inherit;--shiki-dark:#C792EA;--shiki-dark-font-style:italic">  for</span><span style="--shiki-light:#24292EFF;--shiki-dark:#C5E478"> n</span><span style="--shiki-light:#D32F2F;--shiki-light-font-style:inherit;--shiki-dark:#C792EA;--shiki-dark-font-style:italic"> in</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> 0</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> 20</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> 40</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> 60</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> 80</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> 100</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">; </span><span style="--shiki-light:#D32F2F;--shiki-light-font-style:inherit;--shiki-dark:#C792EA;--shiki-dark-font-style:italic">do</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#C5E478;--shiki-dark-font-style:italic">    printf</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD"> '</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">\r\033[Kprogress: %3s%%</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">'</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD"> "</span><span style="--shiki-light:#22863A;--shiki-dark:#C5E478">$n</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">    sleep</span><span style="--shiki-light:#1976D2;--shiki-dark:#F78C6C"> 0.2</span></span>
+<span class="line"><span style="--shiki-light:#D32F2F;--shiki-light-font-style:inherit;--shiki-dark:#C792EA;--shiki-dark-font-style:italic">  done</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#C5E478;--shiki-dark-font-style:italic">  printf</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD"> '</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">\n</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">'</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">}</span></span></code></pre>
+<p>循环每次都发送新的字节，但 Screen Buffer 中被反复修改的是同一行。</p>
+<h2 id="屏幕结果不等于输出过程">屏幕结果不等于输出过程</h2>
+<p>Terminal 的原地更新由几项能力共同完成：光标决定写入位置，擦除和编辑序列修改目标区域，Screen Buffer 保存当前画面，Renderer 绘制变化后的字符单元。TUI 在这些基础能力之上维护前后两帧，计算需要发送的差异。</p>
+<p>屏幕最终留下的内容不等于程序完整输出。进度条可能更新一百次，最后只剩一行；TUI 可能覆盖旧状态，滚动区域还会移走一部分内容。终端录制、审计和 Agent 上下文如果只读取最终屏幕，就会丢失变化过程；如果只保存原始字节，又需要重新执行终端状态机才能还原用户看到的画面。</p>
+<blockquote><p><strong>下一篇：《Terminal 为什么会有第二块屏幕？》</strong></p><p>下一篇继续介绍 Normal Buffer、Alternate Screen、<code>DECSET 1049</code> 和退出恢复，解释 Vim、less 与全屏 TUI 为什么运行时不覆盖原来的 Shell 内容。</p></blockquote>
+<h2 id="资料参考">资料参考</h2>
+<ul>
+<li><a href="https://ecma-international.org/publications-and-standards/standards/ecma-48/">ECMA-48：Control Functions for Coded Character Sets</a>：光标、擦除、编辑和滚动等控制功能的标准定义。</li>
+<li><a href="https://vt100.net/docs/vt100-ug/chapter3.html">VT100 User Guide：Programmer Information</a>：VT100 的光标移动、擦除和滚动区域。</li>
+<li><a href="https://vt100.net/docs/vt220-rm/chapter4.html">VT220 Programmer Reference Manual</a>：编辑、擦除、Origin Mode 与自动换行的行为。</li>
+<li><a href="https://invisible-island.net/xterm/ctlseqs/ctlseqs.html">XTerm Control Sequences</a>：xterm 支持的现代控制序列及兼容行为。</li>
+<li><a href="https://xtermjs.org/docs/api/terminal/interfaces/ibuffer/">xterm.js Buffer API</a>：浏览器终端中的光标、视口和 Buffer 接口。</li>
+<li><a href="https://invisible-island.net/ncurses/man/curs_refresh.3x.html">ncurses <code>curs_refresh</code></a>：virtual screen、physical screen 与差异更新。</li>
+<li><a href="https://docs.rs/ratatui/latest/ratatui/struct.Terminal.html">Ratatui <code>Terminal</code></a>：当前 Buffer、上一帧 Buffer 和 diff 渲染流程。</li>
+</ul> </article> <hr class="my-8 border-dashed"> <a href="https://github.com/robinfai/blog/edit/main/src/content/posts/terminal-series/why-terminal-can-update-screen-in-place.md" target="_blank" rel="noopener noreferrer" class="hover:text-accent text-muted-foreground flex justify-baseline gap-1.5 sm:hidden"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="inline-block" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M7 7H6a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2-2v-1" /><path d="M20.385 6.585a2.1 2.1 0 0 0-2.97-2.97L9 12v3h3zM16 5l3 3" /></svg><span>编辑页面</span></a> <div id="btt-btn-container" class="fixed inset-e-4 bottom-8 z-50 md:sticky md:inset-e-auto md:float-end md:me-1 translate-y-14 opacity-0 transition duration-500"> <button data-button="back-to-top" class="group bg-background relative px-2 py-1 size-14 rounded-full shadow-xl md:h-8 md:w-fit md:rounded-md md:shadow-none md:focus-visible:rounded-none md:bg-background/35 md:bg-clip-padding md:backdrop-blur-lg"> <span id="progress-indicator" class="absolute inset-0 -z-10 block size-14 scale-110 rounded-full bg-transparent md:hidden md:h-8 md:rounded-md"></span> <svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="inline-block rotate-90 md:hidden" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M5 12h14M5 12l6 6M5 12l6-6" /></svg> <span class="group-hover:text-accent sr-only text-sm md:not-sr-only"> <svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="inline-block size-4" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M12 5v14M16 9l-4-4M8 9l4-4" /></svg> 回到顶部 </span> </button> </div> <script data-astro-rerun>
+  function backToTop() {
+    const rootElement = document.documentElement;
+    const btnContainer = document.querySelector("#btt-btn-container");
+    const backToTopBtn = document.querySelector("[data-button='back-to-top']");
+    const progressIndicator = document.querySelector("#progress-indicator");
+
+    if (!rootElement || !btnContainer || !backToTopBtn || !progressIndicator)
+      return;
+
+    backToTopBtn.addEventListener("click", () => {
+      document.body.scrollTop = 0;
+      document.documentElement.scrollTop = 0;
+    });
+
+    let lastVisible = null;
+    function handleScroll() {
+      const scrollTotal = rootElement.scrollHeight - rootElement.clientHeight;
+      const scrollTop = rootElement.scrollTop;
+      const scrollPercent = Math.floor((scrollTop / scrollTotal) * 100);
+
+      progressIndicator.style.setProperty(
+        "background-image",
+        `conic-gradient(var(--accent), var(--accent) ${scrollPercent}%, transparent ${scrollPercent}%)`
+      );
+
+      const isVisible = scrollTop / scrollTotal > 0.3;
+
+      if (isVisible !== lastVisible) {
+        btnContainer.classList.toggle("opacity-100", isVisible);
+        btnContainer.classList.toggle("translate-y-0", isVisible);
+        btnContainer.classList.toggle("opacity-0", !isVisible);
+        btnContainer.classList.toggle("translate-y-14", !isVisible);
+        lastVisible = isVisible;
+      }
+    }
+
+    let ticking = false;
+    document.addEventListener("scroll", () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          handleScroll();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    });
+  }
+  backToTop();
+</script> <ul class="mt-4 mb-8 flex flex-wrap gap-4 sm:my-8"> <li> <a href="/blog/tags/五彩斑斓的黑/" class="flex items-center gap-0.5 border-foreground border-b-2 border-dashed hover:border-accent hover:text-accent hover:-mt-0.5 focus-visible:text-accent focus-visible:border-none text-sm" data-astro-transition-scope="astro-36ssibgs-1"> <svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="opacity-80 size-4" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M5 9h14M5 15h14M11 4 7 20M17 4l-4 16" /></svg> 五彩斑斓的黑 </a> </li><li> <a href="/blog/tags/terminal/" class="flex items-center gap-0.5 border-foreground border-b-2 border-dashed hover:border-accent hover:text-accent hover:-mt-0.5 focus-visible:text-accent focus-visible:border-none text-sm" data-astro-transition-scope="astro-36ssibgs-2"> <svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="opacity-80 size-4" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M5 9h14M5 15h14M11 4 7 20M17 4l-4 16" /></svg> Terminal </a> </li><li> <a href="/blog/tags/ansi/" class="flex items-center gap-0.5 border-foreground border-b-2 border-dashed hover:border-accent hover:text-accent hover:-mt-0.5 focus-visible:text-accent focus-visible:border-none text-sm" data-astro-transition-scope="astro-36ssibgs-3"> <svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="opacity-80 size-4" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M5 9h14M5 15h14M11 4 7 20M17 4l-4 16" /></svg> ANSI </a> </li><li> <a href="/blog/tags/控制序列/" class="flex items-center gap-0.5 border-foreground border-b-2 border-dashed hover:border-accent hover:text-accent hover:-mt-0.5 focus-visible:text-accent focus-visible:border-none text-sm" data-astro-transition-scope="astro-36ssibgs-4"> <svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="opacity-80 size-4" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M5 9h14M5 15h14M11 4 7 20M17 4l-4 16" /></svg> 控制序列 </a> </li><li> <a href="/blog/tags/tui/" class="flex items-center gap-0.5 border-foreground border-b-2 border-dashed hover:border-accent hover:text-accent hover:-mt-0.5 focus-visible:text-accent focus-visible:border-none text-sm" data-astro-transition-scope="astro-36ssibgs-5"> <svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="opacity-80 size-4" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M5 9h14M5 15h14M11 4 7 20M17 4l-4 16" /></svg> TUI </a> </li> </ul> <div class="flex flex-none flex-col items-center justify-center gap-1 md:items-start"><span class="italic">分享这篇文章：</span><div class="text-center"><a href="https://wa.me/?text=https://robinfai.github.io/blog/posts/terminal-series/why-terminal-can-update-screen-in-place/" title="分享到 Whatsapp" target="_blank" rel="noopener noreferrer" class="group inline-flex items-center gap-1 hover:text-accent scale-90 p-2 hover:rotate-6 sm:p-1"> <svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="m3 21 1.65-3.8a9 9 0 1 1 3.4 2.9z" /><path d="M9 10a.5.5 0 0 0 1 0V9a.5.5 0 0 0-1 0za5 5 0 0 0 5 5h1a.5.5 0 0 0 0-1h-1a.5.5 0 0 0 0 1" /></svg><span class="sr-only">分享到 Whatsapp</span> </a><a href="https://www.facebook.com/sharer.php?u=https://robinfai.github.io/blog/posts/terminal-series/why-terminal-can-update-screen-in-place/" title="分享到 Facebook" target="_blank" rel="noopener noreferrer" class="group inline-flex items-center gap-1 hover:text-accent scale-90 p-2 hover:rotate-6 sm:p-1"> <svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M7 10v4h3v7h4v-7h3l1-4h-4V8a1 1 0 0 1 1-1h3V3h-3a5 5 0 0 0-5 5v2z" /></svg><span class="sr-only">分享到 Facebook</span> </a><a href="https://x.com/intent/post?url=https://robinfai.github.io/blog/posts/terminal-series/why-terminal-can-update-screen-in-place/" title="分享到 X" target="_blank" rel="noopener noreferrer" class="group inline-flex items-center gap-1 hover:text-accent scale-90 p-2 hover:rotate-6 sm:p-1"> <svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="m4 4 11.733 16H20L8.267 4zM4 20l6.768-6.768m2.46-2.46L20 4" /></svg><span class="sr-only">分享到 X</span> </a><a href="https://t.me/share/url?url=https://robinfai.github.io/blog/posts/terminal-series/why-terminal-can-update-screen-in-place/" title="分享到 Telegram" target="_blank" rel="noopener noreferrer" class="group inline-flex items-center gap-1 hover:text-accent scale-90 p-2 hover:rotate-6 sm:p-1"> <svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="m15 10-4 4 6 6 4-16-18 7 4 2 2 6 3-4" /></svg><span class="sr-only">分享到 Telegram</span> </a><a href="https://pinterest.com/pin/create/button/?url=https://robinfai.github.io/blog/posts/terminal-series/why-terminal-can-update-screen-in-place/" title="分享到 Pinterest" target="_blank" rel="noopener noreferrer" class="group inline-flex items-center gap-1 hover:text-accent scale-90 p-2 hover:rotate-6 sm:p-1"> <svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="m8 20 4-9M10.7 14c.437 1.263 1.43 2 2.55 2 2.071 0 3.75-1.554 3.75-4a5 5 0 1 0-9.7 1.7" /><path d="M3 12a9 9 0 1 0 18 0 9 9 0 1 0-18 0" /></svg><span class="sr-only">分享到 Pinterest</span> </a><a href="mailto:?subject=See%20this%20post&amp;body=https://robinfai.github.io/blog/posts/terminal-series/why-terminal-can-update-screen-in-place/" title="通过邮件分享" target="_blank" rel="noopener noreferrer" class="group inline-flex items-center gap-1 hover:text-accent scale-90 p-2 hover:rotate-6 sm:p-1"> <svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M3 7a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" /><path d="m3 7 9 6 9-6" /></svg><span class="sr-only">通过邮件分享</span> </a></div></div>  <hr class="my-8 border-dashed"> <section class="mt-8 scroll-mt-20" aria-label="评论"><div id="giscus-comments" class="giscus" data-repo="robinfai/blog" data-repo-id="R_kgDOKA0OfA" data-category="Announcements" data-category-id="DIC_kwDOKA0OfM4C_HMr" data-mapping="pathname" data-strict="1" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="auto" data-lang="zh-CN" data-loading="lazy"></div></section><script data-astro-rerun>
+(function () {
+  const host = document.getElementById("giscus-comments");
+  if (!host || host.dataset.loaded === "true") return;
+
+  function getTheme() {
+    const configuredTheme = host.dataset.theme || "auto";
+    if (configuredTheme !== "auto") return configuredTheme;
+    return document.documentElement.dataset.theme === "dark" ? "dark" : "light";
+  }
+
+  function syncTheme() {
+    const frame = document.querySelector("iframe.giscus-frame");
+    if (!frame || !frame.contentWindow) return;
+    frame.contentWindow.postMessage(
+      { giscus: { setConfig: { theme: getTheme() } } },
+      "https://giscus.app"
+    );
+  }
+
+  const script = document.createElement("script");
+  script.src = "https://giscus.app/client.js";
+  script.async = true;
+  script.crossOrigin = "anonymous";
+
+  const attrs = {
+    "data-repo": host.dataset.repo,
+    "data-repo-id": host.dataset.repoId,
+    "data-category": host.dataset.category,
+    "data-category-id": host.dataset.categoryId,
+    "data-mapping": host.dataset.mapping,
+    "data-term": host.dataset.term,
+    "data-strict": host.dataset.strict,
+    "data-reactions-enabled": host.dataset.reactionsEnabled,
+    "data-emit-metadata": host.dataset.emitMetadata,
+    "data-input-position": host.dataset.inputPosition,
+    "data-theme": getTheme(),
+    "data-lang": host.dataset.lang,
+    "data-loading": host.dataset.loading,
+  };
+
+  for (const [name, value] of Object.entries(attrs)) {
+    if (value) script.setAttribute(name, value);
+  }
+
+  script.addEventListener("load", function () {
+    window.setTimeout(syncTheme, 250);
+  });
+
+  host.dataset.loaded = "true";
+  host.appendChild(script);
+
+  if (!window.__giscusThemeObserver) {
+    window.__giscusThemeObserver = new MutationObserver(syncTheme);
+    window.__giscusThemeObserver.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["data-theme"],
+    });
+  }
+})();
+</script>  <hr class="my-8 border-dashed"> <div data-pagefind-ignore class="my-8 grid grid-cols-1 gap-6 sm:grid-cols-2">  <a href="/blog/posts/terminal-series/why-terminal-can-display-colors/" class="flex w-full justify-end gap-1 text-end hover:opacity-75 sm:col-start-2"> <div> <span>下一篇</span> <div class="text-accent/85 text-sm">Terminal 为什么能显示彩色文字？</div> </div> <svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="inline-block flex-none rtl:rotate-180" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M5 12h14M13 18l6-6M13 6l6 6" /></svg> </a> </div> </main> <footer class="app-layout mt-auto"> <div class="border-border flex flex-col items-center justify-between border-t py-6 sm:flex-row-reverse sm:py-4"> <div class="flex flex-wrap items-center gap-1"> <a href="https://github.com/robinfai/blog" title="Robin 的笔记 on Github" class="group inline-flex items-center gap-1 hover:text-accent p-2 hover:rotate-6 sm:p-1">  <svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6 0 0 0-1.3-3.2 4.2 4.2 0 0 0-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3 0 0 0-6.2 0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2 0 0 0-.1 3.2A4.6 4.6 0 0 0 4 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21" /></svg> <span class="sr-only">Robin 的笔记 on Github</span>  </a> </div> <div class="my-2 flex flex-col items-center whitespace-nowrap sm:flex-row"> <span>版权 &#169; 2026</span> <span class="hidden sm:inline">&nbsp;|&nbsp;</span> <span>保留所有权利。</span> </div> </div> </footer>   <script type="module">const c="theme",r="light",n="dark";function s(){const e=localStorage.getItem(c);return e||(window.matchMedia("(prefers-color-scheme: dark)").matches?n:r)}let t=window.__theme?.value??s();function a(){localStorage.setItem(c,t),m()}function m(){const e=document.firstElementChild;e?.setAttribute("data-theme",t),e?.classList.toggle("dark",t===n),document.querySelector("#theme-btn")?.setAttribute("aria-label",t);const o=window.getComputedStyle(document.body).backgroundColor;document.querySelector("meta[name='theme-color']")?.setAttribute("content",o)}function d(){m(),document.querySelector("#theme-btn")?.addEventListener("click",()=>{t=t===r?n:r,a()})}d();document.addEventListener("astro:after-swap",d);document.addEventListener("astro:before-swap",e=>{const o=document.querySelector("meta[name='theme-color']")?.getAttribute("content");o&&e.newDocument.querySelector("meta[name='theme-color']")?.setAttribute("content",o)});window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change",({matches:e})=>{t=e?n:r,a()});</script> </body> </html> <script data-astro-rerun>
+  function createProgressBar() {
+    const progressContainer = document.createElement("div");
+    progressContainer.className =
+      "progress-container fixed top-0 z-10 h-1 w-full bg-background";
+
+    const progressBar = document.createElement("div");
+    progressBar.className = "progress-bar h-1 w-0 bg-accent";
+    progressBar.id = "myBar";
+
+    progressContainer.appendChild(progressBar);
+    document.body.appendChild(progressContainer);
+  }
+  createProgressBar();
+
+  function updateScrollProgress() {
+    document.addEventListener("scroll", () => {
+      const winScroll =
+        document.body.scrollTop || document.documentElement.scrollTop;
+      const height =
+        document.documentElement.scrollHeight -
+        document.documentElement.clientHeight;
+      const scrolled = (winScroll / height) * 100;
+      if (document) {
+        const myBar = document.getElementById("myBar");
+        if (myBar) {
+          myBar.style.width = scrolled + "%";
+        }
+      }
+    });
+  }
+  updateScrollProgress();
+
+  function addHeadingLinks() {
+    const headings = Array.from(
+      document.querySelectorAll("h2, h3, h4, h5, h6")
+    );
+    for (const heading of headings) {
+      heading.classList.add("group");
+      const link = document.createElement("a");
+      link.className =
+        "heading-link ms-2 no-underline opacity-75 md:opacity-0 md:group-hover:opacity-100 md:focus:opacity-100";
+      link.href = "#" + heading.id;
+
+      const span = document.createElement("span");
+      span.ariaHidden = "true";
+      span.innerText = "#";
+      link.appendChild(span);
+      heading.appendChild(link);
+    }
+  }
+  addHeadingLinks();
+
+  function attachCopyButtons() {
+    const copyButtonLabel = "Copy";
+    const codeBlocks = Array.from(document.querySelectorAll("pre"));
+
+    for (const codeBlock of codeBlocks) {
+      const wrapper = document.createElement("div");
+      wrapper.style.position = "relative";
+
+      const computedStyle = getComputedStyle(codeBlock);
+      const hasFileNameOffset =
+        computedStyle.getPropertyValue("--file-name-offset").trim() !== "";
+
+      const topClass = hasFileNameOffset
+        ? "top-(--file-name-offset)"
+        : "-top-3";
+
+      const copyButton = document.createElement("button");
+      copyButton.className = `copy-code absolute end-3 ${topClass} rounded bg-muted border border-muted px-2 py-1 text-xs leading-4 text-foreground font-medium`;
+      copyButton.innerHTML = copyButtonLabel;
+      codeBlock.setAttribute("tabindex", "0");
+      codeBlock.appendChild(copyButton);
+
+      codeBlock?.parentNode?.insertBefore(wrapper, codeBlock);
+      wrapper.appendChild(codeBlock);
+
+      copyButton.addEventListener("click", async () => {
+        await copyCode(codeBlock, copyButton);
+      });
+    }
+
+    async function copyCode(block, button) {
+      const code = block.querySelector("code");
+      const text = code?.innerText;
+
+      await navigator.clipboard.writeText(text ?? "");
+
+      button.innerText = "Copied";
+
+      setTimeout(() => {
+        button.innerText = copyButtonLabel;
+      }, 700);
+    }
+  }
+  attachCopyButtons();
+
+  /** Accessible image lightbox for article images. */
+  function initLightbox() {
+    const article = document.getElementById("article");
+    if (!article) return;
+
+    const prefersReducedMotion = () =>
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    let overlay = null;
+    let lastFocused = null;
+
+    // Defer attribute mutations so they don't push the LCP timestamp.
+    // Event listeners below use delegation and don't need the attributes to exist yet.
+    requestAnimationFrame(() => {
+      const images = Array.from(article.querySelectorAll("img"));
+      for (const image of images) {
+        if (image.closest("a")) continue;
+        image.setAttribute("role", "button");
+        image.setAttribute("tabindex", "0");
+        image.setAttribute("aria-haspopup", "dialog");
+        image.setAttribute(
+          "aria-label",
+          image.alt ? `Zoom image: ${image.alt}` : "Zoom image"
+        );
+      }
+    });
+
+    function open(src, alt, trigger) {
+      if (overlay) return;
+      lastFocused = trigger ?? document.activeElement;
+
+      overlay = document.createElement("div");
+      overlay.setAttribute("role", "dialog");
+      overlay.setAttribute("aria-modal", "true");
+      overlay.setAttribute(
+        "aria-label",
+        alt ? `Image preview: ${alt}` : "Image preview"
+      );
+      overlay.className =
+        "fixed inset-0 z-50 flex cursor-zoom-out items-center justify-center bg-black/70 backdrop-blur-sm opacity-0 transition-opacity duration-200 motion-reduce:transition-none";
+
+      const closeButton = document.createElement("button");
+      closeButton.type = "button";
+      closeButton.setAttribute("aria-label", "Close image preview");
+      closeButton.className =
+        "absolute end-4 top-4 rounded p-2 text-3xl leading-none text-white";
+      closeButton.innerHTML = "&#10005;";
+      closeButton.addEventListener("click", close);
+
+      const image = document.createElement("img");
+      image.src = src;
+      image.alt = "";
+      image.className =
+        "max-h-[90dvh] max-w-[90dvw] cursor-default object-contain";
+
+      overlay.append(closeButton, image);
+      overlay.addEventListener("click", e => {
+        if (e.target === overlay && currentScale <= 1) close();
+      });
+
+      let currentScale = 1;
+      let translateX = 0;
+      let translateY = 0;
+      let initialDist = 0;
+      let initialScale = 1;
+      let panStartX = 0;
+      let panStartY = 0;
+      let panStartTranslateX = 0;
+      let panStartTranslateY = 0;
+      let lastTapTime = 0;
+
+      function applyTransform() {
+        image.style.transform = `scale(${currentScale}) translate(${translateX}px, ${translateY}px)`;
+      }
+
+      function resetTransform() {
+        currentScale = 1;
+        translateX = 0;
+        translateY = 0;
+        image.style.transform = "";
+      }
+
+      overlay.addEventListener(
+        "touchstart",
+        e => {
+          const t = e.touches;
+          if (t.length === 2) {
+            initialDist = Math.hypot(
+              t[1].clientX - t[0].clientX,
+              t[1].clientY - t[0].clientY
+            );
+            initialScale = currentScale;
+          } else if (t.length === 1) {
+            const now = Date.now();
+            if (now - lastTapTime < 300) {
+              e.preventDefault();
+              if (currentScale > 1) {
+                resetTransform();
+              } else {
+                currentScale = 2;
+                translateX = 0;
+                translateY = 0;
+                applyTransform();
+              }
+              lastTapTime = 0;
+              panStartX = t[0].clientX;
+              panStartY = t[0].clientY;
+              panStartTranslateX = translateX;
+              panStartTranslateY = translateY;
+            } else {
+              lastTapTime = now;
+              if (currentScale > 1) {
+                panStartX = t[0].clientX;
+                panStartY = t[0].clientY;
+                panStartTranslateX = translateX;
+                panStartTranslateY = translateY;
+              }
+            }
+          }
+        },
+        { passive: false }
+      );
+
+      overlay.addEventListener(
+        "touchmove",
+        e => {
+          const t = e.touches;
+          if (t.length === 2) {
+            e.preventDefault();
+            const dist = Math.hypot(
+              t[1].clientX - t[0].clientX,
+              t[1].clientY - t[0].clientY
+            );
+            currentScale = Math.min(
+              4,
+              Math.max(1, initialScale * (dist / initialDist))
+            );
+            applyTransform();
+          } else if (t.length === 1) {
+            if (currentScale > 1) {
+              e.preventDefault();
+              translateX =
+                panStartTranslateX + (t[0].clientX - panStartX) / currentScale;
+              translateY =
+                panStartTranslateY + (t[0].clientY - panStartY) / currentScale;
+              const maxX = Math.max(
+                0,
+                (image.clientWidth - overlay.clientWidth / currentScale) / 2
+              );
+              const maxY = Math.max(
+                0,
+                (image.clientHeight - overlay.clientHeight / currentScale) / 2
+              );
+              translateX = Math.min(maxX, Math.max(-maxX, translateX));
+              translateY = Math.min(maxY, Math.max(-maxY, translateY));
+              applyTransform();
+            } else {
+              e.preventDefault();
+            }
+          }
+        },
+        { passive: false }
+      );
+
+      overlay.addEventListener("touchend", e => {
+        if (e.touches.length === 0 && currentScale <= 1.05) {
+          resetTransform();
+        }
+      });
+
+      overlay.addEventListener("touchcancel", e => {
+        if (e.touches.length === 0 && currentScale <= 1.05) {
+          resetTransform();
+        }
+      });
+
+      document.body.appendChild(overlay);
+      document.body.style.overflow = "hidden";
+      document.addEventListener("keydown", onKeyDown);
+      window.__closeLightbox = close;
+
+      requestAnimationFrame(() => overlay?.classList.add("opacity-100"));
+      closeButton.focus();
+    }
+
+    function close() {
+      if (!overlay) return;
+      const el = overlay;
+      overlay = null;
+      window.__closeLightbox = null;
+
+      document.removeEventListener("keydown", onKeyDown);
+      document.body.style.overflow = "";
+      lastFocused?.focus();
+      lastFocused = null;
+
+      if (prefersReducedMotion()) {
+        el.remove();
+        return;
+      }
+      const remove = () => el.remove();
+      el.addEventListener("transitionend", remove, { once: true });
+      setTimeout(remove, 250); // fallback in case transitionend never fires
+      el.classList.remove("opacity-100");
+    }
+
+    function onKeyDown(e) {
+      if (e.key === "Escape") {
+        close();
+      } else if (e.key === "Tab") {
+        trapFocus(e);
+      }
+    }
+
+    // Keep keyboard focus inside the open dialog.
+    function trapFocus(e) {
+      if (!overlay) return;
+      const focusables = overlay.querySelectorAll(
+        'a[href], button, [tabindex]:not([tabindex="-1"])'
+      );
+      if (focusables.length === 0) return;
+      const first = focusables[0];
+      const last = focusables[focusables.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    }
+
+    function triggerFromEvent(e) {
+      const image = e.target.closest("img");
+      if (!image || !article.contains(image) || image.closest("a")) return null;
+      return image;
+    }
+
+    function activate(image) {
+      open(image.currentSrc || image.src, image.alt, image);
+    }
+
+    article.addEventListener("click", e => {
+      const image = triggerFromEvent(e);
+      if (!image) return;
+      e.preventDefault();
+      activate(image);
+    });
+
+    article.addEventListener("keydown", e => {
+      if (e.key !== "Enter" && e.key !== " " && e.key !== "Spacebar") return;
+      const image = triggerFromEvent(e);
+      if (!image) return;
+      e.preventDefault();
+      activate(image);
+    });
+  }
+  initLightbox();
+
+  if (!window.__lightboxSwapBound) {
+    window.__lightboxSwapBound = true;
+    document.addEventListener("astro:before-swap", () =>
+      window.__closeLightbox?.()
+    );
+  }
+
+  document.addEventListener("astro:after-swap", () =>
+    window.scrollTo({ left: 0, top: 0, behavior: "instant" })
+  );
+</script>

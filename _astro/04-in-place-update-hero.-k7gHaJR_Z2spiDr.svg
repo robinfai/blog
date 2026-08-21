@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc">
+  <title id="title">终端在同一行更新进度信息</title>
+  <desc id="desc">程序先显示 progress 20%，再发送回车、擦除行尾和新文本，最终同一行显示 progress 80%</desc>
+  <rect width="1200" height="675" fill="#ebe7dc"/>
+  <text x="76" y="58" fill="#69706b" font-family="system-ui,sans-serif" font-size="18" letter-spacing="4">MOVE · ERASE · WRITE</text>
+  <rect x="76" y="88" width="1048" height="514" rx="18" fill="#171b1b"/>
+  <rect x="76" y="88" width="1048" height="58" rx="18" fill="#242b2a"/>
+  <rect x="76" y="128" width="1048" height="18" fill="#242b2a"/>
+  <circle cx="113" cy="117" r="8" fill="#d66559"/>
+  <circle cx="139" cy="117" r="8" fill="#d7a24c"/>
+  <circle cx="165" cy="117" r="8" fill="#66a967"/>
+  <text x="1078" y="123" text-anchor="end" fill="#83908b" font-family="ui-monospace,monospace" font-size="14">screen-buffer</text>
+
+  <g font-family="system-ui,sans-serif">
+    <rect x="116" y="184" width="274" height="240" rx="12" fill="#242b2a" stroke="#52605d" stroke-width="2"/>
+    <text x="253" y="224" text-anchor="middle" fill="#aeb8b4" font-size="17" font-weight="800">当前屏幕</text>
+    <rect x="142" y="252" width="222" height="82" rx="7" fill="#101413" stroke="#35423f"/>
+    <text x="164" y="304" fill="#f4f0e7" font-family="ui-monospace,monospace" font-size="24">progress: </text>
+    <text x="298" y="304" fill="#e4c06b" font-family="ui-monospace,monospace" font-size="24" font-weight="700">20%</text>
+    <rect x="345" y="278" width="10" height="31" fill="#e8eee9"/>
+    <text x="253" y="375" text-anchor="middle" fill="#c2cfcb" font-size="17">光标停在文字末尾</text>
+
+    <path d="M390 304h54" stroke="#5f746f" stroke-width="4"/>
+    <path d="m430 293 14 11-14 11" fill="none" stroke="#5f746f" stroke-width="4"/>
+
+    <rect x="444" y="184" width="312" height="240" rx="12" fill="#203332" stroke="#53827d" stroke-width="2"/>
+    <text x="600" y="224" text-anchor="middle" fill="#8fd0c7" font-size="17" font-weight="800">继续输出字节</text>
+    <g font-family="ui-monospace,monospace" text-anchor="middle">
+      <rect x="470" y="252" width="74" height="66" rx="7" fill="#182423" stroke="#53827d"/>
+      <text x="507" y="280" fill="#8fd0c7" font-size="16">0D</text>
+      <text x="507" y="303" fill="#f4f0e7" font-size="18">CR</text>
+      <rect x="558" y="252" width="92" height="66" rx="7" fill="#332f25" stroke="#a38443"/>
+      <text x="604" y="280" fill="#e4c06b" font-size="16">1B 5B 4B</text>
+      <text x="604" y="303" fill="#f4f0e7" font-size="18">EL</text>
+      <rect x="664" y="252" width="66" height="66" rx="7" fill="#30273a" stroke="#74558e"/>
+      <text x="697" y="280" fill="#d2a3ed" font-size="16">…</text>
+      <text x="697" y="303" fill="#f4f0e7" font-size="18">TEXT</text>
+    </g>
+    <text x="600" y="350" text-anchor="middle" fill="#c2cfcb" font-size="17">回到行首 → 清除旧内容</text>
+    <text x="600" y="378" text-anchor="middle" fill="#c2cfcb" font-size="17">→ 写入 progress: 80%</text>
+
+    <path d="M756 304h54" stroke="#5f746f" stroke-width="4"/>
+    <path d="m796 293 14 11-14 11" fill="none" stroke="#5f746f" stroke-width="4"/>
+
+    <rect x="810" y="184" width="274" height="240" rx="12" fill="#332f25" stroke="#a38443" stroke-width="2"/>
+    <text x="947" y="224" text-anchor="middle" fill="#e4c06b" font-size="17" font-weight="800">更新后的屏幕</text>
+    <rect x="836" y="252" width="222" height="82" rx="7" fill="#101413" stroke="#544a32"/>
+    <text x="858" y="304" fill="#f4f0e7" font-family="ui-monospace,monospace" font-size="24">progress: </text>
+    <text x="992" y="304" fill="#66a967" font-family="ui-monospace,monospace" font-size="24" font-weight="700">80%</text>
+    <rect x="1039" y="278" width="10" height="31" fill="#e8eee9"/>
+    <text x="947" y="375" text-anchor="middle" fill="#e7d9b7" font-size="17">同一行的字符单元被改写</text>
+  </g>
+
+  <rect x="245" y="468" width="710" height="80" rx="9" fill="#101413" stroke="#35423f"/>
+  <text x="600" y="501" text-anchor="middle" fill="#8fd0c7" font-family="system-ui,sans-serif" font-size="17" font-weight="700">stdout 仍然只向前传输</text>
+  <text x="600" y="529" text-anchor="middle" fill="#f4f0e7" font-family="system-ui,sans-serif" font-size="21">变化的是光标位置和 Screen Buffer</text>
+  <text x="76" y="638" fill="#69706b" font-family="system-ui,sans-serif" font-size="18">原地更新不是修改历史输出，而是用新的字节修改终端当前状态。</text>
+</svg>

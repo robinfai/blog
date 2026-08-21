@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="1040" viewBox="0 0 720 1040" role="img" aria-labelledby="title desc">
+  <title id="title">Screen Buffer 的字符网格和终端状态</title>
+  <desc id="desc">终端解析器把字符和控制序列转换为字符单元、光标、显示属性、视口和滚动区域等状态，渲染器再绘制像素</desc>
+  <rect width="720" height="1040" fill="#ebe7dc"/>
+  <text x="56" y="62" fill="#69706b" font-family="system-ui,sans-serif" font-size="18" letter-spacing="3">TERMINAL STATE</text>
+
+  <g font-family="system-ui,sans-serif">
+    <rect x="56" y="98" width="608" height="132" rx="6" fill="#fbfaf6" stroke="#cbc5b8" stroke-width="2"/>
+    <text x="84" y="136" fill="#92704c" font-size="16" font-weight="800">INPUT</text>
+    <text x="84" y="182" fill="#171916" font-size="30" font-weight="800">字符 + 控制序列</text>
+    <text x="84" y="211" fill="#686b63" font-family="ui-monospace,monospace" font-size="17">hello  ESC [ 2 ; 5 H  red</text>
+
+    <path d="M360 230v52" stroke="#2d7e82" stroke-width="4"/><path d="m349 268 11 14 11-14" fill="none" stroke="#2d7e82" stroke-width="4"/>
+
+    <rect x="56" y="282" width="608" height="108" rx="6" fill="#dce9e6" stroke="#79aaa6" stroke-width="2"/>
+    <text x="84" y="320" fill="#2d7e82" font-size="16" font-weight="800">TERMINAL PARSER</text>
+    <text x="84" y="360" fill="#171916" font-size="26" font-weight="800">把字节转换为状态变化</text>
+
+    <path d="M360 390v52" stroke="#2d7e82" stroke-width="4"/><path d="m349 428 11 14 11-14" fill="none" stroke="#2d7e82" stroke-width="4"/>
+
+    <rect x="56" y="442" width="608" height="374" rx="6" fill="#171b1b"/>
+    <text x="84" y="482" fill="#82bbb5" font-size="16" font-weight="800">SCREEN BUFFER</text>
+    <text x="84" y="518" fill="#f4f0e7" font-size="27" font-weight="800">字符网格</text>
+
+    <g font-family="ui-monospace,monospace" font-size="20" text-anchor="middle">
+      <g fill="#83908b" font-size="14">
+        <text x="202" y="551">1</text><text x="250" y="551">2</text><text x="298" y="551">3</text><text x="346" y="551">4</text><text x="394" y="551">5</text><text x="442" y="551">6</text><text x="490" y="551">7</text><text x="538" y="551">8</text>
+        <text x="157" y="590">1</text><text x="157" y="638">2</text><text x="157" y="686">3</text><text x="157" y="734">4</text>
+      </g>
+      <rect x="178" y="562" width="48" height="48" fill="#242b2a" stroke="#465451"/><text x="202" y="593" fill="#f4f0e7">h</text>
+      <rect x="226" y="562" width="48" height="48" fill="#242b2a" stroke="#465451"/><text x="250" y="593" fill="#f4f0e7">e</text>
+      <rect x="274" y="562" width="48" height="48" fill="#242b2a" stroke="#465451"/><text x="298" y="593" fill="#f4f0e7">l</text>
+      <rect x="322" y="562" width="48" height="48" fill="#242b2a" stroke="#465451"/><text x="346" y="593" fill="#f4f0e7">l</text>
+      <rect x="370" y="562" width="48" height="48" fill="#242b2a" stroke="#465451"/><text x="394" y="593" fill="#f4f0e7">o</text>
+      <rect x="418" y="562" width="48" height="48" fill="#242b2a" stroke="#465451"/><text x="442" y="593" fill="#66736f">·</text>
+      <rect x="466" y="562" width="48" height="48" fill="#242b2a" stroke="#465451"/><text x="490" y="593" fill="#66736f">·</text>
+      <rect x="514" y="562" width="48" height="48" fill="#242b2a" stroke="#465451"/><text x="538" y="593" fill="#66736f">·</text>
+
+      <rect x="178" y="610" width="48" height="48" fill="#242b2a" stroke="#465451"/><text x="202" y="641" fill="#66736f">·</text>
+      <rect x="226" y="610" width="48" height="48" fill="#242b2a" stroke="#465451"/><text x="250" y="641" fill="#66736f">·</text>
+      <rect x="274" y="610" width="48" height="48" fill="#242b2a" stroke="#465451"/><text x="298" y="641" fill="#66736f">·</text>
+      <rect x="322" y="610" width="48" height="48" fill="#242b2a" stroke="#465451"/><text x="346" y="641" fill="#66736f">·</text>
+      <rect x="370" y="610" width="48" height="48" fill="#30273a" stroke="#d34e43" stroke-width="3"/><text x="394" y="641" fill="#ff766b">r</text>
+      <rect x="418" y="610" width="48" height="48" fill="#30273a" stroke="#74558e"/><text x="442" y="641" fill="#ff766b">e</text>
+      <rect x="466" y="610" width="48" height="48" fill="#30273a" stroke="#74558e"/><text x="490" y="641" fill="#ff766b">d</text>
+      <rect x="514" y="610" width="48" height="48" fill="#242b2a" stroke="#465451"/><text x="538" y="641" fill="#66736f">·</text>
+
+      <rect x="178" y="658" width="48" height="48" fill="#242b2a" stroke="#465451"/><rect x="226" y="658" width="48" height="48" fill="#242b2a" stroke="#465451"/><rect x="274" y="658" width="48" height="48" fill="#242b2a" stroke="#465451"/><rect x="322" y="658" width="48" height="48" fill="#242b2a" stroke="#465451"/><rect x="370" y="658" width="48" height="48" fill="#242b2a" stroke="#465451"/><rect x="418" y="658" width="48" height="48" fill="#242b2a" stroke="#465451"/><rect x="466" y="658" width="48" height="48" fill="#242b2a" stroke="#465451"/><rect x="514" y="658" width="48" height="48" fill="#242b2a" stroke="#465451"/>
+      <rect x="178" y="706" width="48" height="48" fill="#242b2a" stroke="#465451"/><rect x="226" y="706" width="48" height="48" fill="#242b2a" stroke="#465451"/><rect x="274" y="706" width="48" height="48" fill="#242b2a" stroke="#465451"/><rect x="322" y="706" width="48" height="48" fill="#242b2a" stroke="#465451"/><rect x="370" y="706" width="48" height="48" fill="#242b2a" stroke="#465451"/><rect x="418" y="706" width="48" height="48" fill="#242b2a" stroke="#465451"/><rect x="466" y="706" width="48" height="48" fill="#242b2a" stroke="#465451"/><rect x="514" y="706" width="48" height="48" fill="#242b2a" stroke="#465451"/>
+    </g>
+    <path d="M394 660v22" stroke="#ff766b" stroke-width="4"/><path d="m384 672 10 12 10-12" fill="none" stroke="#ff766b" stroke-width="3"/>
+    <text x="84" y="790" fill="#b8c2bd" font-size="17">高亮单元格：字符 r + 红色前景 + 光标位置 (2, 5)</text>
+
+    <path d="M360 816v46" stroke="#2d7e82" stroke-width="4"/><path d="m349 848 11 14 11-14" fill="none" stroke="#2d7e82" stroke-width="4"/>
+
+    <rect x="56" y="862" width="608" height="118" rx="6" fill="#fbfaf6" stroke="#cbc5b8" stroke-width="2"/>
+    <text x="84" y="900" fill="#92704c" font-size="16" font-weight="800">RENDERER</text>
+    <text x="84" y="944" fill="#171916" font-size="27" font-weight="800">把变化后的单元格绘制成像素</text>
+  </g>
+  <text x="56" y="1018" fill="#69706b" font-family="system-ui,sans-serif" font-size="17">屏幕结果来自当前状态，不是 stdout 的逐字回放。</text>
+</svg>
