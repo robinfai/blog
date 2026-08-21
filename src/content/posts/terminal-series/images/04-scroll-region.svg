@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="1040" viewBox="0 0 720 1040" role="img" aria-labelledby="title desc">
+  <title id="title">终端滚动区域只移动中间内容</title>
+  <desc id="desc">设置上下边界后，中间日志区域向上滚动，顶部标题和底部状态栏保持不变</desc>
+  <rect width="720" height="1040" fill="#ebe7dc"/>
+  <text x="56" y="62" fill="#69706b" font-family="system-ui,sans-serif" font-size="18" letter-spacing="3">SCROLL INSIDE MARGINS</text>
+
+  <g font-family="system-ui,sans-serif">
+    <rect x="56" y="98" width="608" height="88" rx="6" fill="#fbfaf6" stroke="#cbc5b8" stroke-width="2"/>
+    <text x="84" y="134" fill="#92704c" font-size="16" font-weight="800">DECSTBM</text>
+    <text x="84" y="166" fill="#171916" font-family="ui-monospace,monospace" font-size="23" font-weight="700">CSI 3 ; 8 r</text>
+    <text x="340" y="165" fill="#686b63" font-size="17">第 3–8 行参与滚动</text>
+
+    <text x="84" y="232" fill="#2d7e82" font-size="17" font-weight="800">滚动前</text>
+    <rect x="84" y="250" width="552" height="294" rx="7" fill="#171b1b"/>
+    <rect x="104" y="270" width="512" height="42" rx="3" fill="#203332"/>
+    <text x="124" y="298" fill="#8fd0c7" font-size="18" font-weight="700">BUILD DASHBOARD</text>
+    <rect x="104" y="320" width="512" height="36" rx="3" fill="#242b2a"/>
+    <text x="124" y="344" fill="#83908b" font-size="15">────────────────────────────────</text>
+
+    <rect x="104" y="364" width="512" height="126" rx="3" fill="#26231e" stroke="#a38443"/>
+    <text x="124" y="391" fill="#e4c06b" font-size="15" font-weight="700">SCROLL REGION · ROW 3–8</text>
+    <text x="124" y="420" fill="#f4f0e7" font-family="ui-monospace,monospace" font-size="17">[1/4] resolve dependencies</text>
+    <text x="124" y="448" fill="#f4f0e7" font-family="ui-monospace,monospace" font-size="17">[2/4] compile packages</text>
+    <text x="124" y="476" fill="#f4f0e7" font-family="ui-monospace,monospace" font-size="17">[3/4] run tests</text>
+
+    <rect x="104" y="498" width="512" height="26" rx="3" fill="#30273a"/>
+    <text x="124" y="517" fill="#d2a3ed" font-size="14">STATUS · 72% · 00:18</text>
+
+    <path d="M360 544v64" stroke="#2d7e82" stroke-width="4"/><path d="m349 594 11 14 11-14" fill="none" stroke="#2d7e82" stroke-width="4"/>
+    <rect x="228" y="560" width="264" height="32" rx="16" fill="#dce9e6"/>
+    <text x="360" y="582" text-anchor="middle" fill="#2d7e82" font-size="15" font-weight="800">底部换行触发滚动</text>
+
+    <text x="84" y="652" fill="#2d7e82" font-size="17" font-weight="800">滚动后</text>
+    <rect x="84" y="670" width="552" height="294" rx="7" fill="#171b1b"/>
+    <rect x="104" y="690" width="512" height="42" rx="3" fill="#203332"/>
+    <text x="124" y="718" fill="#8fd0c7" font-size="18" font-weight="700">BUILD DASHBOARD</text>
+    <rect x="104" y="740" width="512" height="36" rx="3" fill="#242b2a"/>
+    <text x="124" y="764" fill="#83908b" font-size="15">────────────────────────────────</text>
+
+    <rect x="104" y="784" width="512" height="126" rx="3" fill="#26231e" stroke="#a38443"/>
+    <text x="124" y="811" fill="#e4c06b" font-size="15" font-weight="700">SCROLL REGION · ROW 3–8</text>
+    <text x="124" y="840" fill="#8b928e" font-family="ui-monospace,monospace" font-size="17">[2/4] compile packages</text>
+    <text x="124" y="868" fill="#f4f0e7" font-family="ui-monospace,monospace" font-size="17">[3/4] run tests</text>
+    <text x="124" y="896" fill="#66a967" font-family="ui-monospace,monospace" font-size="17">[4/4] package output</text>
+
+    <rect x="104" y="918" width="512" height="26" rx="3" fill="#30273a"/>
+    <text x="124" y="937" fill="#d2a3ed" font-size="14">STATUS · 100% · 00:24</text>
+
+    <path d="M646 690h16M654 690v42M646 732h16" stroke="#66a967" stroke-width="3"/>
+    <path d="M646 918h16M654 918v26M646 944h16" stroke="#66a967" stroke-width="3"/>
+    <text x="670" y="724" fill="#69706b" font-size="14" transform="rotate(90 670 724)">固定</text>
+    <text x="670" y="924" fill="#69706b" font-size="14" transform="rotate(90 670 924)">固定</text>
+  </g>
+  <text x="56" y="1018" fill="#69706b" font-family="system-ui,sans-serif" font-size="17">只有边界内的逻辑行移动，标题和状态栏不参与滚动。</text>
+</svg>

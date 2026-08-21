@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="1040" viewBox="0 0 720 1040" role="img" aria-labelledby="title desc">
+  <title id="title">CR 与 EL 对字符单元的不同影响</title>
+  <desc id="desc">CR 只把光标移到行首，直接写入较短文本会留下旧字符；先执行 EL 再写入可以清除旧内容</desc>
+  <rect width="720" height="1040" fill="#ebe7dc"/>
+  <text x="56" y="62" fill="#69706b" font-family="system-ui,sans-serif" font-size="18" letter-spacing="3">MOVE IS NOT ERASE</text>
+
+  <g font-family="system-ui,sans-serif">
+    <rect x="56" y="98" width="608" height="178" rx="6" fill="#fbfaf6" stroke="#cbc5b8" stroke-width="2"/>
+    <text x="84" y="134" fill="#92704c" font-size="16" font-weight="800">01 · 已有内容</text>
+    <text x="84" y="168" fill="#686b63" font-size="17">光标在 long message 末尾</text>
+    <g font-family="ui-monospace,monospace" font-size="21" text-anchor="middle">
+      <rect x="84" y="191" width="44" height="52" fill="#242b2a" stroke="#52605d"/><text x="106" y="224" fill="#f4f0e7">l</text>
+      <rect x="128" y="191" width="44" height="52" fill="#242b2a" stroke="#52605d"/><text x="150" y="224" fill="#f4f0e7">o</text>
+      <rect x="172" y="191" width="44" height="52" fill="#242b2a" stroke="#52605d"/><text x="194" y="224" fill="#f4f0e7">n</text>
+      <rect x="216" y="191" width="44" height="52" fill="#242b2a" stroke="#52605d"/><text x="238" y="224" fill="#f4f0e7">g</text>
+      <rect x="260" y="191" width="44" height="52" fill="#242b2a" stroke="#52605d"/><text x="282" y="224" fill="#f4f0e7">·</text>
+      <rect x="304" y="191" width="44" height="52" fill="#332f25" stroke="#a38443"/><text x="326" y="224" fill="#e4c06b">m</text>
+      <rect x="348" y="191" width="44" height="52" fill="#332f25" stroke="#a38443"/><text x="370" y="224" fill="#e4c06b">e</text>
+      <rect x="392" y="191" width="44" height="52" fill="#332f25" stroke="#a38443"/><text x="414" y="224" fill="#e4c06b">s</text>
+      <rect x="436" y="191" width="44" height="52" fill="#332f25" stroke="#a38443"/><text x="458" y="224" fill="#e4c06b">s</text>
+      <rect x="480" y="191" width="44" height="52" fill="#332f25" stroke="#a38443"/><text x="502" y="224" fill="#e4c06b">a</text>
+      <rect x="524" y="191" width="44" height="52" fill="#332f25" stroke="#a38443"/><text x="546" y="224" fill="#e4c06b">g</text>
+      <rect x="568" y="191" width="44" height="52" fill="#332f25" stroke="#a38443"/><text x="590" y="224" fill="#e4c06b">e</text>
+    </g>
+
+    <path d="M360 276v40" stroke="#2d7e82" stroke-width="4"/><path d="m349 302 11 14 11-14" fill="none" stroke="#2d7e82" stroke-width="4"/>
+
+    <rect x="56" y="316" width="608" height="156" rx="6" fill="#dce9e6" stroke="#79aaa6" stroke-width="2"/>
+    <text x="84" y="352" fill="#2d7e82" font-size="16" font-weight="800">02 · CR / \r</text>
+    <text x="84" y="386" fill="#171916" font-size="25" font-weight="800">只把光标移到第 1 列</text>
+    <text x="84" y="421" fill="#686b63" font-size="18">字符单元没有变化</text>
+    <path d="M106 445v-30" stroke="#d34e43" stroke-width="5"/><path d="m96 425 10-12 10 12" fill="none" stroke="#d34e43" stroke-width="4"/>
+
+    <path d="M360 472v40" stroke="#2d7e82" stroke-width="4"/><path d="m349 498 11 14 11-14" fill="none" stroke="#2d7e82" stroke-width="4"/>
+
+    <rect x="56" y="512" width="608" height="188" rx="6" fill="#f2e4d2" stroke="#d0b184" stroke-width="2"/>
+    <text x="84" y="548" fill="#ad6a26" font-size="16" font-weight="800">03 · 直接写入 short</text>
+    <text x="84" y="582" fill="#686b63" font-size="17">前 5 格被覆盖，旧尾部仍然存在</text>
+    <g font-family="ui-monospace,monospace" font-size="21" text-anchor="middle">
+      <rect x="84" y="608" width="44" height="52" fill="#203332" stroke="#53827d"/><text x="106" y="641" fill="#8fd0c7">s</text>
+      <rect x="128" y="608" width="44" height="52" fill="#203332" stroke="#53827d"/><text x="150" y="641" fill="#8fd0c7">h</text>
+      <rect x="172" y="608" width="44" height="52" fill="#203332" stroke="#53827d"/><text x="194" y="641" fill="#8fd0c7">o</text>
+      <rect x="216" y="608" width="44" height="52" fill="#203332" stroke="#53827d"/><text x="238" y="641" fill="#8fd0c7">r</text>
+      <rect x="260" y="608" width="44" height="52" fill="#203332" stroke="#53827d"/><text x="282" y="641" fill="#8fd0c7">t</text>
+      <rect x="304" y="608" width="44" height="52" fill="#332f25" stroke="#a38443"/><text x="326" y="641" fill="#e4c06b">m</text>
+      <rect x="348" y="608" width="44" height="52" fill="#332f25" stroke="#a38443"/><text x="370" y="641" fill="#e4c06b">e</text>
+      <rect x="392" y="608" width="44" height="52" fill="#332f25" stroke="#a38443"/><text x="414" y="641" fill="#e4c06b">s</text>
+      <rect x="436" y="608" width="44" height="52" fill="#332f25" stroke="#a38443"/><text x="458" y="641" fill="#e4c06b">s</text>
+      <rect x="480" y="608" width="44" height="52" fill="#332f25" stroke="#a38443"/><text x="502" y="641" fill="#e4c06b">a</text>
+      <rect x="524" y="608" width="44" height="52" fill="#332f25" stroke="#a38443"/><text x="546" y="641" fill="#e4c06b">g</text>
+      <rect x="568" y="608" width="44" height="52" fill="#332f25" stroke="#a38443"/><text x="590" y="641" fill="#e4c06b">e</text>
+    </g>
+    <text x="360" y="686" text-anchor="middle" fill="#ad6a26" font-family="ui-monospace,monospace" font-size="20">shortmessage</text>
+
+    <path d="M360 700v40" stroke="#2d7e82" stroke-width="4"/><path d="m349 726 11 14 11-14" fill="none" stroke="#2d7e82" stroke-width="4"/>
+
+    <rect x="56" y="740" width="608" height="224" rx="6" fill="#171b1b"/>
+    <text x="84" y="778" fill="#82bbb5" font-size="16" font-weight="800">正确做法 · CR + EL + short</text>
+    <text x="84" y="814" fill="#f4f0e7" font-size="25" font-weight="800">先移动，再擦除，再写入</text>
+    <g font-family="ui-monospace,monospace" font-size="21" text-anchor="middle">
+      <rect x="84" y="842" width="44" height="52" fill="#203332" stroke="#53827d"/><text x="106" y="875" fill="#8fd0c7">s</text>
+      <rect x="128" y="842" width="44" height="52" fill="#203332" stroke="#53827d"/><text x="150" y="875" fill="#8fd0c7">h</text>
+      <rect x="172" y="842" width="44" height="52" fill="#203332" stroke="#53827d"/><text x="194" y="875" fill="#8fd0c7">o</text>
+      <rect x="216" y="842" width="44" height="52" fill="#203332" stroke="#53827d"/><text x="238" y="875" fill="#8fd0c7">r</text>
+      <rect x="260" y="842" width="44" height="52" fill="#203332" stroke="#53827d"/><text x="282" y="875" fill="#8fd0c7">t</text>
+      <rect x="304" y="842" width="44" height="52" fill="#242b2a" stroke="#465451"/><text x="326" y="875" fill="#66736f">·</text>
+      <rect x="348" y="842" width="44" height="52" fill="#242b2a" stroke="#465451"/><text x="370" y="875" fill="#66736f">·</text>
+      <rect x="392" y="842" width="44" height="52" fill="#242b2a" stroke="#465451"/><text x="414" y="875" fill="#66736f">·</text>
+      <rect x="436" y="842" width="44" height="52" fill="#242b2a" stroke="#465451"/><text x="458" y="875" fill="#66736f">·</text>
+      <rect x="480" y="842" width="44" height="52" fill="#242b2a" stroke="#465451"/><text x="502" y="875" fill="#66736f">·</text>
+      <rect x="524" y="842" width="44" height="52" fill="#242b2a" stroke="#465451"/><text x="546" y="875" fill="#66736f">·</text>
+      <rect x="568" y="842" width="44" height="52" fill="#242b2a" stroke="#465451"/><text x="590" y="875" fill="#66736f">·</text>
+    </g>
+    <text x="84" y="934" fill="#b8c2bd" font-size="18">EL 把光标到行尾的单元格置为空白</text>
+  </g>
+  <text x="56" y="1008" fill="#69706b" font-family="system-ui,sans-serif" font-size="17">光标位置和屏幕内容是两份独立状态。</text>
+</svg>
