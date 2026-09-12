@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="1080" viewBox="0 0 720 1080" role="img" aria-labelledby="title desc">
+  <title id="title">全屏 TUI 修改的多层终端状态</title>
+  <desc id="desc">Raw Mode 属于内核 TTY，Alternate Buffer、光标显示、鼠标和粘贴模式属于 Terminal，需要使用不同接口分别进入和恢复</desc>
+  <rect width="720" height="1080" fill="#ebe7dc"/>
+  <text x="56" y="62" fill="#69706b" font-family="system-ui,sans-serif" font-size="18" letter-spacing="3">STATE MUST BE PAIRED</text>
+  <g font-family="system-ui,sans-serif">
+    <rect x="56" y="96" width="608" height="108" rx="7" fill="#fbfaf6" stroke="#cbc5b8" stroke-width="2"/>
+    <text x="84" y="134" fill="#92704c" font-size="16" font-weight="800">TUI APPLICATION</text>
+    <text x="84" y="176" fill="#171916" font-size="25" font-weight="800">启动时设置，退出时逐项恢复</text>
+
+    <path d="M360 204v48" stroke="#2d7e82" stroke-width="4"/><path d="m349 238 11 14 11-14" fill="none" stroke="#2d7e82" stroke-width="4"/>
+    <path d="M56 150H28V530H56" fill="none" stroke="#a38443" stroke-width="4"/>
+    <path d="m44 519 12 11-12 11" fill="none" stroke="#a38443" stroke-width="4"/>
+    <rect x="56" y="252" width="608" height="216" rx="7" fill="#203332" stroke="#53827d" stroke-width="2"/>
+    <text x="84" y="292" fill="#8fd0c7" font-size="16" font-weight="800">KERNEL TTY</text>
+    <text x="84" y="334" fill="#f4f0e7" font-size="24" font-weight="800">按行输入 / Raw / cbreak 等配置</text>
+    <text x="84" y="374" fill="#b8c2bd" font-size="17">接口：termios</text>
+    <text x="84" y="408" fill="#b8c2bd" font-size="17">影响：按行提交、回显、控制字符与信号</text>
+    <text x="84" y="444" fill="#8fd0c7" font-size="16">应用通过 termios 设置与恢复</text>
+    <rect x="56" y="516" width="608" height="438" rx="7" fill="#171b1b"/>
+    <text x="84" y="556" fill="#e4c06b" font-size="16" font-weight="800">TERMINAL EMULATOR</text>
+
+    <rect x="84" y="584" width="552" height="86" rx="6" fill="#242b2a" stroke="#52605d"/>
+    <text x="112" y="618" fill="#f4f0e7" font-size="21" font-weight="800">Normal ↔ Alternate Buffer</text>
+    <text x="112" y="648" fill="#aeb8b4" font-family="ui-monospace,monospace" font-size="15">smcup / rmcup · 1049 h / l</text>
+
+    <rect x="84" y="690" width="552" height="86" rx="6" fill="#242b2a" stroke="#52605d"/>
+    <text x="112" y="724" fill="#f4f0e7" font-size="21" font-weight="800">光标显示 ↔ 隐藏</text>
+    <text x="112" y="754" fill="#aeb8b4" font-size="15">单独的 Terminal 控制序列</text>
+
+    <rect x="84" y="796" width="552" height="126" rx="6" fill="#242b2a" stroke="#52605d"/>
+    <text x="112" y="830" fill="#f4f0e7" font-size="21" font-weight="800">鼠标 / Focus / Bracketed Paste</text>
+    <text x="112" y="862" fill="#aeb8b4" font-size="15">每项都有独立的启用与禁用序列</text>
+    <text x="112" y="894" fill="#d4b56b" font-size="15">1049 l 不会代替这些恢复操作</text>
+
+    <rect x="152" y="1002" width="416" height="46" rx="7" fill="#fbfaf6" stroke="#cbc5b8"/>
+    <text x="360" y="1031" text-anchor="middle" fill="#171916" font-size="17" font-weight="700">任一项没有恢复，都可能影响后续 Shell</text>
+  </g>
+  <text x="56" y="1068" fill="#69706b" font-family="system-ui,sans-serif" font-size="16">进程结束不会自动撤销 Terminal 已执行的全部模式切换。</text>
+</svg>

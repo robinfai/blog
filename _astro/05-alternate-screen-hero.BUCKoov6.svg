@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc">
+  <title id="title">Terminal 在 Normal Buffer 和 Alternate Buffer 之间切换</title>
+  <desc id="desc">Shell 内容先显示在 Normal Buffer，Vim 通过 1049h 切换到 Alternate Buffer，退出时通过 1049l 恢复原来的 Shell 内容</desc>
+  <rect width="1200" height="675" fill="#ebe7dc"/>
+  <text x="76" y="58" fill="#69706b" font-family="system-ui,sans-serif" font-size="18" letter-spacing="4">NORMAL · ALTERNATE · NORMAL</text>
+
+  <g font-family="system-ui,sans-serif">
+    <rect x="76" y="92" width="1048" height="456" rx="18" fill="#171b1b"/>
+    <rect x="76" y="92" width="1048" height="58" rx="18" fill="#242b2a"/>
+    <rect x="76" y="132" width="1048" height="18" fill="#242b2a"/>
+    <circle cx="113" cy="121" r="8" fill="#d66559"/>
+    <circle cx="139" cy="121" r="8" fill="#d7a24c"/>
+    <circle cx="165" cy="121" r="8" fill="#66a967"/>
+    <text x="1080" y="127" text-anchor="end" fill="#83908b" font-family="ui-monospace,monospace" font-size="14">same PTY</text>
+
+    <rect x="112" y="184" width="262" height="258" rx="10" fill="#242b2a" stroke="#52605d" stroke-width="2"/>
+    <text x="243" y="219" text-anchor="middle" fill="#8fd0c7" font-size="16" font-weight="800">NORMAL BUFFER</text>
+    <g fill="#d9e0dd" font-family="ui-monospace,monospace" font-size="16">
+      <text x="136" y="266">$ git status</text>
+      <text x="136" y="298">On branch main</text>
+      <text x="136" y="330">$ vim notes.md</text>
+      <text x="136" y="362">█</text>
+    </g>
+    <text x="243" y="411" text-anchor="middle" fill="#aeb8b4" font-size="15">Shell 内容保留在主缓冲区</text>
+
+    <path d="M374 312h70" stroke="#5f746f" stroke-width="4"/>
+    <path d="m430 301 14 11-14 11" fill="none" stroke="#5f746f" stroke-width="4"/>
+    <rect x="378" y="248" width="62" height="36" rx="8" fill="#203332"/>
+    <text x="409" y="272" text-anchor="middle" fill="#8fd0c7" font-family="ui-monospace,monospace" font-size="12">1049 h</text>
+
+    <rect x="444" y="184" width="312" height="258" rx="10" fill="#203332" stroke="#53827d" stroke-width="2"/>
+    <text x="600" y="219" text-anchor="middle" fill="#8fd0c7" font-size="16" font-weight="800">ALTERNATE BUFFER</text>
+    <rect x="470" y="245" width="260" height="126" rx="5" fill="#101413" stroke="#38534f"/>
+    <g fill="#d9e0dd" font-family="ui-monospace,monospace" font-size="15">
+      <text x="490" y="276"># Notes</text>
+      <text x="490" y="307">Alternate screen</text>
+      <text x="490" y="338">can redraw freely.</text>
+    </g>
+    <rect x="470" y="371" width="260" height="28" fill="#dce9e6"/>
+    <text x="600" y="391" text-anchor="middle" fill="#234a47" font-family="ui-monospace,monospace" font-size="14">notes.md  3L, 48B</text>
+    <text x="600" y="425" text-anchor="middle" fill="#a9c7c2" font-size="15">Vim 只修改备用缓冲区</text>
+
+    <path d="M756 312h70" stroke="#5f746f" stroke-width="4"/>
+    <path d="m812 301 14 11-14 11" fill="none" stroke="#5f746f" stroke-width="4"/>
+    <rect x="760" y="248" width="62" height="36" rx="8" fill="#332f25"/>
+    <text x="791" y="272" text-anchor="middle" fill="#e4c06b" font-family="ui-monospace,monospace" font-size="12">1049 l</text>
+
+    <rect x="826" y="184" width="262" height="258" rx="10" fill="#242b2a" stroke="#a38443" stroke-width="2"/>
+    <text x="957" y="219" text-anchor="middle" fill="#e4c06b" font-size="16" font-weight="800">NORMAL BUFFER</text>
+    <g fill="#d9e0dd" font-family="ui-monospace,monospace" font-size="16">
+      <text x="850" y="266">$ git status</text>
+      <text x="850" y="298">On branch main</text>
+      <text x="850" y="330">$ vim notes.md</text>
+      <text x="850" y="362">$ █</text>
+    </g>
+    <text x="957" y="411" text-anchor="middle" fill="#e7d9b7" font-size="15">退出后恢复原来的画面</text>
+
+    <rect x="264" y="480" width="672" height="44" rx="7" fill="#101413" stroke="#35423f"/>
+    <text x="600" y="508" text-anchor="middle" fill="#f4f0e7" font-size="17">Buffer 切换不额外创建进程、PTY 或 SSH 连接</text>
+  </g>
+  <text x="76" y="604" fill="#171916" font-family="system-ui,sans-serif" font-size="24" font-weight="800">所谓“第二块屏幕”，是 Terminal 内部的另一份 Screen Buffer。</text>
+  <text x="76" y="638" fill="#69706b" font-family="system-ui,sans-serif" font-size="17">全屏程序退出后，Terminal 重新显示一直保留的 Normal Buffer。</text>
+</svg>

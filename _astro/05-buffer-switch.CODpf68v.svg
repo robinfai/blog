@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="1040" viewBox="0 0 720 1040" role="img" aria-labelledby="title desc">
+  <title id="title">Normal Buffer 与 Alternate Buffer 的活动状态切换</title>
+  <desc id="desc">同一条 PTY 字节流进入 Terminal Parser，解析器根据 1049 模式选择修改 Normal Buffer 或 Alternate Buffer，Renderer 只绘制当前活动缓冲区</desc>
+  <rect width="720" height="1040" fill="#ebe7dc"/>
+  <text x="56" y="62" fill="#69706b" font-family="system-ui,sans-serif" font-size="18" letter-spacing="3">ACTIVE BUFFER</text>
+  <g font-family="system-ui,sans-serif">
+    <rect x="56" y="96" width="608" height="112" rx="7" fill="#fbfaf6" stroke="#cbc5b8" stroke-width="2"/>
+    <text x="84" y="134" fill="#92704c" font-size="16" font-weight="800">PTY MASTER</text>
+    <text x="84" y="176" fill="#171916" font-size="25" font-weight="800">字符、光标命令与 Buffer 切换序列</text>
+
+    <path d="M360 208v54" stroke="#2d7e82" stroke-width="4"/><path d="m349 248 11 14 11-14" fill="none" stroke="#2d7e82" stroke-width="4"/>
+    <rect x="56" y="262" width="608" height="106" rx="7" fill="#dce9e6" stroke="#79aaa6" stroke-width="2"/>
+    <text x="84" y="300" fill="#2d7e82" font-size="16" font-weight="800">TERMINAL PARSER</text>
+    <text x="84" y="340" fill="#171916" font-size="25" font-weight="800">修改当前活动的 Screen Buffer</text>
+
+    <path d="M360 368v54" stroke="#2d7e82" stroke-width="4"/><path d="m349 408 11 14 11-14" fill="none" stroke="#2d7e82" stroke-width="4"/>
+    <rect x="56" y="422" width="608" height="392" rx="7" fill="#171b1b"/>
+    <text x="84" y="462" fill="#82bbb5" font-size="16" font-weight="800">TERMINAL MEMORY</text>
+
+    <rect x="84" y="494" width="552" height="124" rx="7" fill="#242b2a" stroke="#a38443" stroke-width="3"/>
+    <text x="112" y="530" fill="#e4c06b" font-size="17" font-weight="800">NORMAL BUFFER</text>
+    <text x="112" y="566" fill="#f4f0e7" font-size="23" font-weight="800">Shell 画面 + 普通 scrollback</text>
+    <text x="112" y="596" fill="#b8c2bd" font-size="16">进入全屏程序后保留，不继续接收绘制操作</text>
+
+    <rect x="84" y="656" width="552" height="124" rx="7" fill="#203332" stroke="#53827d" stroke-width="3"/>
+    <text x="112" y="692" fill="#8fd0c7" font-size="17" font-weight="800">ALTERNATE BUFFER</text>
+    <text x="112" y="728" fill="#f4f0e7" font-size="23" font-weight="800">全屏 TUI 的字符网格</text>
+    <text x="112" y="758" fill="#b8c2bd" font-size="16">活动时接收光标、擦除与字符写入</text>
+
+    <path d="M612 608v48" stroke="#e4c06b" stroke-width="4"/><path d="m602 644 10 12 10-12" fill="none" stroke="#e4c06b" stroke-width="3"/>
+    <path d="M584 656v-48" stroke="#8fd0c7" stroke-width="4"/><path d="m574 620 10-12 10 12" fill="none" stroke="#8fd0c7" stroke-width="3"/>
+    <text x="548" y="642" text-anchor="end" fill="#c7d1cd" font-family="ui-monospace,monospace" font-size="14">1049 h / l</text>
+
+    <path d="M360 814v54" stroke="#2d7e82" stroke-width="4"/><path d="m349 854 11 14 11-14" fill="none" stroke="#2d7e82" stroke-width="4"/>
+    <rect x="56" y="868" width="608" height="112" rx="7" fill="#fbfaf6" stroke="#cbc5b8" stroke-width="2"/>
+    <text x="84" y="906" fill="#92704c" font-size="16" font-weight="800">RENDERER</text>
+    <text x="84" y="948" fill="#171916" font-size="25" font-weight="800">只绘制当前活动 Buffer</text>
+  </g>
+  <text x="56" y="1018" fill="#69706b" font-family="system-ui,sans-serif" font-size="17">切换 Buffer 不会改变 PTY 中字节传输的方向。</text>
+</svg>

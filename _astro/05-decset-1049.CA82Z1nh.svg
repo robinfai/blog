@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="1040" viewBox="0 0 720 1040" role="img" aria-labelledby="title desc">
+  <title id="title">DECSET 1049 控制序列的结构与行为</title>
+  <desc id="desc">ESC 左方括号组成 CSI 开头，问号表示 DEC 私有模式参数，1049 是 xterm 模式编号，h 设置模式并进入备用屏幕，l 重置模式并返回主屏幕</desc>
+  <rect width="720" height="1040" fill="#ebe7dc"/>
+  <text x="56" y="62" fill="#69706b" font-family="system-ui,sans-serif" font-size="18" letter-spacing="3">CSI ? 1049 h / l</text>
+  <g font-family="system-ui,sans-serif">
+    <rect x="56" y="96" width="608" height="202" rx="8" fill="#171b1b"/>
+    <g text-anchor="middle">
+      <rect x="76" y="114" width="128" height="116" rx="6" fill="#203332" stroke="#53827d"/>
+      <rect x="222" y="114" width="128" height="116" rx="6" fill="#30273a" stroke="#74558e"/>
+      <rect x="368" y="114" width="128" height="116" rx="6" fill="#332f25" stroke="#a38443"/>
+      <rect x="514" y="114" width="128" height="116" rx="6" fill="#203332" stroke="#53827d"/>
+      <g fill="#f4f0e7" font-family="ui-monospace,monospace" font-size="28" font-weight="800">
+        <text x="140" y="155">ESC [</text><text x="286" y="155">?</text>
+        <text x="432" y="155">1049</text><text x="578" y="155">h</text>
+      </g>
+      <g font-size="15" font-weight="700">
+        <text x="140" y="192" fill="#8fd0c7">CSI 开头</text>
+        <text x="286" y="192" fill="#d2a3ed">私有参数前缀</text>
+        <text x="432" y="192" fill="#e4c06b">xterm 模式编号</text>
+        <text x="578" y="186" fill="#8fd0c7">最终字节</text>
+        <text x="578" y="212" fill="#8fd0c7">选择 DECSET</text>
+      </g>
+    </g>
+    <text x="360" y="268" text-anchor="middle" fill="#aeb8b4" font-size="16">h 结束这条 CSI 并设置模式；换成 l 则重置模式</text>
+
+    <path d="M360 298v54" stroke="#2d7e82" stroke-width="4"/><path d="m349 338 11 14 11-14" fill="none" stroke="#2d7e82" stroke-width="4"/>
+    <rect x="56" y="352" width="608" height="250" rx="8" fill="#203332" stroke="#53827d" stroke-width="2"/>
+    <text x="84" y="392" fill="#8fd0c7" font-size="16" font-weight="800">CSI ? 1049 h</text>
+    <g font-size="21" fill="#f4f0e7">
+      <circle cx="103" cy="444" r="16" fill="#2d7e82"/><text x="103" y="451" text-anchor="middle" font-size="15" font-weight="800">1</text>
+      <text x="136" y="451">保存 Normal Buffer 中的光标状态</text>
+      <circle cx="103" cy="505" r="16" fill="#2d7e82"/><text x="103" y="512" text-anchor="middle" font-size="15" font-weight="800">2</text>
+      <text x="136" y="512">清空 Alternate Buffer</text>
+      <circle cx="103" cy="566" r="16" fill="#2d7e82"/><text x="103" y="573" text-anchor="middle" font-size="15" font-weight="800">3</text>
+      <text x="136" y="573">把 Alternate 设为活动 Buffer</text>
+    </g>
+
+    <path d="M360 602v54" stroke="#a38443" stroke-width="4"/><path d="m349 642 11 14 11-14" fill="none" stroke="#a38443" stroke-width="4"/>
+    <rect x="56" y="656" width="608" height="202" rx="8" fill="#332f25" stroke="#a38443" stroke-width="2"/>
+    <text x="84" y="696" fill="#e4c06b" font-size="16" font-weight="800">CSI ? 1049 l</text>
+    <g font-size="21" fill="#f4f0e7">
+      <circle cx="103" cy="748" r="16" fill="#a38443"/><text x="103" y="755" text-anchor="middle" font-size="15" font-weight="800">1</text>
+      <text x="136" y="755">把 Normal 重新设为活动 Buffer</text>
+      <circle cx="103" cy="809" r="16" fill="#a38443"/><text x="103" y="816" text-anchor="middle" font-size="15" font-weight="800">2</text>
+      <text x="136" y="816">恢复进入前保存的光标状态</text>
+    </g>
+
+    <rect x="56" y="896" width="608" height="86" rx="7" fill="#fbfaf6" stroke="#cbc5b8" stroke-width="2"/>
+    <text x="84" y="931" fill="#92704c" font-size="15" font-weight="800">边界</text>
+    <text x="84" y="962" fill="#171916" font-size="18">1049 使用 DEC 私有模式语法，模式编号由 xterm 扩展。</text>
+  </g>
+  <text x="56" y="1018" fill="#69706b" font-family="system-ui,sans-serif" font-size="17">它不是 VT100 原始控制序列，也不负责恢复全部 TTY 状态。</text>
+</svg>

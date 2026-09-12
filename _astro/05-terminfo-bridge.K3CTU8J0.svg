@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="940" viewBox="0 0 720 940" role="img" aria-labelledby="title desc">
+  <title id="title">terminfo 把全屏能力映射为具体控制序列</title>
+  <desc id="desc">Vim 或 curses 请求 smcup 和 rmcup，terminfo 根据 TERM 查询能力字符串，再把对应序列发送给 Terminal</desc>
+  <rect width="720" height="940" fill="#ebe7dc"/>
+  <text x="56" y="62" fill="#69706b" font-family="system-ui,sans-serif" font-size="18" letter-spacing="3">CAPABILITY LOOKUP</text>
+  <g font-family="system-ui,sans-serif">
+    <rect x="56" y="96" width="608" height="128" rx="7" fill="#fbfaf6" stroke="#cbc5b8" stroke-width="2"/>
+    <text x="84" y="134" fill="#92704c" font-size="16" font-weight="800">APPLICATION</text>
+    <text x="84" y="177" fill="#171916" font-size="28" font-weight="800">Vim / less / curses TUI</text>
+    <text x="84" y="207" fill="#686b63" font-size="16">请求进入或退出全屏显示环境</text>
+
+    <path d="M360 224v56" stroke="#2d7e82" stroke-width="4"/><path d="m349 266 11 14 11-14" fill="none" stroke="#2d7e82" stroke-width="4"/>
+    <rect x="56" y="280" width="608" height="208" rx="7" fill="#203332" stroke="#53827d" stroke-width="2"/>
+    <text x="84" y="320" fill="#8fd0c7" font-size="16" font-weight="800">TERMINFO</text>
+    <text x="84" y="360" fill="#f4f0e7" font-size="25" font-weight="800">$TERM = xterm-256color</text>
+    <rect x="84" y="390" width="256" height="62" rx="6" fill="#101413" stroke="#426864"/>
+    <text x="212" y="429" text-anchor="middle" fill="#8fd0c7" font-family="ui-monospace,monospace" font-size="18">smcup</text>
+    <rect x="380" y="390" width="256" height="62" rx="6" fill="#101413" stroke="#756338"/>
+    <text x="508" y="429" text-anchor="middle" fill="#e4c06b" font-family="ui-monospace,monospace" font-size="18">rmcup</text>
+    <text x="360" y="475" text-anchor="middle" fill="#b8c2bd" font-size="16">能力名相同，展开结果由终端描述决定</text>
+
+    <path d="M360 488v56" stroke="#2d7e82" stroke-width="4"/><path d="m349 530 11 14 11-14" fill="none" stroke="#2d7e82" stroke-width="4"/>
+    <rect x="56" y="544" width="608" height="154" rx="7" fill="#171b1b"/>
+    <text x="84" y="584" fill="#82bbb5" font-size="16" font-weight="800">BYTE STREAM</text>
+    <text x="360" y="635" text-anchor="middle" fill="#f4f0e7" font-family="ui-monospace,monospace" font-size="27">ESC [ ? 1049 h  ···  ESC [ ? 1049 l</text>
+    <text x="360" y="674" text-anchor="middle" fill="#aeb8b4" font-size="16">常见展开示意，不是所有 $TERM 都相同</text>
+
+    <path d="M360 698v56" stroke="#2d7e82" stroke-width="4"/><path d="m349 740 11 14 11-14" fill="none" stroke="#2d7e82" stroke-width="4"/>
+    <rect x="56" y="754" width="608" height="128" rx="7" fill="#332f25" stroke="#a38443" stroke-width="2"/>
+    <text x="84" y="794" fill="#e4c06b" font-size="16" font-weight="800">TERMINAL EMULATOR</text>
+    <text x="84" y="838" fill="#f4f0e7" font-size="26" font-weight="800">解析序列并切换活动 Buffer</text>
+  </g>
+  <text x="56" y="918" fill="#69706b" font-family="system-ui,sans-serif" font-size="17">应用依赖能力名，terminfo 负责适配具体终端。</text>
+</svg>
