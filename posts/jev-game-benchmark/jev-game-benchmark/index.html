@@ -1,0 +1,864 @@
+<!DOCTYPE html><html dir="ltr" lang="zh-CN" class="overflow-y-scroll scroll-smooth"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" type="image/svg+xml" href="/blog/favicon.svg"><link rel="canonical" href="https://robinfai.github.io/blog/posts/jev-game-benchmark/jev-game-benchmark/"><meta name="generator" content="Astro v6.4.2"><!-- Font --><style>@font-face{font-family:"Google Sans Code-1a30c214885cb404";src:url("/blog/_astro/fonts/9344e1e6ba3134db.woff") format("woff"), url("/blog/_astro/fonts/4b36ecaec8861e3e.ttf") format("truetype");font-display:swap;font-weight:300;font-style:italic;}@font-face{font-family:"Google Sans Code-1a30c214885cb404";src:url("/blog/_astro/fonts/8f4ae94aecd98e20.woff") format("woff"), url("/blog/_astro/fonts/82b0269728335a0a.ttf") format("truetype");font-display:swap;font-weight:400;font-style:italic;}@font-face{font-family:"Google Sans Code-1a30c214885cb404";src:url("/blog/_astro/fonts/20c20d9068c60dd0.woff") format("woff"), url("/blog/_astro/fonts/b576f4f05c9dbc87.ttf") format("truetype");font-display:swap;font-weight:500;font-style:italic;}@font-face{font-family:"Google Sans Code-1a30c214885cb404";src:url("/blog/_astro/fonts/5a6c2a0b85de9ba1.woff") format("woff"), url("/blog/_astro/fonts/4b0ae898a7afcd37.ttf") format("truetype");font-display:swap;font-weight:600;font-style:italic;}@font-face{font-family:"Google Sans Code-1a30c214885cb404";src:url("/blog/_astro/fonts/30d0dcc4d81c0020.woff") format("woff"), url("/blog/_astro/fonts/e8acb21fdbc37b03.ttf") format("truetype");font-display:swap;font-weight:700;font-style:italic;}@font-face{font-family:"Google Sans Code-1a30c214885cb404";src:url("/blog/_astro/fonts/bf976bcffafeb084.woff") format("woff"), url("/blog/_astro/fonts/8436f9847213f651.ttf") format("truetype");font-display:swap;font-weight:300;font-style:normal;}@font-face{font-family:"Google Sans Code-1a30c214885cb404";src:url("/blog/_astro/fonts/8a34d92a2a36603b.woff") format("woff"), url("/blog/_astro/fonts/ccba4fb3766b1b6e.ttf") format("truetype");font-display:swap;font-weight:400;font-style:normal;}@font-face{font-family:"Google Sans Code-1a30c214885cb404";src:url("/blog/_astro/fonts/a20ca4cd312f40ca.woff") format("woff"), url("/blog/_astro/fonts/ec093fff40157157.ttf") format("truetype");font-display:swap;font-weight:500;font-style:normal;}@font-face{font-family:"Google Sans Code-1a30c214885cb404";src:url("/blog/_astro/fonts/b74e6fc4049d0d63.woff") format("woff"), url("/blog/_astro/fonts/dab775c12e1996fc.ttf") format("truetype");font-display:swap;font-weight:600;font-style:normal;}@font-face{font-family:"Google Sans Code-1a30c214885cb404";src:url("/blog/_astro/fonts/d9c1254858362ad4.woff") format("woff"), url("/blog/_astro/fonts/a5f75c165e55a648.ttf") format("truetype");font-display:swap;font-weight:700;font-style:normal;}@font-face{font-family:"Google Sans Code-1a30c214885cb404 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:300;font-style:italic;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-1a30c214885cb404 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:400;font-style:italic;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-1a30c214885cb404 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:500;font-style:italic;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-1a30c214885cb404 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:600;font-style:italic;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-1a30c214885cb404 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:700;font-style:italic;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-1a30c214885cb404 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:300;font-style:normal;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-1a30c214885cb404 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:400;font-style:normal;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-1a30c214885cb404 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:500;font-style:normal;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-1a30c214885cb404 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:600;font-style:normal;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-1a30c214885cb404 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:700;font-style:normal;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}:root{--font-google-sans-code:"Google Sans Code-1a30c214885cb404","Google Sans Code-1a30c214885cb404 fallback: Courier New",monospace;}</style><!-- Primary meta --><title>JEV 游戏实测：去掉最佳选项提示以后 | Robin 的笔记</title><meta name="title" content="JEV 游戏实测：去掉最佳选项提示以后 | Robin 的笔记"><meta name="description" content="去掉最佳选项提示后，JEV 玩贪吃蛇六局都跑满了 2000 步，平均得分高于另外两个参测模型和随机策略，仍低于纯程序；JEV 的俄罗斯方块六局都是零分。结合社区案例，看看高分中有多少判断已经由程序完成。"><meta name="author" content="Robin"><link rel="sitemap" href="/blog/sitemap-index.xml"><!-- Open Graph --><meta property="og:type" content="website"><meta property="og:site_name" content="Robin 的笔记"><meta property="og:title" content="JEV 游戏实测：去掉最佳选项提示以后 | Robin 的笔记"><meta property="og:description" content="去掉最佳选项提示后，JEV 玩贪吃蛇六局都跑满了 2000 步，平均得分高于另外两个参测模型和随机策略，仍低于纯程序；JEV 的俄罗斯方块六局都是零分。结合社区案例，看看高分中有多少判断已经由程序完成。"><meta property="og:url" content="https://robinfai.github.io/blog/posts/jev-game-benchmark/jev-game-benchmark/"><meta property="og:image" content="https://robinfai.github.io/blog/posts/jev-game-benchmark/jev-game-benchmark/index.png"><!-- Twitter / X --><meta property="twitter:card" content="summary_large_image"><meta property="twitter:url" content="https://robinfai.github.io/blog/posts/jev-game-benchmark/jev-game-benchmark/"><meta property="twitter:title" content="JEV 游戏实测：去掉最佳选项提示以后 | Robin 的笔记"><meta property="twitter:description" content="去掉最佳选项提示后，JEV 玩贪吃蛇六局都跑满了 2000 步，平均得分高于另外两个参测模型和随机策略，仍低于纯程序；JEV 的俄罗斯方块六局都是零分。结合社区案例，看看高分中有多少判断已经由程序完成。"><meta property="twitter:image" content="https://robinfai.github.io/blog/posts/jev-game-benchmark/jev-game-benchmark/index.png"><!-- RSS autodiscovery --><link rel="alternate" type="application/rss+xml" title="Robin 的笔记" href="https://robinfai.github.io/blog/rss.xml"><!-- Filled at runtime by theme.ts to match the current background colour --><meta name="theme-color" content=""><!-- Extra head content injected by child layouts (e.g. JSON-LD, article meta) -->  <meta property="og:type" content="article"> <meta property="article:published_time" content="2026-09-21T04:00:00.000Z"><meta property="article:modified_time" content="2026-09-21T13:03:10.000Z"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"JEV 游戏实测：去掉最佳选项提示以后 | Robin 的笔记","image":"https://robinfai.github.io/blog/posts/jev-game-benchmark/jev-game-benchmark/index.png","datePublished":"2026-09-21T04:00:00.000Z","dateModified":"2026-09-21T13:03:10.000Z","author":[{"@type":"Person","name":"Robin","url":"https://github.com/robinfai"}]}</script> <!--
+      Inline FOUC-prevention script: sets data-theme on <html> before
+      the browser paints. Runs synchronously, no defer/async.
+    --><script>
+      (function () {
+        const stored = localStorage.getItem("theme");
+        const prefersDark = window.matchMedia(
+          "(prefers-color-scheme: dark)"
+        ).matches;
+        const theme = stored ?? (prefersDark ? "dark" : "light");
+        const root = document.firstElementChild;
+        root?.setAttribute("data-theme", theme);
+        root?.classList.toggle("dark", theme === "dark");
+        // Expose value so theme.ts can skip re-detection.
+        window.__theme = { value: theme };
+      })();
+    </script><meta name="astro-view-transitions-enabled" content="true"><meta name="astro-view-transitions-fallback" content="animate"><script type="module" src="/blog/_astro/ClientRouter.astro_astro_type_script_index_0_lang.CAqDO0tx.js"></script><link rel="stylesheet" href="/blog/_astro/Footer.39mFWjK_.css">
+<style>@keyframes astroFadeInOut{0%{opacity:1}to{opacity:0}}@keyframes astroFadeIn{0%{opacity:0;mix-blend-mode:plus-lighter}to{opacity:1;mix-blend-mode:plus-lighter}}@keyframes astroFadeOut{0%{opacity:1;mix-blend-mode:plus-lighter}to{opacity:0;mix-blend-mode:plus-lighter}}@keyframes astroSlideFromRight{0%{transform:translate(100%)}}@keyframes astroSlideFromLeft{0%{transform:translate(-100%)}}@keyframes astroSlideToRight{to{transform:translate(100%)}}@keyframes astroSlideToLeft{to{transform:translate(-100%)}}@media(prefers-reduced-motion){::view-transition-group(*),::view-transition-old(*),::view-transition-new(*){animation:none!important}[data-astro-transition-scope]{animation:none!important}}
+</style><style>[data-astro-transition-scope="astro-36ssibgs-1"] { view-transition-name: ai; }@layer astro { ::view-transition-old(ai) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }::view-transition-new(ai) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back]::view-transition-old(ai) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back]::view-transition-new(ai) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; } }[data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-36ssibgs-1"],
+			[data-astro-transition-fallback="old"][data-astro-transition-scope="astro-36ssibgs-1"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-36ssibgs-1"],
+			[data-astro-transition-fallback="new"][data-astro-transition-scope="astro-36ssibgs-1"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back][data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-36ssibgs-1"],
+			[data-astro-transition=back][data-astro-transition-fallback="old"][data-astro-transition-scope="astro-36ssibgs-1"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back][data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-36ssibgs-1"],
+			[data-astro-transition=back][data-astro-transition-fallback="new"][data-astro-transition-scope="astro-36ssibgs-1"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }</style><style>[data-astro-transition-scope="astro-36ssibgs-2"] { view-transition-name: \6A21\578B\8BC4\6D4B; }@layer astro { ::view-transition-old(\6A21\578B\8BC4\6D4B) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }::view-transition-new(\6A21\578B\8BC4\6D4B) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back]::view-transition-old(\6A21\578B\8BC4\6D4B) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back]::view-transition-new(\6A21\578B\8BC4\6D4B) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; } }[data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-36ssibgs-2"],
+			[data-astro-transition-fallback="old"][data-astro-transition-scope="astro-36ssibgs-2"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-36ssibgs-2"],
+			[data-astro-transition-fallback="new"][data-astro-transition-scope="astro-36ssibgs-2"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back][data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-36ssibgs-2"],
+			[data-astro-transition=back][data-astro-transition-fallback="old"][data-astro-transition-scope="astro-36ssibgs-2"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back][data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-36ssibgs-2"],
+			[data-astro-transition=back][data-astro-transition-fallback="new"][data-astro-transition-scope="astro-36ssibgs-2"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }</style><style>[data-astro-transition-scope="astro-36ssibgs-3"] { view-transition-name: \5DE5\7A0B\5B9E\8DF5; }@layer astro { ::view-transition-old(\5DE5\7A0B\5B9E\8DF5) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }::view-transition-new(\5DE5\7A0B\5B9E\8DF5) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back]::view-transition-old(\5DE5\7A0B\5B9E\8DF5) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back]::view-transition-new(\5DE5\7A0B\5B9E\8DF5) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; } }[data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-36ssibgs-3"],
+			[data-astro-transition-fallback="old"][data-astro-transition-scope="astro-36ssibgs-3"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-36ssibgs-3"],
+			[data-astro-transition-fallback="new"][data-astro-transition-scope="astro-36ssibgs-3"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back][data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-36ssibgs-3"],
+			[data-astro-transition=back][data-astro-transition-fallback="old"][data-astro-transition-scope="astro-36ssibgs-3"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back][data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-36ssibgs-3"],
+			[data-astro-transition=back][data-astro-transition-fallback="new"][data-astro-transition-scope="astro-36ssibgs-3"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }</style></head> <body class="bg-background font-app text-foreground selection:bg-accent/75 selection:text-accent-foreground flex min-h-svh flex-col">    <a id="skip-to-content" href="#main-content" class="bg-background text-accent absolute inset-s-16 -top-full z-50 px-3 py-2 backdrop-blur-lg transition-all focus:top-4"> 跳到正文 </a> <header class="app-layout flex flex-col items-center justify-between sm:flex-row"> <div class="border-border bg-background relative flex w-full items-baseline justify-between border-b py-4 sm:items-center sm:py-6"> <a href="/blog/" class="absolute py-1 text-xl leading-8 font-semibold whitespace-nowrap sm:static sm:my-auto sm:text-2xl sm:leading-none"> Robin 的笔记 </a> <nav id="nav-menu" class="flex w-full flex-col items-center sm:ms-2 sm:flex-row sm:justify-end sm:space-x-4 sm:py-0"> <button id="menu-btn" class="focus-outline self-end p-2 sm:hidden" aria-label="打开菜单" aria-expanded="false" aria-controls="menu-items" data-label-open="打开菜单" data-label-close="关闭菜单"> <svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="hidden" viewBox="0 0 24 24" id="close-icon"><path stroke="none" d="M0 0h24v24H0z" /><path d="M18 6 6 18M6 6l12 12" /></svg> <svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="icon icon-tabler icons-tabler-outline icon-tabler-menu-deep" viewBox="0 0 24 24" id="menu-icon"><path stroke="none" d="M0 0h24v24H0z" /><path d="M4 6h16M7 12h13M10 18h10" /></svg> </button> <ul id="menu-items" class="[&>li>a]:hover:text-accent mt-4 hidden w-44 grid-cols-2 place-content-center gap-2 sm:mt-0 sm:flex sm:w-auto sm:gap-x-5 sm:gap-y-0 sm:[&>li]:h-8 [&>li>a]:block [&>li>a]:px-4 [&>li>a]:py-3 [&>li>a]:text-center [&>li>a]:font-medium sm:[&>li>a]:px-2 sm:[&>li>a]:py-1"> <li class="col-span-2"> <a href="/blog/posts/" class="active-nav"> 文章 </a> </li> <li class="col-span-2"> <a href="/blog/tags/"> 标签 </a> </li> <li class="col-span-2"> <a href="/blog/about/"> 关于 </a> </li> <li class="col-span-2"> <a href="/blog/archives/" title="归档" aria-label="归档" class="group inline-flex items-center gap-1 hover:text-accent focus-outline flex size-full justify-center p-3 sm:relative sm:size-8 sm:p-0">  <svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="hidden sm:absolute sm:top-1/2 sm:left-1/2 sm:block sm:size-6 sm:-translate-x-1/2 sm:-translate-y-1/2" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M3 6a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v0a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8M10 12h4" /></svg> <span class="sm:sr-only">归档</span>  </a> </li> <li class="col-span-1 flex items-center justify-center"> <a href="/blog/search/" title="搜索" aria-label="搜索" class="group inline-flex items-center gap-1 hover:text-accent focus-outline relative size-8">  <svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="absolute top-1/2 left-1/2 size-6 -translate-x-1/2 -translate-y-1/2" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M3 10a7 7 0 1 0 14 0 7 7 0 1 0-14 0M21 21l-6-6" /></svg> <span class="sr-only">搜索</span>  </a> </li> <li class="col-span-1 flex items-center justify-center"> <button id="theme-btn" class="focus-outline hover:[&>svg]:stroke-accent relative size-12 p-4 sm:size-8" title="切换主题" aria-label="auto" aria-live="polite"> <svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="absolute top-[50%] left-[50%] translate-[-50%] scale-100 rotate-0 transition-all dark:scale-0 dark:-rotate-90" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M12 3h.393a7.5 7.5 0 0 0 7.92 12.446A9 9 0 1 1 12 2.992z" /></svg> <svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="absolute top-[50%] left-[50%] translate-[-50%] scale-0 rotate-90 transition-all dark:scale-100 dark:rotate-0" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M14.828 14.828a4 4 0 1 0-5.656-5.656 4 4 0 0 0 5.656 5.656M6.343 17.657l-1.414 1.414M6.343 6.343 4.929 4.929M17.657 6.343l1.414-1.414M17.657 17.657l1.414 1.414M4 12H2M12 4V2M20 12h2M12 20v2" /></svg> </button> </li> </ul> </nav> </div> </header> <script type="module">function c(){const e=document.querySelector("#menu-btn"),t=document.querySelector("#menu-items"),n=document.querySelector("#menu-icon"),s=document.querySelector("#close-icon");if(!e||!t||!n||!s)return;const a=e.dataset.labelOpen??"Open menu",l=e.dataset.labelClose??"Close menu";e.addEventListener("click",()=>{const o=e.getAttribute("aria-expanded")==="true";e.setAttribute("aria-expanded",o?"false":"true"),e.setAttribute("aria-label",o?a:l),t.classList.toggle("hidden"),t.classList.toggle("grid"),n.classList.toggle("hidden"),s.classList.toggle("hidden")})}c();document.addEventListener("astro:after-swap",c);</script> <div class="app-layout flex items-center justify-start"><a id="back-button" href="/blog/" class="group inline-flex items-center gap-1 hover:text-accent focus-outline hover:text-foreground/75 -ms-2 mt-8 mb-2"> <svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="inline-block size-6 rtl:rotate-180" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="m15 6-6 6 6 6" /></svg><span>返回</span> </a></div><script type="module">function o(){const t=document.querySelector("#back-button"),e=sessionStorage.getItem("backUrl");e&&t&&(t.href=e)}document.addEventListener("astro:page-load",o);o();</script> <main id="main-content" class="app-layout" data-pagefind-body> <h1 style="view-transition-name:jev-u006e38u00620fu005b9eu006d4bu00ff1au0053bbu006389u006700u004f73u009009u009879u0063d0u00793au004ee5u00540e" class="text-accent inline-block text-2xl font-bold sm:text-3xl"> JEV 游戏实测：去掉最佳选项提示以后 </h1> <div class="my-2 flex items-center gap-2"> <div class="text-muted-foreground flex items-center gap-x-2"> <svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="inline-block size-6 min-w-5.5" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M4 7a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zM16 3v4M8 3v4M4 11h16M7 14h.013M10.01 14h.005M13.01 14h.005M16.015 14h.005M13.015 17h.005M7.01 17h.005M10.01 17h.005" /></svg> <span class="text-sm sm:text-base"> 更新于:
+</span> <time class="text-sm sm:text-base" datetime="2026-09-21T13:03:10.000Z"> 2026年9月21日 </time> </div> <span aria-hidden="true" class="text-muted-foreground max-sm:hidden">
+|
+</span> <a href="https://github.com/robinfai/blog/edit/main/src/content/posts/jev-game-benchmark/jev-game-benchmark.md" target="_blank" rel="noopener noreferrer" class="hover:text-accent text-muted-foreground flex justify-baseline gap-1.5 max-sm:hidden"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="inline-block" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M7 7H6a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2-2v-1" /><path d="M20.385 6.585a2.1 2.1 0 0 0-2.97-2.97L9 12v3h3zM16 5l3 3" /></svg><span>编辑页面</span></a> </div> <article id="article" class="mt-8 w-full app-prose max-w-app prose-pre:bg-(--shiki-light-bg) dark:prose-pre:bg-(--shiki-dark-bg)"> <p>最近接连刷到讨论 JEV 的文章。粗看介绍，我最初把它理解成了“LLM 加一层工具调用”。按 <a href="https://docs.typesafe.ai/introduction">官方介绍</a>，它直接返回结构化判断，不生成工具调用文本。架不住相关文章越来越多，我还是手痒申请了邀请，拿到账号后，把它接进了手头的游戏。</p>
+<p>先前折腾的是俄罗斯方块，也让 Astra 自己玩过。后来又加了贪吃蛇，想看看换个规则更直观的游戏会怎样。直接让 JEV 玩，两个游戏的表现都不好：俄罗斯方块连续硬降，11 步就堆顶失败了；贪吃蛇也很快撞墙。</p>
+<p>后来参考社区项目，补上了辅助决策的程序逻辑，两个游戏确实都能玩到 500 步了。但总觉得哪里不对：把模型拿掉，直接执行程序自己的选择，俄罗斯方块和贪吃蛇的得分居然和 JEV 加辅助一样。</p>
+<p>细看请求才发现，程序已经算出了路线和落点，还给候选标上了“安全”“最佳”之类的标签。模型选之前，程序就做完了不少判断。于是我保留合法候选的生成和执行，去掉候选评价、最佳标签和执行纠错，把上限加到 2000 步，让 JEV、其他模型、纯程序和随机策略再跑一轮。</p>
+<p>这一轮，JEV 的俄罗斯方块六局都是零分。在贪吃蛇里，三个参测模型中只有 JEV 六局都跑满了 2000 步，平均得分也高于 Laya、Qwen 和随机策略。不过，它的分数常常很久不动，仍明显落后于同样六局跑满的纯程序。</p>
+<h2 id="候选里还留着最佳路线">候选里还留着最佳路线</h2>
+<p>项目的程序辅助参考了 <a href="https://github.com/mizorewww/laya-mlx/tree/main">mizorewww/laya-mlx</a>。程序为贪吃蛇提供循环安全层，为俄罗斯方块搜索落点、评价消行和空洞。模型选得不好时，执行器还可以改成程序认为更好的动作。</p>
+<p>关闭执行纠错以后，模型收到的候选里仍然有这样的内容：</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="text"><code><span class="line"><span>UP:    Unsafe. Traps the snake.</span></span>
+<span class="line"><span>DOWN:  Safe. Best route to food.</span></span>
+<span class="line"><span>LEFT:  Blocked. Collision.</span></span>
+<span class="line"><span>RIGHT: Safe. Slower route.</span></span></code></pre>
+<p>这段文字来自实际请求。DOWN 已经被标为安全且通向食物的最佳路线，模型只要照着标签选就可以了。从这个选择看不出它是否能根据蛇身坐标算出路线。</p>
+<p>俄罗斯方块的候选也经过了类似处理：程序先枚举落点，再算消行、空洞和高度，最后把带评价的选项交给模型。这些计算都发生在模型选择之前，关闭执行纠错并不会去掉它们。</p>
+<p>旧的 500 步实验里，JEV 加辅助，在俄罗斯方块里拿到 1000 分，在贪吃蛇里拿到 250 分。直接执行程序自己的选择，同样是 1000 分和 250 分。扩大到三个种子、2000 步以后，JEV 在有辅助的俄罗斯方块实验中分别比程序少 200、300、400 分；完成的两局贪吃蛇与程序逐帧一致。</p>
+<p>这些高分里已经包含了程序的规划能力，还看不出模型比直接执行程序多做了什么。后面的实验保留合法候选，由模型自己判断选了以后会怎样。</p>
+<h2 id="保留合法候选去掉评价和纠错">保留合法候选，去掉评价和纠错</h2>
+<p>这轮实验记为 <code>decision-v1</code>。程序生成合法候选，各组从中选择，再交给同一个执行器执行；组间只更换选择策略。</p>
+<p>俄罗斯方块的候选是一组可达落点，只有坐标和旋转编号。模型能看到完整棋盘、当前块、下一块形状和规则，看不到预测消行、空洞数量或最佳标签。选中以后，由同一个执行器走完对应路径。</p>
+<p>在贪吃蛇里，模型能看到完整的蛇身坐标、朝向和食物坐标。程序只去掉下一步就会撞墙或撞身体的方向，可能把自己绕进死路的方向仍然保留。没有路线提示，也不纠正选择。走到没有合法方向时，游戏因受困而结束。</p>
+<p>参与对照的有五种策略：随机选、程序启发式、JEV、Laya 322M、Qwen 0.8B。程序策略内部照常计算，计算结果不提供给模型。</p>
+<p>每局最多 2000 个实际动作，游戏种子固定为 <code>20260924</code>、<code>20260925</code>、<code>20260926</code>。每个种子跑两局，使用不同的展示种子；两局都打乱候选顺序和无意义编号。打乱候选用的随机数与游戏随机数分开，不影响方块序列或食物生成。每种策略在每个游戏下各有六局，但只有三个独立游戏种子。</p>
+<p>JEV 实际返回版本为 <code>jev-1.13.0</code>。Qwen 使用强制工具格式，只约束输出格式，保留所有候选；Laya 的完整输入与截断标记也做过核对。</p>
+<p>下面的成绩来自原始正常完成的 52 局、Laya 独立重开的两局和 JEV 从原局断点恢复的六局。JEV 的六局贪吃蛇中有四局经过恢复，跑满动作上限不等于六局无中断完成。中断记录单独保留，没有作为策略零分计入；恢复过程放在文末。</p>
+<h2 id="模型的俄罗斯方块对局全部堆顶失败">模型的俄罗斯方块对局全部堆顶失败</h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>策略</th><th align="right">平均得分</th><th align="right">平均实际动作</th><th>跑满 2000 步</th></tr></thead><tbody><tr><td>纯程序</td><td align="right">5933.3</td><td align="right">2000</td><td>6/6</td></tr><tr><td>随机</td><td align="right">0</td><td align="right">203.3</td><td>0/6</td></tr><tr><td>JEV</td><td align="right">0</td><td align="right">150.5</td><td>0/6</td></tr><tr><td>Laya 322M</td><td align="right">0</td><td align="right">232.7</td><td>0/6</td></tr><tr><td>Qwen 0.8B</td><td align="right">16.7</td><td align="right">199.5</td><td>0/6</td></tr></tbody></table>
+<p>模型的俄罗斯方块对局最终都因堆顶而失败。Qwen 有一局拿到 100 分，其他局都是 0 分。JEV 六局分别在 109、136、141、181、180、156 步结束。</p>
+<p>这轮已经允许模型直接选可达落点，由程序完成左移、旋转和下落。即使省掉了逐步操作，模型仍没能选出足以持续消行的落点。</p>
+<p>Laya 的平均步数比随机多一些，不过俄罗斯方块的动作数还受落点路径长短影响。多走几步可能只是移动得更绕，步数也不等于落块数。</p>
+<h2 id="jev-玩贪吃蛇六局都活到了上限">JEV 玩贪吃蛇六局都活到了上限</h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>策略</th><th align="right">平均得分</th><th align="right">平均实际动作</th><th>跑满 2000 步</th></tr></thead><tbody><tr><td>纯程序</td><td align="right">826.7</td><td align="right">2000</td><td>6/6</td></tr><tr><td>随机</td><td align="right">46.7</td><td align="right">817.3</td><td>0/6</td></tr><tr><td>JEV</td><td align="right">93.3</td><td align="right">2000</td><td>6/6</td></tr><tr><td>Laya 322M</td><td align="right">50</td><td align="right">926.2</td><td>0/6</td></tr><tr><td>Qwen 0.8B</td><td align="right">48.3</td><td align="right">713.7</td><td>0/6</td></tr></tbody></table>
+<p>JEV 六局全部达到动作上限，得分是 80、90、80、80、120、110。Laya、Qwen 和随机组最后都没有合法方向可走。JEV 在这轮贪吃蛇中活得更久，平均得分也高于另外两个模型和随机策略。</p>
+<p>把同一种子的两种排列先取平均，可以看到各个种子下的得分：</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>游戏种子</th><th align="right">纯程序</th><th align="right">随机</th><th align="right">JEV</th><th align="right">Laya</th><th align="right">Qwen 0.8B</th></tr></thead><tbody><tr><td>20260924</td><td align="right">850</td><td align="right">30</td><td align="right">85</td><td align="right">55</td><td align="right">50</td></tr><tr><td>20260925</td><td align="right">850</td><td align="right">50</td><td align="right">80</td><td align="right">35</td><td align="right">35</td></tr><tr><td>20260926</td><td align="right">780</td><td align="right">60</td><td align="right">115</td><td align="right">60</td><td align="right">60</td></tr></tbody></table>
+<p>三个种子上，JEV 都比随机吃到更多食物，也都明显少于纯程序。换一批种子后是否仍有这个差距，还需要更多对局。</p>
+<p>Laya 和 Qwen 的平均分略高于随机，分种子看却有高有低：第一个高一些，第二个低一些，第三个持平。</p>
+<p>运行时，JEV 的动作计数一直增加，分数却能很久不动。有一局长时间停在 70 分，最后才到 80。它在这套候选规则下能持续走下去，也能吃到食物，但大量步数花在了重复移动上。只看是否活到上限，会漏掉得分效率的差别。</p>
+<h3 id="把上限缩到-200-步">把上限缩到 200 步</h3>
+<p>原提示词已经要求最大化食物得分，也写明每吃到一个食物得 10 分。我又把上限改为 200 步，进一步强调要在这段步数内尽量吃到食物，普通移动和存活本身不加分。沿用三个游戏种子和原有候选规则，候选展示种子固定为 0，各跑一局，三局都达到 200 步。</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>游戏种子</th><th align="right">新提示的 200 步得分</th><th align="right">旧轨迹前 200 步得分</th></tr></thead><tbody><tr><td>20260924</td><td align="right">70</td><td align="right">10</td></tr><tr><td>20260925</td><td align="right">30</td><td align="right">50</td></tr><tr><td>20260926</td><td align="right">10</td><td align="right">40</td></tr></tbody></table>
+<p>补测一局提高、两局降低，没有出现一致改善。右列取自此前相同游戏种子、相同候选展示种子的轨迹，没有同批重跑旧提示。新提示还同时加上了 200 步期限，这三局无法区分得分表述和期限各起了什么作用。</p>
+<h2 id="社区高分还要看模型收到的输入">社区高分还要看模型收到的输入</h2>
+<p>社区里也有 JEV 玩游戏的高分记录。我核对了三个项目的公开说明和关键源码，重点看程序已经替模型做到了哪一步。它们的游戏规则与本文不同，下面主要看程序和模型怎样分工；成绩来自作者报告，我没有独立复跑或重新计算全量日志。</p>
+<h3 id="程序已经选出了最佳落点">程序已经选出了最佳落点</h3>
+<p><a href="https://github.com/Yasserbhb/Agent-JEV-Tetris">Yasserbhb/Agent-JEV-Tetris</a> 报告的最佳一局是 14,300 分、114 行、363 块，零空洞。它的棋盘有 12 列，按时间自动下落，速度为每行 300 毫秒。</p>
+<p>这个项目的 <a href="https://github.com/Yasserbhb/Agent-JEV-Tetris/blob/main/tetris.js">tetris.js</a> 会先枚举旋转、横移后可达的落点，再按固定公式计算代价：新增空洞乘 1000，减去消行数乘 200，减去落点行号乘 15，加上最高列高度乘 5 和表面起伏。<code>bestPlan()</code> 选出代价最低的落点，同时给出走向它的第一个动作。</p>
+<p>随后，<a href="https://github.com/Yasserbhb/Agent-JEV-Tetris/blob/main/index.html">请求构造代码</a> 给这个动作加上 <code>this_starts_the_best_plan</code>，状态中的 <code>best_placement_found</code> 还直接写了 <code>Start with: &#x3C;next_action></code>。这与本文旧实验里的最佳路线标签很接近：最佳落点和起手动作已经由程序算出，模型负责最后选动作。单凭这局高分，还看不出让 JEV 再选一次，是否比直接执行程序算好的动作得分更高。</p>
+<h3 id="贪吃蛇也可以拆成局部判断">贪吃蛇也可以拆成局部判断</h3>
+<p><a href="https://github.com/siroccomask/snake-jev">siroccomask/snake-jev</a> 采用了另一种分工。作者报告一局在 461 个 tick 内吃到 29 个食物，随后被蛇身困住。</p>
+<p>它的 <a href="https://github.com/siroccomask/snake-jev/blob/main/jev_controller.py">jev_controller.py</a> 先把传感器数据转换成相对方向的墙、身体和食物距离，再在一次请求中问九个独立问题：左转、直走、右转分别是否撞墙、是否撞身体、是否更接近食物。</p>
+<p>程序再组合这些回答：先从模型判断无碰撞的动作中，选更接近食物的方向；没有这样的动作时，就选模型判断碰撞风险较低的方向。代码规定选择的优先级，JEV 负责局部判断，程序不会再读取棋盘纠正它的回答。至于这种分工是否稳定，还缺少多局对照。</p>
+<h3 id="samegame-提供了更完整的对照">SameGame 提供了更完整的对照</h3>
+<p><a href="https://github.com/objectgraph/jev-samegame-bench">objectgraph/jev-samegame-bench</a> 比较了 21 种输入策略，使用 20 个调试棋盘和另外 20 个未参与调试的 <code>fresh</code> 棋盘，实际返回版本为 <code>jev-1.13.0</code>。SameGame 每次消除一组相邻的同色格子，之后剩余格子下落、空列收拢。</p>
+<p>下面摘录作者的 <code>fresh</code> 结果。数值是 <strong>20 个棋盘的总分</strong>，模型项取三次运行总分的均值，随机基线是作者八个随机种子的结果。</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>输入或策略</th><th align="right">fresh 总分</th></tr></thead><tbody><tr><td>随机</td><td align="right">78,468</td></tr><tr><td><code>grid</code>：字符棋盘与候选格子</td><td align="right">83,367</td></tr><tr><td><code>words</code>：候选后果描述</td><td align="right">107,100</td></tr><tr><td>保留主色、优先消除其他颜色的大组（纯程序）</td><td align="right">152,760</td></tr><tr><td><code>spare</code>：保留主色规则过滤后，由 JEV 选择</td><td align="right">183,440</td></tr></tbody></table>
+<p>从 <a href="https://github.com/objectgraph/jev-samegame-bench/blob/main/jev-bench.ts">jev-bench.ts</a> 可以看到，<code>grid</code> 让模型从字符棋盘判断，<code>words</code> 改为提供程序整理的候选后果。<code>spare</code> 先找出棋盘上格子数最多的颜色，只要还有其他颜色可选，就排除消耗这个颜色的候选，把剩下的交给 JEV。如果只剩一个候选，程序直接执行，不调用模型。</p>
+<p><code>grid</code> 的总分接近随机，提供候选后果的 <code>words</code> 得分更高；采用保留主色规则的 <code>spare</code>，总分超过了表中的纯程序策略。不过，作者的<a href="https://github.com/objectgraph/jev-samegame-bench#what-we-found-in-one-paragraph">逐棋盘比较说明</a>也提到，较好的几种提示与搜索策略比较时，只赢约半数。总分更高，不代表每个棋盘都选得更好。</p>
+<h2 id="结论">结论</h2>
+<p>JEV 的六局贪吃蛇都跑满了 2000 步，生存步数和平均得分高于 Laya、Qwen 和随机策略，但吃到的食物仍明显少于纯程序。JEV 的俄罗斯方块六局都是零分。就本项目的这两个游戏而言，直接用程序策略得分更高。</p>
+<p>社区的高分要结合实现来看。程序已经给出最佳动作时，高分还不足以说明加入 JEV 有什么帮助；SameGame 则给出了超过某些程序基线的结果：先由程序整理候选后果、限制候选范围，再交给 JEV 选择。</p>
+<h2 id="下一轮先提供后果不标最佳选项">下一轮先提供后果，不标最佳选项</h2>
+<p>这几种分工提示了另一种输入方式：程序算出每个候选会带来什么变化，把如何取舍留给模型。<code>decision-v1</code> 要求模型自己从棋盘推导，旧辅助实验又直接给出了最佳标签，两轮都没有测这个中间条件。</p>
+<p>TypeSafe 对这一版本也给过类似建议。<a href="https://docs.typesafe.ai/model-jaggedness/jev-1.13">jev-1.13 的能力边界说明</a> 列出了计数、精确数学和多层间接推理的弱点，建议把数学计算留在代码里，去掉无关状态；<a href="https://docs.typesafe.ai/introduction">接口介绍</a> 则建议把复杂判断拆成范围明确的独立问题，再用代码组合。</p>
+<p>如果继续测，我会固定游戏种子、候选生成规则和执行器，只补充选择之后的变化：俄罗斯方块落下后会消几行、留下多少空洞、堆得多高；贪吃蛇移动后还有多大的可达空间，离食物更近还是更远。不给最佳标签或综合评分，也不做执行纠错，再与纯程序比较得分。</p>
+<p>旧辅助实验与这轮的种子、输入和动作条件不同，这个中间条件仍需单独重跑。</p>
+<h2 id="数据与复现">数据与复现</h2>
+<p>项目是 <a href="https://github.com/robinfai/agent-arcade-lab">Agent Arcade Lab</a>。2000 步实验的汇总和原始记录都放在仓库里，可以下载后离线回放。200 步提示词补测的记录尚未收入公开归档。</p>
+<h3 id="中断后的重开与断点恢复">中断后的重开与断点恢复</h3>
+<p>最初 60 次尝试里，有 8 局因请求失败中断：JEV 六局、Laya 两局。JEV 先遇到上游 HTTP 529，后来本地代理和 Laya 端口也失联了。两个服务退出的原因没有查明。Qwen 没有请求失败，贪吃蛇对局中的“无合法方向”是游戏受困。</p>
+<p>恢复服务后，先把失败配置单独重开了一轮。Laya 两局成功拿到结果；JEV 第一局重跑到 537 步后遇到上游 503，其余配置也被 503 或 529 拒绝。这轮 JEV 重开的记录没有计入策略均分。</p>
+<p>后面给 JEV 增加了断点恢复：重放原始局已经执行的动作，还原棋盘、随机状态和候选编号，从失败请求继续。HTTP 失败后分别等待 1、2、4、8、16、32、60 秒再试，之后维持 60 秒，成功后重置。无效选择和模型版本变化会停止，不靠重复请求来换一个动作。</p>
+<p>六个配置最终都完成了。恢复阶段没有新增请求失败，累计轨迹仍保留着原始失败事件。恢复时取消了请求总数和总等待时间上限，只保留 2000 个动作的上限，所以前面的成绩表用来比较游戏策略，不适合比较服务稳定性或响应速度。结果按原局、独立重开和断点恢复的来源选取，没有按分数择优替换。</p>
+<h3 id="数据归档与离线核验">数据归档与离线核验</h3>
+<ul>
+<li><a href="https://github.com/robinfai/agent-arcade-lab/blob/3a5ecbbf823baa5881510f802847e52446ef8f1f/reports/decision-study/results.md">最终汇总与逐局步数</a></li>
+<li><a href="https://github.com/robinfai/agent-arcade-lab/blob/3a5ecbbf823baa5881510f802847e52446ef8f1f/reports/decision-study/decision-models-v1.tar.gz">原始 60 局与失败记录</a></li>
+<li><a href="https://github.com/robinfai/agent-arcade-lab/blob/3a5ecbbf823baa5881510f802847e52446ef8f1f/reports/decision-study/decision-models-v1-retry-1.tar.gz">独立重开重试</a></li>
+<li><a href="https://github.com/robinfai/agent-arcade-lab/blob/3a5ecbbf823baa5881510f802847e52446ef8f1f/docs/experiments/decision-value.md">相同候选实验设计</a></li>
+<li><a href="https://github.com/robinfai/agent-arcade-lab/blob/3a5ecbbf823baa5881510f802847e52446ef8f1f/docs/experiments/decision-recovery.md">断点恢复规则</a></li>
+</ul>
+<p>原始实验的 47221 个动作、重开批次的 1749 个动作、恢复轨迹的 8336 个动作均通过离线回放。恢复轨迹包含旧前缀，三个数字不能直接相加当作独立样本量。恢复元数据里的 18 份原文件哈希也重新核对过，全部未变。回放核对的是动作记录与游戏引擎的执行结果，没有做浏览器端到端验收。200 步补测的 600 个动作也通过了离线回放。</p>
+<p>在已安装依赖的干净克隆中，从仓库根目录解压并核验，不会调用模型。如果已有同名实验目录，跳过解压，不要覆盖本地记录：</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="sh"><code><span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">tar</span><span style="--shiki-light:#2B5581;--shiki-dark:#82AAFF"> -xzf</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> reports/decision-study/decision-jev-recovery-v1.tar.gz</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">dart</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> run</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> tool/verify_resumed_decision.dart</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> reports/local/decision-jev-recovery-v1/runs</span></span></code></pre>
+<p>预期输出：</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="text"><code><span class="line"><span>Verified 6 decision/recovery runs, 8336 actual actions; no strategy correction, all within recorded caps.</span></span></code></pre> </article> <hr class="my-8 border-dashed"> <a href="https://github.com/robinfai/blog/edit/main/src/content/posts/jev-game-benchmark/jev-game-benchmark.md" target="_blank" rel="noopener noreferrer" class="hover:text-accent text-muted-foreground flex justify-baseline gap-1.5 sm:hidden"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="inline-block" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M7 7H6a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2-2v-1" /><path d="M20.385 6.585a2.1 2.1 0 0 0-2.97-2.97L9 12v3h3zM16 5l3 3" /></svg><span>编辑页面</span></a> <div id="btt-btn-container" class="fixed inset-e-4 bottom-8 z-50 md:sticky md:inset-e-auto md:float-end md:me-1 translate-y-14 opacity-0 transition duration-500"> <button data-button="back-to-top" class="group bg-background relative px-2 py-1 size-14 rounded-full shadow-xl md:h-8 md:w-fit md:rounded-md md:shadow-none md:focus-visible:rounded-none md:bg-background/35 md:bg-clip-padding md:backdrop-blur-lg"> <span id="progress-indicator" class="absolute inset-0 -z-10 block size-14 scale-110 rounded-full bg-transparent md:hidden md:h-8 md:rounded-md"></span> <svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="inline-block rotate-90 md:hidden" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M5 12h14M5 12l6 6M5 12l6-6" /></svg> <span class="group-hover:text-accent sr-only text-sm md:not-sr-only"> <svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="inline-block size-4" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M12 5v14M16 9l-4-4M8 9l4-4" /></svg> 回到顶部 </span> </button> </div> <script data-astro-rerun>
+  function backToTop() {
+    const rootElement = document.documentElement;
+    const btnContainer = document.querySelector("#btt-btn-container");
+    const backToTopBtn = document.querySelector("[data-button='back-to-top']");
+    const progressIndicator = document.querySelector("#progress-indicator");
+
+    if (!rootElement || !btnContainer || !backToTopBtn || !progressIndicator)
+      return;
+
+    backToTopBtn.addEventListener("click", () => {
+      document.body.scrollTop = 0;
+      document.documentElement.scrollTop = 0;
+    });
+
+    let lastVisible = null;
+    function handleScroll() {
+      const scrollTotal = rootElement.scrollHeight - rootElement.clientHeight;
+      const scrollTop = rootElement.scrollTop;
+      const scrollPercent = Math.floor((scrollTop / scrollTotal) * 100);
+
+      progressIndicator.style.setProperty(
+        "background-image",
+        `conic-gradient(var(--accent), var(--accent) ${scrollPercent}%, transparent ${scrollPercent}%)`
+      );
+
+      const isVisible = scrollTop / scrollTotal > 0.3;
+
+      if (isVisible !== lastVisible) {
+        btnContainer.classList.toggle("opacity-100", isVisible);
+        btnContainer.classList.toggle("translate-y-0", isVisible);
+        btnContainer.classList.toggle("opacity-0", !isVisible);
+        btnContainer.classList.toggle("translate-y-14", !isVisible);
+        lastVisible = isVisible;
+      }
+    }
+
+    let ticking = false;
+    document.addEventListener("scroll", () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          handleScroll();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    });
+  }
+  backToTop();
+</script> <ul class="mt-4 mb-8 flex flex-wrap gap-4 sm:my-8"> <li> <a href="/blog/tags/ai/" class="flex items-center gap-0.5 border-foreground border-b-2 border-dashed hover:border-accent hover:text-accent hover:-mt-0.5 focus-visible:text-accent focus-visible:border-none text-sm" data-astro-transition-scope="astro-36ssibgs-1"> <svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="opacity-80 size-4" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M5 9h14M5 15h14M11 4 7 20M17 4l-4 16" /></svg> AI </a> </li><li> <a href="/blog/tags/模型评测/" class="flex items-center gap-0.5 border-foreground border-b-2 border-dashed hover:border-accent hover:text-accent hover:-mt-0.5 focus-visible:text-accent focus-visible:border-none text-sm" data-astro-transition-scope="astro-36ssibgs-2"> <svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="opacity-80 size-4" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M5 9h14M5 15h14M11 4 7 20M17 4l-4 16" /></svg> 模型评测 </a> </li><li> <a href="/blog/tags/工程实践/" class="flex items-center gap-0.5 border-foreground border-b-2 border-dashed hover:border-accent hover:text-accent hover:-mt-0.5 focus-visible:text-accent focus-visible:border-none text-sm" data-astro-transition-scope="astro-36ssibgs-3"> <svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="opacity-80 size-4" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M5 9h14M5 15h14M11 4 7 20M17 4l-4 16" /></svg> 工程实践 </a> </li> </ul> <div class="flex flex-none flex-col items-center justify-center gap-1 md:items-start"><span class="italic">分享这篇文章：</span><div class="text-center"><a href="https://wa.me/?text=https://robinfai.github.io/blog/posts/jev-game-benchmark/jev-game-benchmark/" title="分享到 Whatsapp" target="_blank" rel="noopener noreferrer" class="group inline-flex items-center gap-1 hover:text-accent scale-90 p-2 hover:rotate-6 sm:p-1"> <svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="m3 21 1.65-3.8a9 9 0 1 1 3.4 2.9z" /><path d="M9 10a.5.5 0 0 0 1 0V9a.5.5 0 0 0-1 0za5 5 0 0 0 5 5h1a.5.5 0 0 0 0-1h-1a.5.5 0 0 0 0 1" /></svg><span class="sr-only">分享到 Whatsapp</span> </a><a href="https://www.facebook.com/sharer.php?u=https://robinfai.github.io/blog/posts/jev-game-benchmark/jev-game-benchmark/" title="分享到 Facebook" target="_blank" rel="noopener noreferrer" class="group inline-flex items-center gap-1 hover:text-accent scale-90 p-2 hover:rotate-6 sm:p-1"> <svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M7 10v4h3v7h4v-7h3l1-4h-4V8a1 1 0 0 1 1-1h3V3h-3a5 5 0 0 0-5 5v2z" /></svg><span class="sr-only">分享到 Facebook</span> </a><a href="https://x.com/intent/post?url=https://robinfai.github.io/blog/posts/jev-game-benchmark/jev-game-benchmark/" title="分享到 X" target="_blank" rel="noopener noreferrer" class="group inline-flex items-center gap-1 hover:text-accent scale-90 p-2 hover:rotate-6 sm:p-1"> <svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="m4 4 11.733 16H20L8.267 4zM4 20l6.768-6.768m2.46-2.46L20 4" /></svg><span class="sr-only">分享到 X</span> </a><a href="https://t.me/share/url?url=https://robinfai.github.io/blog/posts/jev-game-benchmark/jev-game-benchmark/" title="分享到 Telegram" target="_blank" rel="noopener noreferrer" class="group inline-flex items-center gap-1 hover:text-accent scale-90 p-2 hover:rotate-6 sm:p-1"> <svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="m15 10-4 4 6 6 4-16-18 7 4 2 2 6 3-4" /></svg><span class="sr-only">分享到 Telegram</span> </a><a href="https://pinterest.com/pin/create/button/?url=https://robinfai.github.io/blog/posts/jev-game-benchmark/jev-game-benchmark/" title="分享到 Pinterest" target="_blank" rel="noopener noreferrer" class="group inline-flex items-center gap-1 hover:text-accent scale-90 p-2 hover:rotate-6 sm:p-1"> <svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="m8 20 4-9M10.7 14c.437 1.263 1.43 2 2.55 2 2.071 0 3.75-1.554 3.75-4a5 5 0 1 0-9.7 1.7" /><path d="M3 12a9 9 0 1 0 18 0 9 9 0 1 0-18 0" /></svg><span class="sr-only">分享到 Pinterest</span> </a><a href="mailto:?subject=See%20this%20post&amp;body=https://robinfai.github.io/blog/posts/jev-game-benchmark/jev-game-benchmark/" title="通过邮件分享" target="_blank" rel="noopener noreferrer" class="group inline-flex items-center gap-1 hover:text-accent scale-90 p-2 hover:rotate-6 sm:p-1"> <svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M3 7a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" /><path d="m3 7 9 6 9-6" /></svg><span class="sr-only">通过邮件分享</span> </a></div></div>  <hr class="my-8 border-dashed"> <section class="mt-8 scroll-mt-20" aria-label="评论"><div id="giscus-comments" class="giscus" data-repo="robinfai/blog" data-repo-id="R_kgDOKA0OfA" data-category="Announcements" data-category-id="DIC_kwDOKA0OfM4C_HMr" data-mapping="pathname" data-strict="1" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="auto" data-lang="zh-CN" data-loading="lazy"></div></section><script data-astro-rerun>
+(function () {
+  const host = document.getElementById("giscus-comments");
+  if (!host || host.dataset.loaded === "true") return;
+
+  function getTheme() {
+    const configuredTheme = host.dataset.theme || "auto";
+    if (configuredTheme !== "auto") return configuredTheme;
+    return document.documentElement.dataset.theme === "dark" ? "dark" : "light";
+  }
+
+  function syncTheme() {
+    const frame = document.querySelector("iframe.giscus-frame");
+    if (!frame || !frame.contentWindow) return;
+    frame.contentWindow.postMessage(
+      { giscus: { setConfig: { theme: getTheme() } } },
+      "https://giscus.app"
+    );
+  }
+
+  const script = document.createElement("script");
+  script.src = "https://giscus.app/client.js";
+  script.async = true;
+  script.crossOrigin = "anonymous";
+
+  const attrs = {
+    "data-repo": host.dataset.repo,
+    "data-repo-id": host.dataset.repoId,
+    "data-category": host.dataset.category,
+    "data-category-id": host.dataset.categoryId,
+    "data-mapping": host.dataset.mapping,
+    "data-term": host.dataset.term,
+    "data-strict": host.dataset.strict,
+    "data-reactions-enabled": host.dataset.reactionsEnabled,
+    "data-emit-metadata": host.dataset.emitMetadata,
+    "data-input-position": host.dataset.inputPosition,
+    "data-theme": getTheme(),
+    "data-lang": host.dataset.lang,
+    "data-loading": host.dataset.loading,
+  };
+
+  for (const [name, value] of Object.entries(attrs)) {
+    if (value) script.setAttribute(name, value);
+  }
+
+  script.addEventListener("load", function () {
+    window.setTimeout(syncTheme, 250);
+  });
+
+  host.dataset.loaded = "true";
+  host.appendChild(script);
+
+  if (!window.__giscusThemeObserver) {
+    window.__giscusThemeObserver = new MutationObserver(syncTheme);
+    window.__giscusThemeObserver.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["data-theme"],
+    });
+  }
+})();
+</script>  <hr class="my-8 border-dashed"> <div data-pagefind-ignore class="my-8 grid grid-cols-1 gap-6 sm:grid-cols-2">  <a href="/blog/posts/terminal-series/why-mouse-clicks-send-escape-sequences/" class="flex w-full justify-end gap-1 text-end hover:opacity-75 sm:col-start-2"> <div> <span>下一篇</span> <div class="text-accent/85 text-sm">鼠标点击为什么也会变成控制序列？</div> </div> <svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="inline-block flex-none rtl:rotate-180" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M5 12h14M13 18l6-6M13 6l6 6" /></svg> </a> </div> </main> <footer class="app-layout mt-auto"> <div class="border-border flex flex-col items-center justify-between border-t py-6 sm:flex-row-reverse sm:py-4"> <div class="flex flex-wrap items-center gap-1"> <a href="https://github.com/robinfai/blog" title="Robin 的笔记 on Github" class="group inline-flex items-center gap-1 hover:text-accent p-2 hover:rotate-6 sm:p-1">  <svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6 0 0 0-1.3-3.2 4.2 4.2 0 0 0-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3 0 0 0-6.2 0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2 0 0 0-.1 3.2A4.6 4.6 0 0 0 4 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21" /></svg> <span class="sr-only">Robin 的笔记 on Github</span>  </a> </div> <div class="my-2 flex flex-col items-center whitespace-nowrap sm:flex-row"> <span>版权 &#169; 2026</span> <span class="hidden sm:inline">&nbsp;|&nbsp;</span> <span>保留所有权利。</span> </div> </div> </footer>   <script type="module">const c="theme",r="light",n="dark";function s(){const e=localStorage.getItem(c);return e||(window.matchMedia("(prefers-color-scheme: dark)").matches?n:r)}let t=window.__theme?.value??s();function a(){localStorage.setItem(c,t),m()}function m(){const e=document.firstElementChild;e?.setAttribute("data-theme",t),e?.classList.toggle("dark",t===n),document.querySelector("#theme-btn")?.setAttribute("aria-label",t);const o=window.getComputedStyle(document.body).backgroundColor;document.querySelector("meta[name='theme-color']")?.setAttribute("content",o)}function d(){m(),document.querySelector("#theme-btn")?.addEventListener("click",()=>{t=t===r?n:r,a()})}d();document.addEventListener("astro:after-swap",d);document.addEventListener("astro:before-swap",e=>{const o=document.querySelector("meta[name='theme-color']")?.getAttribute("content");o&&e.newDocument.querySelector("meta[name='theme-color']")?.setAttribute("content",o)});window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change",({matches:e})=>{t=e?n:r,a()});</script> </body> </html> <script data-astro-rerun>
+  function createProgressBar() {
+    const progressContainer = document.createElement("div");
+    progressContainer.className =
+      "progress-container fixed top-0 z-10 h-1 w-full bg-background";
+
+    const progressBar = document.createElement("div");
+    progressBar.className = "progress-bar h-1 w-0 bg-accent";
+    progressBar.id = "myBar";
+
+    progressContainer.appendChild(progressBar);
+    document.body.appendChild(progressContainer);
+  }
+  createProgressBar();
+
+  function updateScrollProgress() {
+    document.addEventListener("scroll", () => {
+      const winScroll =
+        document.body.scrollTop || document.documentElement.scrollTop;
+      const height =
+        document.documentElement.scrollHeight -
+        document.documentElement.clientHeight;
+      const scrolled = (winScroll / height) * 100;
+      if (document) {
+        const myBar = document.getElementById("myBar");
+        if (myBar) {
+          myBar.style.width = scrolled + "%";
+        }
+      }
+    });
+  }
+  updateScrollProgress();
+
+  function addHeadingLinks() {
+    const headings = Array.from(
+      document.querySelectorAll("h2, h3, h4, h5, h6")
+    );
+    for (const heading of headings) {
+      heading.classList.add("group");
+      const link = document.createElement("a");
+      link.className =
+        "heading-link ms-2 no-underline opacity-75 md:opacity-0 md:group-hover:opacity-100 md:focus:opacity-100";
+      link.href = "#" + heading.id;
+
+      const span = document.createElement("span");
+      span.ariaHidden = "true";
+      span.innerText = "#";
+      link.appendChild(span);
+      heading.appendChild(link);
+    }
+  }
+  addHeadingLinks();
+
+  function attachCopyButtons() {
+    const copyButtonLabel = "Copy";
+    const codeBlocks = Array.from(document.querySelectorAll("pre"));
+
+    for (const codeBlock of codeBlocks) {
+      const wrapper = document.createElement("div");
+      wrapper.style.position = "relative";
+
+      const computedStyle = getComputedStyle(codeBlock);
+      const hasFileNameOffset =
+        computedStyle.getPropertyValue("--file-name-offset").trim() !== "";
+
+      const topClass = hasFileNameOffset
+        ? "top-(--file-name-offset)"
+        : "-top-3";
+
+      const copyButton = document.createElement("button");
+      copyButton.className = `copy-code absolute end-3 ${topClass} rounded bg-muted border border-muted px-2 py-1 text-xs leading-4 text-foreground font-medium`;
+      copyButton.innerHTML = copyButtonLabel;
+      codeBlock.setAttribute("tabindex", "0");
+      codeBlock.appendChild(copyButton);
+
+      codeBlock?.parentNode?.insertBefore(wrapper, codeBlock);
+      wrapper.appendChild(codeBlock);
+
+      copyButton.addEventListener("click", async () => {
+        await copyCode(codeBlock, copyButton);
+      });
+    }
+
+    async function copyCode(block, button) {
+      const code = block.querySelector("code");
+      const text = code?.innerText;
+
+      await navigator.clipboard.writeText(text ?? "");
+
+      button.innerText = "Copied";
+
+      setTimeout(() => {
+        button.innerText = copyButtonLabel;
+      }, 700);
+    }
+  }
+  attachCopyButtons();
+
+  /** Accessible image lightbox for article images. */
+  function initLightbox() {
+    const article = document.getElementById("article");
+    if (!article) return;
+
+    const prefersReducedMotion = () =>
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    let overlay = null;
+    let lastFocused = null;
+
+    // Defer attribute mutations so they don't push the LCP timestamp.
+    // Event listeners below use delegation and don't need the attributes to exist yet.
+    requestAnimationFrame(() => {
+      const images = Array.from(article.querySelectorAll("img"));
+      for (const image of images) {
+        if (image.closest("a")) continue;
+        image.setAttribute("role", "button");
+        image.setAttribute("tabindex", "0");
+        image.setAttribute("aria-haspopup", "dialog");
+        image.setAttribute(
+          "aria-label",
+          image.alt ? `Zoom image: ${image.alt}` : "Zoom image"
+        );
+      }
+    });
+
+    function open(src, alt, trigger) {
+      if (overlay) return;
+      lastFocused = trigger ?? document.activeElement;
+
+      overlay = document.createElement("div");
+      overlay.setAttribute("role", "dialog");
+      overlay.setAttribute("aria-modal", "true");
+      overlay.setAttribute(
+        "aria-label",
+        alt ? `Image preview: ${alt}` : "Image preview"
+      );
+      overlay.className =
+        "fixed inset-0 z-50 flex cursor-zoom-out items-center justify-center bg-black/70 backdrop-blur-sm opacity-0 transition-opacity duration-200 motion-reduce:transition-none";
+
+      const closeButton = document.createElement("button");
+      closeButton.type = "button";
+      closeButton.setAttribute("aria-label", "Close image preview");
+      closeButton.className =
+        "absolute end-4 top-4 rounded p-2 text-3xl leading-none text-white";
+      closeButton.innerHTML = "&#10005;";
+      closeButton.addEventListener("click", close);
+
+      const image = document.createElement("img");
+      image.src = src;
+      image.alt = "";
+      image.className =
+        "max-h-[90dvh] max-w-[90dvw] cursor-default object-contain";
+
+      overlay.append(closeButton, image);
+      overlay.addEventListener("click", e => {
+        if (e.target === overlay && currentScale <= 1) close();
+      });
+
+      let currentScale = 1;
+      let translateX = 0;
+      let translateY = 0;
+      let initialDist = 0;
+      let initialScale = 1;
+      let panStartX = 0;
+      let panStartY = 0;
+      let panStartTranslateX = 0;
+      let panStartTranslateY = 0;
+      let lastTapTime = 0;
+
+      function applyTransform() {
+        image.style.transform = `scale(${currentScale}) translate(${translateX}px, ${translateY}px)`;
+      }
+
+      function resetTransform() {
+        currentScale = 1;
+        translateX = 0;
+        translateY = 0;
+        image.style.transform = "";
+      }
+
+      overlay.addEventListener(
+        "touchstart",
+        e => {
+          const t = e.touches;
+          if (t.length === 2) {
+            initialDist = Math.hypot(
+              t[1].clientX - t[0].clientX,
+              t[1].clientY - t[0].clientY
+            );
+            initialScale = currentScale;
+          } else if (t.length === 1) {
+            const now = Date.now();
+            if (now - lastTapTime < 300) {
+              e.preventDefault();
+              if (currentScale > 1) {
+                resetTransform();
+              } else {
+                currentScale = 2;
+                translateX = 0;
+                translateY = 0;
+                applyTransform();
+              }
+              lastTapTime = 0;
+              panStartX = t[0].clientX;
+              panStartY = t[0].clientY;
+              panStartTranslateX = translateX;
+              panStartTranslateY = translateY;
+            } else {
+              lastTapTime = now;
+              if (currentScale > 1) {
+                panStartX = t[0].clientX;
+                panStartY = t[0].clientY;
+                panStartTranslateX = translateX;
+                panStartTranslateY = translateY;
+              }
+            }
+          }
+        },
+        { passive: false }
+      );
+
+      overlay.addEventListener(
+        "touchmove",
+        e => {
+          const t = e.touches;
+          if (t.length === 2) {
+            e.preventDefault();
+            const dist = Math.hypot(
+              t[1].clientX - t[0].clientX,
+              t[1].clientY - t[0].clientY
+            );
+            currentScale = Math.min(
+              4,
+              Math.max(1, initialScale * (dist / initialDist))
+            );
+            applyTransform();
+          } else if (t.length === 1) {
+            if (currentScale > 1) {
+              e.preventDefault();
+              translateX =
+                panStartTranslateX + (t[0].clientX - panStartX) / currentScale;
+              translateY =
+                panStartTranslateY + (t[0].clientY - panStartY) / currentScale;
+              const maxX = Math.max(
+                0,
+                (image.clientWidth - overlay.clientWidth / currentScale) / 2
+              );
+              const maxY = Math.max(
+                0,
+                (image.clientHeight - overlay.clientHeight / currentScale) / 2
+              );
+              translateX = Math.min(maxX, Math.max(-maxX, translateX));
+              translateY = Math.min(maxY, Math.max(-maxY, translateY));
+              applyTransform();
+            } else {
+              e.preventDefault();
+            }
+          }
+        },
+        { passive: false }
+      );
+
+      overlay.addEventListener("touchend", e => {
+        if (e.touches.length === 0 && currentScale <= 1.05) {
+          resetTransform();
+        }
+      });
+
+      overlay.addEventListener("touchcancel", e => {
+        if (e.touches.length === 0 && currentScale <= 1.05) {
+          resetTransform();
+        }
+      });
+
+      document.body.appendChild(overlay);
+      document.body.style.overflow = "hidden";
+      document.addEventListener("keydown", onKeyDown);
+      window.__closeLightbox = close;
+
+      requestAnimationFrame(() => overlay?.classList.add("opacity-100"));
+      closeButton.focus();
+    }
+
+    function close() {
+      if (!overlay) return;
+      const el = overlay;
+      overlay = null;
+      window.__closeLightbox = null;
+
+      document.removeEventListener("keydown", onKeyDown);
+      document.body.style.overflow = "";
+      lastFocused?.focus();
+      lastFocused = null;
+
+      if (prefersReducedMotion()) {
+        el.remove();
+        return;
+      }
+      const remove = () => el.remove();
+      el.addEventListener("transitionend", remove, { once: true });
+      setTimeout(remove, 250); // fallback in case transitionend never fires
+      el.classList.remove("opacity-100");
+    }
+
+    function onKeyDown(e) {
+      if (e.key === "Escape") {
+        close();
+      } else if (e.key === "Tab") {
+        trapFocus(e);
+      }
+    }
+
+    // Keep keyboard focus inside the open dialog.
+    function trapFocus(e) {
+      if (!overlay) return;
+      const focusables = overlay.querySelectorAll(
+        'a[href], button, [tabindex]:not([tabindex="-1"])'
+      );
+      if (focusables.length === 0) return;
+      const first = focusables[0];
+      const last = focusables[focusables.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    }
+
+    function triggerFromEvent(e) {
+      const image = e.target.closest("img");
+      if (!image || !article.contains(image) || image.closest("a")) return null;
+      return image;
+    }
+
+    function activate(image) {
+      open(image.currentSrc || image.src, image.alt, image);
+    }
+
+    article.addEventListener("click", e => {
+      const image = triggerFromEvent(e);
+      if (!image) return;
+      e.preventDefault();
+      activate(image);
+    });
+
+    article.addEventListener("keydown", e => {
+      if (e.key !== "Enter" && e.key !== " " && e.key !== "Spacebar") return;
+      const image = triggerFromEvent(e);
+      if (!image) return;
+      e.preventDefault();
+      activate(image);
+    });
+  }
+  initLightbox();
+
+  if (!window.__lightboxSwapBound) {
+    window.__lightboxSwapBound = true;
+    document.addEventListener("astro:before-swap", () =>
+      window.__closeLightbox?.()
+    );
+  }
+
+  document.addEventListener("astro:after-swap", () =>
+    window.scrollTo({ left: 0, top: 0, behavior: "instant" })
+  );
+</script>
