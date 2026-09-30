@@ -1,61 +1,75 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="720" height="1040" viewBox="0 0 720 1040" role="img" aria-labelledby="title desc">
-  <title id="title">Screen Buffer 的字符网格和终端状态</title>
-  <desc id="desc">终端解析器把字符和控制序列转换为字符单元、光标、显示属性、视口和滚动区域等状态，渲染器再绘制像素</desc>
-  <rect width="720" height="1040" fill="#ebe7dc"/>
-  <text x="56" y="62" fill="#69706b" font-family="system-ui,sans-serif" font-size="18" letter-spacing="3">TERMINAL STATE</text>
-
-  <g font-family="system-ui,sans-serif">
-    <rect x="56" y="98" width="608" height="132" rx="6" fill="#fbfaf6" stroke="#cbc5b8" stroke-width="2"/>
-    <text x="84" y="136" fill="#92704c" font-size="16" font-weight="800">INPUT</text>
-    <text x="84" y="182" fill="#171916" font-size="30" font-weight="800">字符 + 控制序列</text>
-    <text x="84" y="211" fill="#686b63" font-family="ui-monospace,monospace" font-size="17">hello  ESC [ 2 ; 5 H  red</text>
-
-    <path d="M360 230v52" stroke="#2d7e82" stroke-width="4"/><path d="m349 268 11 14 11-14" fill="none" stroke="#2d7e82" stroke-width="4"/>
-
-    <rect x="56" y="282" width="608" height="108" rx="6" fill="#dce9e6" stroke="#79aaa6" stroke-width="2"/>
-    <text x="84" y="320" fill="#2d7e82" font-size="16" font-weight="800">TERMINAL PARSER</text>
-    <text x="84" y="360" fill="#171916" font-size="26" font-weight="800">把字节转换为状态变化</text>
-
-    <path d="M360 390v52" stroke="#2d7e82" stroke-width="4"/><path d="m349 428 11 14 11-14" fill="none" stroke="#2d7e82" stroke-width="4"/>
-
-    <rect x="56" y="442" width="608" height="374" rx="6" fill="#171b1b"/>
-    <text x="84" y="482" fill="#82bbb5" font-size="16" font-weight="800">SCREEN BUFFER</text>
-    <text x="84" y="518" fill="#f4f0e7" font-size="27" font-weight="800">字符网格</text>
-
-    <g font-family="ui-monospace,monospace" font-size="20" text-anchor="middle">
-      <g fill="#83908b" font-size="14">
-        <text x="202" y="551">1</text><text x="250" y="551">2</text><text x="298" y="551">3</text><text x="346" y="551">4</text><text x="394" y="551">5</text><text x="442" y="551">6</text><text x="490" y="551">7</text><text x="538" y="551">8</text>
-        <text x="157" y="590">1</text><text x="157" y="638">2</text><text x="157" y="686">3</text><text x="157" y="734">4</text>
-      </g>
-      <rect x="178" y="562" width="48" height="48" fill="#242b2a" stroke="#465451"/><text x="202" y="593" fill="#f4f0e7">h</text>
-      <rect x="226" y="562" width="48" height="48" fill="#242b2a" stroke="#465451"/><text x="250" y="593" fill="#f4f0e7">e</text>
-      <rect x="274" y="562" width="48" height="48" fill="#242b2a" stroke="#465451"/><text x="298" y="593" fill="#f4f0e7">l</text>
-      <rect x="322" y="562" width="48" height="48" fill="#242b2a" stroke="#465451"/><text x="346" y="593" fill="#f4f0e7">l</text>
-      <rect x="370" y="562" width="48" height="48" fill="#242b2a" stroke="#465451"/><text x="394" y="593" fill="#f4f0e7">o</text>
-      <rect x="418" y="562" width="48" height="48" fill="#242b2a" stroke="#465451"/><text x="442" y="593" fill="#66736f">·</text>
-      <rect x="466" y="562" width="48" height="48" fill="#242b2a" stroke="#465451"/><text x="490" y="593" fill="#66736f">·</text>
-      <rect x="514" y="562" width="48" height="48" fill="#242b2a" stroke="#465451"/><text x="538" y="593" fill="#66736f">·</text>
-
-      <rect x="178" y="610" width="48" height="48" fill="#242b2a" stroke="#465451"/><text x="202" y="641" fill="#66736f">·</text>
-      <rect x="226" y="610" width="48" height="48" fill="#242b2a" stroke="#465451"/><text x="250" y="641" fill="#66736f">·</text>
-      <rect x="274" y="610" width="48" height="48" fill="#242b2a" stroke="#465451"/><text x="298" y="641" fill="#66736f">·</text>
-      <rect x="322" y="610" width="48" height="48" fill="#242b2a" stroke="#465451"/><text x="346" y="641" fill="#66736f">·</text>
-      <rect x="370" y="610" width="48" height="48" fill="#30273a" stroke="#d34e43" stroke-width="3"/><text x="394" y="641" fill="#ff766b">r</text>
-      <rect x="418" y="610" width="48" height="48" fill="#30273a" stroke="#74558e"/><text x="442" y="641" fill="#ff766b">e</text>
-      <rect x="466" y="610" width="48" height="48" fill="#30273a" stroke="#74558e"/><text x="490" y="641" fill="#ff766b">d</text>
-      <rect x="514" y="610" width="48" height="48" fill="#242b2a" stroke="#465451"/><text x="538" y="641" fill="#66736f">·</text>
-
-      <rect x="178" y="658" width="48" height="48" fill="#242b2a" stroke="#465451"/><rect x="226" y="658" width="48" height="48" fill="#242b2a" stroke="#465451"/><rect x="274" y="658" width="48" height="48" fill="#242b2a" stroke="#465451"/><rect x="322" y="658" width="48" height="48" fill="#242b2a" stroke="#465451"/><rect x="370" y="658" width="48" height="48" fill="#242b2a" stroke="#465451"/><rect x="418" y="658" width="48" height="48" fill="#242b2a" stroke="#465451"/><rect x="466" y="658" width="48" height="48" fill="#242b2a" stroke="#465451"/><rect x="514" y="658" width="48" height="48" fill="#242b2a" stroke="#465451"/>
-      <rect x="178" y="706" width="48" height="48" fill="#242b2a" stroke="#465451"/><rect x="226" y="706" width="48" height="48" fill="#242b2a" stroke="#465451"/><rect x="274" y="706" width="48" height="48" fill="#242b2a" stroke="#465451"/><rect x="322" y="706" width="48" height="48" fill="#242b2a" stroke="#465451"/><rect x="370" y="706" width="48" height="48" fill="#242b2a" stroke="#465451"/><rect x="418" y="706" width="48" height="48" fill="#242b2a" stroke="#465451"/><rect x="466" y="706" width="48" height="48" fill="#242b2a" stroke="#465451"/><rect x="514" y="706" width="48" height="48" fill="#242b2a" stroke="#465451"/>
-    </g>
-    <path d="M394 660v22" stroke="#ff766b" stroke-width="4"/><path d="m384 672 10 12 10-12" fill="none" stroke="#ff766b" stroke-width="3"/>
-    <text x="84" y="790" fill="#b8c2bd" font-size="17">高亮单元格：字符 r + 红色前景 + 光标位置 (2, 5)</text>
-
-    <path d="M360 816v46" stroke="#2d7e82" stroke-width="4"/><path d="m349 848 11 14 11-14" fill="none" stroke="#2d7e82" stroke-width="4"/>
-
-    <rect x="56" y="862" width="608" height="118" rx="6" fill="#fbfaf6" stroke="#cbc5b8" stroke-width="2"/>
-    <text x="84" y="900" fill="#92704c" font-size="16" font-weight="800">RENDERER</text>
-    <text x="84" y="944" fill="#171916" font-size="27" font-weight="800">把变化后的单元格绘制成像素</text>
-  </g>
-  <text x="56" y="1018" fill="#69706b" font-family="system-ui,sans-serif" font-size="17">屏幕结果来自当前状态，不是 stdout 的逐字回放。</text>
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="1110" viewBox="0 0 720 1110" role="img" aria-labelledby="title desc">
+<title id="title">Screen Buffer 的字符单元与当前光标</title><desc id="desc">从空屏、默认属性和光标第1行第1列开始，依次写 hello、CSI 2;5 H、CSI 31 m、red。第2行第5列单元格保存红色 r；red 写完后当前光标在第2行第8列。</desc>
+<rect width="720" height="1110" fill="#ebe7dc"/>
+<text x="56" y="60" fill="#555c55" font-family="Noto Sans CJK SC,system-ui,sans-serif" font-size="20" font-weight="600" text-anchor="start">TERMINAL STATE · CELLS AND CURSOR</text>
+<rect x="56" y="100" width="608" height="204" rx="6" fill="#fbfaf6" stroke="#cbc5b8" stroke-width="2"/>
+<text x="84" y="141" fill="#555c55" font-family="Noto Sans CJK SC,system-ui,sans-serif" font-size="23" font-weight="400" text-anchor="start">初始：空屏，默认属性，光标 (1,1)</text>
+<text x="84" y="185" fill="#24696e" font-family="Noto Sans CJK SC,system-ui,sans-serif" font-size="24" font-weight="700" text-anchor="start">按顺序接收</text>
+<text x="138.0" y="251" fill="#171916" font-family="DejaVu Sans Mono,ui-monospace,monospace" font-size="22" font-weight="700" text-anchor="middle">hello</text>
+<text x="306.0" y="251" fill="#24696e" font-family="DejaVu Sans Mono,ui-monospace,monospace" font-size="22" font-weight="700" text-anchor="middle">CSI 2;5 H</text>
+<text x="490.0" y="251" fill="#8d5824" font-family="DejaVu Sans Mono,ui-monospace,monospace" font-size="22" font-weight="700" text-anchor="middle">CSI 31 m</text>
+<text x="604.0" y="251" fill="#b94239" font-family="DejaVu Sans Mono,ui-monospace,monospace" font-size="22" font-weight="700" text-anchor="middle">red</text>
+<path d="M84 274H636" stroke="#cbc5b8" stroke-width="2" fill="none" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M360 304V350" stroke="#24696e" stroke-width="4" fill="none" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M350 338L360 350l10 -12" stroke="#24696e" stroke-width="4" fill="none" stroke-linejoin="round" stroke-linecap="round"/>
+<rect x="56" y="350" width="608" height="100" rx="6" fill="#dce9e6" stroke="#79aaa6" stroke-width="2"/>
+<text x="84" y="389" fill="#24696e" font-family="Noto Sans CJK SC,system-ui,sans-serif" font-size="22" font-weight="700" text-anchor="start">TERMINAL PARSER</text>
+<text x="84" y="427" fill="#171916" font-family="Noto Sans CJK SC,system-ui,sans-serif" font-size="28" font-weight="800" text-anchor="start">解析字节，更新终端状态</text>
+<path d="M360 450V494" stroke="#24696e" stroke-width="4" fill="none" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M350 482L360 494l10 -12" stroke="#24696e" stroke-width="4" fill="none" stroke-linejoin="round" stroke-linecap="round"/>
+<rect x="56" y="494" width="608" height="382" rx="6" fill="#171b1b"/>
+<text x="84" y="534" fill="#8fd0c7" font-family="Noto Sans CJK SC,system-ui,sans-serif" font-size="22" font-weight="700" text-anchor="start">SCREEN BUFFER</text>
+<text x="171.0" y="567" fill="#b8c2bd" font-family="DejaVu Sans Mono,ui-monospace,monospace" font-size="21" font-weight="400" text-anchor="middle">1</text>
+<text x="229.0" y="567" fill="#b8c2bd" font-family="DejaVu Sans Mono,ui-monospace,monospace" font-size="21" font-weight="400" text-anchor="middle">2</text>
+<text x="287.0" y="567" fill="#b8c2bd" font-family="DejaVu Sans Mono,ui-monospace,monospace" font-size="21" font-weight="400" text-anchor="middle">3</text>
+<text x="345.0" y="567" fill="#b8c2bd" font-family="DejaVu Sans Mono,ui-monospace,monospace" font-size="21" font-weight="400" text-anchor="middle">4</text>
+<text x="403.0" y="567" fill="#b8c2bd" font-family="DejaVu Sans Mono,ui-monospace,monospace" font-size="21" font-weight="400" text-anchor="middle">5</text>
+<text x="461.0" y="567" fill="#b8c2bd" font-family="DejaVu Sans Mono,ui-monospace,monospace" font-size="21" font-weight="400" text-anchor="middle">6</text>
+<text x="519.0" y="567" fill="#b8c2bd" font-family="DejaVu Sans Mono,ui-monospace,monospace" font-size="21" font-weight="400" text-anchor="middle">7</text>
+<text x="577.0" y="567" fill="#b8c2bd" font-family="DejaVu Sans Mono,ui-monospace,monospace" font-size="21" font-weight="400" text-anchor="middle">8</text>
+<text x="111" y="622" fill="#b8c2bd" font-family="DejaVu Sans Mono,ui-monospace,monospace" font-size="23" font-weight="400" text-anchor="middle">1</text>
+<rect x="142" y="583" width="58" height="60" rx="0" fill="#242b2a" stroke="#465451" stroke-width="1"/>
+<text x="171.0" y="623" fill="#f4f0e7" font-family="DejaVu Sans Mono,ui-monospace,monospace" font-size="31" font-weight="500" text-anchor="middle">h</text>
+<rect x="200" y="583" width="58" height="60" rx="0" fill="#242b2a" stroke="#465451" stroke-width="1"/>
+<text x="229.0" y="623" fill="#f4f0e7" font-family="DejaVu Sans Mono,ui-monospace,monospace" font-size="31" font-weight="500" text-anchor="middle">e</text>
+<rect x="258" y="583" width="58" height="60" rx="0" fill="#242b2a" stroke="#465451" stroke-width="1"/>
+<text x="287.0" y="623" fill="#f4f0e7" font-family="DejaVu Sans Mono,ui-monospace,monospace" font-size="31" font-weight="500" text-anchor="middle">l</text>
+<rect x="316" y="583" width="58" height="60" rx="0" fill="#242b2a" stroke="#465451" stroke-width="1"/>
+<text x="345.0" y="623" fill="#f4f0e7" font-family="DejaVu Sans Mono,ui-monospace,monospace" font-size="31" font-weight="500" text-anchor="middle">l</text>
+<rect x="374" y="583" width="58" height="60" rx="0" fill="#242b2a" stroke="#465451" stroke-width="1"/>
+<text x="403.0" y="623" fill="#f4f0e7" font-family="DejaVu Sans Mono,ui-monospace,monospace" font-size="31" font-weight="500" text-anchor="middle">o</text>
+<rect x="432" y="583" width="58" height="60" rx="0" fill="#242b2a" stroke="#465451" stroke-width="1"/>
+<rect x="490" y="583" width="58" height="60" rx="0" fill="#242b2a" stroke="#465451" stroke-width="1"/>
+<rect x="548" y="583" width="58" height="60" rx="0" fill="#242b2a" stroke="#465451" stroke-width="1"/>
+<text x="111" y="682" fill="#b8c2bd" font-family="DejaVu Sans Mono,ui-monospace,monospace" font-size="23" font-weight="400" text-anchor="middle">2</text>
+<rect x="142" y="643" width="58" height="60" rx="0" fill="#242b2a" stroke="#465451" stroke-width="1"/>
+<rect x="200" y="643" width="58" height="60" rx="0" fill="#242b2a" stroke="#465451" stroke-width="1"/>
+<rect x="258" y="643" width="58" height="60" rx="0" fill="#242b2a" stroke="#465451" stroke-width="1"/>
+<rect x="316" y="643" width="58" height="60" rx="0" fill="#242b2a" stroke="#465451" stroke-width="1"/>
+<rect x="374" y="643" width="58" height="60" rx="0" fill="#242b2a" stroke="#465451" stroke-width="1"/>
+<text x="403.0" y="683" fill="#ff766b" font-family="DejaVu Sans Mono,ui-monospace,monospace" font-size="31" font-weight="500" text-anchor="middle">r</text>
+<rect x="432" y="643" width="58" height="60" rx="0" fill="#242b2a" stroke="#465451" stroke-width="1"/>
+<text x="461.0" y="683" fill="#ff766b" font-family="DejaVu Sans Mono,ui-monospace,monospace" font-size="31" font-weight="500" text-anchor="middle">e</text>
+<rect x="490" y="643" width="58" height="60" rx="0" fill="#242b2a" stroke="#465451" stroke-width="1"/>
+<text x="519.0" y="683" fill="#ff766b" font-family="DejaVu Sans Mono,ui-monospace,monospace" font-size="31" font-weight="500" text-anchor="middle">d</text>
+<rect x="548" y="643" width="58" height="60" rx="0" fill="#242b2a" stroke="#465451" stroke-width="1"/>
+<text x="111" y="742" fill="#b8c2bd" font-family="DejaVu Sans Mono,ui-monospace,monospace" font-size="23" font-weight="400" text-anchor="middle">3</text>
+<rect x="142" y="703" width="58" height="60" rx="0" fill="#242b2a" stroke="#465451" stroke-width="1"/>
+<rect x="200" y="703" width="58" height="60" rx="0" fill="#242b2a" stroke="#465451" stroke-width="1"/>
+<rect x="258" y="703" width="58" height="60" rx="0" fill="#242b2a" stroke="#465451" stroke-width="1"/>
+<rect x="316" y="703" width="58" height="60" rx="0" fill="#242b2a" stroke="#465451" stroke-width="1"/>
+<rect x="374" y="703" width="58" height="60" rx="0" fill="#242b2a" stroke="#465451" stroke-width="1"/>
+<rect x="432" y="703" width="58" height="60" rx="0" fill="#242b2a" stroke="#465451" stroke-width="1"/>
+<rect x="490" y="703" width="58" height="60" rx="0" fill="#242b2a" stroke="#465451" stroke-width="1"/>
+<rect x="548" y="703" width="58" height="60" rx="0" fill="#242b2a" stroke="#465451" stroke-width="1"/>
+<rect x="376" y="645" width="54" height="56" rx="0" fill="none" stroke="#ff766b" stroke-width="2"/>
+<rect x="554" y="650" width="5" height="46" rx="0" fill="#e4c06b"/>
+<text x="84" y="805" fill="#ff766b" font-family="Noto Sans CJK SC,system-ui,sans-serif" font-size="23" font-weight="400" text-anchor="start">单元格 (2,5)：r + 红色前景</text>
+<text x="84" y="845" fill="#e4c06b" font-family="Noto Sans CJK SC,system-ui,sans-serif" font-size="23" font-weight="400" text-anchor="start">当前光标 (2,8)：下一次写入的位置</text>
+<path d="M360 876V924" stroke="#24696e" stroke-width="4" fill="none" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M350 912L360 924l10 -12" stroke="#24696e" stroke-width="4" fill="none" stroke-linejoin="round" stroke-linecap="round"/>
+<rect x="56" y="924" width="608" height="108" rx="6" fill="#fbfaf6" stroke="#cbc5b8" stroke-width="2"/>
+<text x="84" y="963" fill="#8d5824" font-family="Noto Sans CJK SC,system-ui,sans-serif" font-size="22" font-weight="700" text-anchor="start">RENDERER</text>
+<text x="84" y="1003" fill="#171916" font-family="Noto Sans CJK SC,system-ui,sans-serif" font-size="28" font-weight="800" text-anchor="start">把当前字符网格绘制成像素</text>
+<text x="56" y="1076" fill="#555c55" font-family="Noto Sans CJK SC,system-ui,sans-serif" font-size="23" font-weight="400" text-anchor="start">坐标按（行，列）记，从 1 开始。</text>
 </svg>

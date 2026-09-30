@@ -1,6 +1,7 @@
 ---
 author: Robin
 pubDatetime: 2026-09-12T11:30:00+08:00
+modDatetime: 2026-09-30T10:45:00+08:00
 title: Terminal 为什么会有第二块屏幕？
 featured: false
 draft: false
@@ -16,22 +17,14 @@ description: 《五彩斑斓的黑》第五篇：从 Vim 退出后恢复 Shell �
 
 ![Vim 使用备用屏幕，退出后 Terminal 恢复原来的 Shell 内容](./images/05-alternate-screen-hero.svg)
 
-*题图：Vim 与 Shell 使用同一个 PTY。变化发生在 Terminal
-内部：全屏程序运行时，当前显示的 Buffer 从 Normal 切换为 Alternate。*
-
-> 本文是《五彩斑斓的黑》系列第五篇。上一篇解释了 [Terminal
-> 如何在同一块字符网格上原地更新](/blog/posts/terminal-series/why-terminal-can-update-screen-in-place/)；这一篇继续看全屏程序如何使用这块网格，又不覆盖退出前的
-> Shell 内容。
+_题图：Vim 与 Shell 使用同一个 PTY。变化发生在 Terminal
+内部：全屏程序运行时，当前显示的 Buffer 从 Normal 切换为 Alternate。_
 
 Vim 运行时占满窗口，退出后却恢复了之前的命令输出。这些内容保存在哪里？
 
-Terminal Emulator 通常维护 Normal Buffer 和 Alternate Buffer。Vim
-启动时请求使用备用缓冲区，退出时切回主缓冲区，原来的 Shell
-画面便重新显示出来。
-
 ## Shell 内容保存在 Normal Buffer 中
 
-上一篇介绍的 Screen Buffer 并不一定只有一份。现代终端通常至少提供两份：
+Terminal Emulator 通常维护两份 Screen Buffer：
 
 - **Normal Buffer**：Shell 平时使用的主缓冲区，通常还连接着 scrollback；
 - **Alternate Buffer**：供 Vim、less、top、k9s
@@ -44,8 +37,8 @@ Buffer，主屏内容不会被这些操作覆盖。不过，窗口 resize
 
 ![Terminal 在 Normal Buffer 和 Alternate Buffer 之间切换活动缓冲区](./images/05-buffer-switch.svg)
 
-*图 1：切换的是 Terminal 当前显示和修改的 Buffer。Shell、Vim 与 Terminal
-仍通过原来的 PTY 交换字节。*
+_图 1：切换的是 Terminal 当前显示和修改的 Buffer。Shell、Vim 与 Terminal
+仍通过原来的 PTY 交换字节。_
 
 [xterm.js 的 Buffer
 API](https://xtermjs.org/docs/api/terminal/interfaces/ibuffernamespace/)
@@ -72,8 +65,8 @@ ESC [ ? 1049 l
 
 ![DECSET 1049 保存光标、清空备用缓冲区并完成切换](./images/05-decset-1049.svg)
 
-*图 2：`h` 设置模式，`l` 重置模式。`1049` 不只是选择另一份
-Buffer，还组合了光标保存与恢复。*
+_图 2：`h` 设置模式，`l` 重置模式。`1049` 不只是选择另一份
+Buffer，还组合了光标保存与恢复。_
 
 这条 CSI 可以拆成四部分：
 
@@ -94,7 +87,7 @@ Sequences](https://invisible-island.net/xterm/ctlseqs/ctlseqs.html)
 扩展，不是 VT100 原始能力。xterm 为兼容旧应用还保留了几种相关模式：
 
 | 模式   | 设置与重置时的主要行为                                    |
-|--------|-----------------------------------------------------------|
+| ------ | --------------------------------------------------------- |
 | `47`   | 在 Alternate 与 Normal 之间切换，较早的 xterm 兼容方式    |
 | `1047` | 设置时切到 Alternate；重置时清空 Alternate，再返回 Normal |
 | `1048` | 设置时保存光标状态，重置时恢复，不切换 Buffer             |
@@ -118,14 +111,13 @@ Buffer”的序列。[terminfo
 文档](https://man7.org/linux/man-pages/man5/terminfo.5.html)
 提到，有些早期终端拥有多页显示内存，有些终端则需要先固定一个与屏幕等大的窗口，才能正确使用光标寻址。
 
-在今天常见的 `xterm-256color` 描述中，`smcup/rmcup` 往往会展开为 `1049`
-的设置与重置。Vim 或 curses 应用查询 terminfo，再把当前 `$TERM`
-对应的字节发送给 Terminal，而不是把某一种终端的序列当成统一标准。
+在今天常见的 `xterm-256color` 描述中，`smcup/rmcup` 往往会展开为 `1049` 的设置与重置。基于 curses/terminfo 的应用查询当前 `$TERM` 对应的能力字符串，再把这些字节发送给 Terminal。
 
 ![应用通过 terminfo 把统一能力名转换为当前终端的控制序列](./images/05-terminfo-bridge.svg)
 
-*图 3：应用请求的是 `smcup/rmcup` 能力；terminfo 根据 `$TERM`
-返回具体字节，Terminal 再执行切换。*
+_图 3：基于 terminfo 的常见路径。应用查询 `smcup/rmcup`，数据库按 `$TERM` 返回具体字节，Terminal 收到后执行切换。_
+
+Vim 还会使用内建的终端能力，优先顺序受 `ttybuiltin` 等设置影响，实际字符串也可由用户配置覆盖。排查 Vim 时，除了系统的 terminfo，还要检查它的 `t_ti`、`t_te` 等选项。[Vim 的终端帮助](https://vimhelp.org/term.txt.html#builtin-terms)说明了这些来源之间的关系。
 
 可以在本机查看当前配置：
 
@@ -139,13 +131,7 @@ tput rmcup | od -An -tx1
 `od`，所以控制序列只会以十六进制显示，不会真的切换当前 Terminal。不同
 `$TERM` 得到的结果可能不同；能力也可能不存在。
 
-同一个程序在不同环境中可能表现得不完全一致。即使 Terminal 支持 Alternate
-Screen，若 `$TERM` 指向不匹配的
-terminfo，或者用户、终端配置禁用了切换，程序也可能直接在 Normal Buffer
-上绘制。
-
-`less -X`
-跳过终端初始化与退出字符串，通常也就不切换备用屏幕，浏览到的内容可能留在主屏上。
+终端支持备用屏幕，程序也可能没有用上它：`$TERM` 对应错了，或者切换被配置禁用，都可能让程序直接画在主屏。`less -X` 则是主动跳过终端初始化与退出字符串，退出后浏览过的内容可能留在主屏。
 
 ## 为什么 Alternate Screen 通常没有普通 scrollback
 
@@ -161,8 +147,7 @@ xterm
 的备用缓冲区与可见区域同样大小，并在该模式下停止把滚出顶部的行保存到普通
 scrollback。很多终端沿用了这种行为，也有终端提供自己的配置或查看方式，所以它不是所有实现都必须完全一致的界面规则。
 
-Vim 退出后的主屏不包含编辑器运行期间的画面。终端录制或 Agent
-若需要还原过程，应从已知初始状态记录带时间信息的输出与窗口尺寸变化，再用终端状态机重放；只读取退出后的主屏会漏掉这段交互。
+Vim 退出后，主屏里看不到刚才的编辑过程。要保留这一段，得[记录运行期间的输出和窗口变化](/blog/posts/terminal-series/why-terminal-can-update-screen-in-place/#最后一屏留下了什么)；只截退出后的屏幕会漏掉它。
 
 ## 嵌套全屏程序会有第三块屏幕吗
 
@@ -174,22 +159,15 @@ Vim 退出后的主屏不包含编辑器运行期间的画面。终端录制或 
 维护虚拟终端状态，再生成外层终端的显示更新；内外层的 Buffer
 不应看成同一份。进入备用屏幕本身不会额外创建 PTY。
 
-## 切换屏幕不等于接管全部终端状态
+## 退出时要分别恢复哪些状态
 
-应用启动时通常连续设置多项状态：通过 termios 关闭按行输入，使用 Raw 或
-cbreak
-等模式；请求备用屏幕；隐藏光标；按需启用鼠标、粘贴或焦点报告。它们不是同一个开关，`1049l`
-也不能一次恢复全部状态。
+全屏程序启动时，往往同时进入 Raw 或 cbreak 模式、切换备用屏幕、隐藏光标，再打开需要的鼠标、粘贴或焦点报告。退出时也要分别恢复：`1049l` 能切回主屏，不能替它把 TTY 输入设置和其他模式一起收拾好。
 
 ![TTY 输入模式、Screen Buffer 与终端交互模式是需要分别恢复的状态](./images/05-state-layers.svg)
 
-*图 4：Alternate Screen 只负责显示缓冲区。Raw Mode 属于内核
-TTY，光标、鼠标和粘贴模式则由其他控制序列管理。*
+_图 4：缓冲区切换发生在 Terminal 内部；Raw Mode 属于内核 TTY，光标显示、鼠标和粘贴模式则由各自的控制序列管理。_
 
-`1049` 处理的是 Buffer 和保存的光标状态。Raw Mode 由 `termios`
-管理；光标显示、鼠标跟踪等功能各有自己的控制序列。一个完整的退出过程要逐项撤销应用启用的状态。
-
-因此，异常退出后的故障也有不同表现：
+少恢复一项，就可能留下对应的故障：
 
 - 仍停在 Alternate Buffer：Shell 内容没有重新显示；
 - TTY 仍处于 Raw Mode：按键立即到达程序，输入不回显，`Ctrl-C`
@@ -217,7 +195,7 @@ reset
 Terminal 支持并允许备用屏幕：terminfo
 能力存在只代表配置声明支持，不是终端执行成功的确认。
 
-### 实验一：安全地进入和退出备用屏幕
+### 通过 terminfo 进入和退出
 
 ```bash
 (
@@ -226,12 +204,12 @@ Terminal 支持并允许备用屏幕：terminfo
     printf '当前 terminfo 缺少进入或退出能力。\n' >&2
     exit 1
   }
-  tput smcup || exit 1
   cleanup() { tput rmcup; }
   trap cleanup EXIT
   trap 'exit 130' INT
   trap 'exit 143' TERM
 
+  tput smcup || exit 1
   tput clear || exit 1
   printf 'This is the alternate screen.\n'
   printf 'The normal screen will return in 3 seconds.\n'
@@ -239,16 +217,17 @@ Terminal 支持并允许备用屏幕：terminfo
 )
 ```
 
-进入后，当前窗口会显示两行文字；三秒后子 Shell 退出，`EXIT` trap 调用
-`rmcup`，原来的 Shell 内容重新出现。
+清理函数先注册，再进入备用屏幕。三秒后子 Shell 退出，`EXIT` trap 调用 `rmcup`，原来的 Shell 内容重新出现。示例处理了 `INT` 和 `TERM`，但未处理的终止信号或 `SIGKILL` 仍可能跳过清理。
 
-### 实验二：直接观察 `1049`
+### 直接发送 `1049`
 
 ```bash
 (
+  [ -t 1 ] || exit 1
   cleanup() { printf '\033[?1049l'; }
   trap cleanup EXIT
   trap 'exit 130' INT
+  trap 'exit 143' TERM
 
   printf '\033[?1049h'
   printf 'alternate buffer\n'
@@ -260,21 +239,14 @@ Terminal 支持并允许备用屏幕：terminfo
 `1049`。如果环境不支持该模式，序列可能被忽略；日常程序仍应通过 terminfo
 或终端库使用能力。
 
-### 实验三：比较 less 的初始化行为
+### 比较 less 的初始化行为
 
 ```bash
 man less | less
 man less | less -X
 ```
 
-在支持并配置了 Alternate Screen
-的环境中，第一条命令退出后通常恢复进入前的屏幕；第二条命令会跳过初始化与退出字符串，最后浏览到的内容可能留在
-Normal Buffer 中。终端、terminfo 和 less 配置不同，实际结果也可能不同。
-
-> **下一篇：《方向键为什么会变成 `ESC[A`？》**
->
-> 下一篇转向输入侧：方向键、功能键和组合键怎样编码成字节，传统 ESC
-> 编码为什么存在歧义，以及现代键盘协议如何处理这些问题。
+在支持并配置了 Alternate Screen 的环境中，第一条命令退出后通常恢复进入前的屏幕；加上 `-X` 后，最后浏览到的内容则可能留在 Normal Buffer 中。
 
 ## 资料参考
 

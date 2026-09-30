@@ -1,34 +1,26 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="720" height="880" viewBox="0 0 720 880" role="img" aria-labelledby="title desc">
-  <title id="title">Console、Terminal、PTY 与 TTY 的层次关系</title>
-  <desc id="desc">Console、Terminal、PTY 与 TTY 在现代终端会话中的位置</desc>
-  <rect width="720" height="880" fill="#ebe7dc"/>
-  <text x="56" y="64" fill="#69706b" font-family="system-ui,sans-serif" font-size="18" letter-spacing="3">CONSOLE · TERMINAL · PTY · TTY</text>
-  <g font-family="system-ui,sans-serif">
-    <rect x="56" y="104" width="608" height="130" rx="4" fill="#fbfaf6" stroke="#cbc5b8" stroke-width="2"/>
-    <text x="84" y="142" fill="#92704c" font-size="17" font-weight="700">系统角色</text>
-    <text x="84" y="184" fill="#171916" font-size="34" font-weight="800">Console</text>
-    <text x="350" y="180" fill="#686b63" font-size="21">启动 · 日志 · 故障恢复</text>
-    <path d="M360 234v42" stroke="#2d7e82" stroke-width="3"/>
-    <path d="m350 266 10 12 10-12" fill="none" stroke="#2d7e82" stroke-width="3"/>
-
-    <rect x="56" y="278" width="608" height="130" rx="4" fill="#f2e4d2" stroke="#d0b184" stroke-width="2"/>
-    <text x="84" y="316" fill="#92704c" font-size="17" font-weight="700">交互端点</text>
-    <text x="84" y="358" fill="#171916" font-size="34" font-weight="800">Terminal</text>
-    <text x="350" y="354" fill="#686b63" font-size="21">输入 · 解析 · 显示</text>
-    <path d="M360 408v42" stroke="#2d7e82" stroke-width="3"/>
-    <path d="m350 440 10 12 10-12m-20-32 10-12 10 12" fill="none" stroke="#2d7e82" stroke-width="3"/>
-
-    <rect x="56" y="452" width="608" height="150" rx="4" fill="#dce9e6" stroke="#79aaa6" stroke-width="2"/>
-    <text x="84" y="490" fill="#2d7e82" font-size="17" font-weight="700">虚拟连接</text>
-    <text x="84" y="535" fill="#171916" font-size="34" font-weight="800">PTY master / slave</text>
-    <text x="84" y="570" fill="#686b63" font-size="21">一对双向虚拟字符设备</text>
-    <path d="M360 602v42" stroke="#2d7e82" stroke-width="3"/>
-    <path d="m350 634 10 12 10-12m-20-12 10-12 10 12" fill="none" stroke="#2d7e82" stroke-width="3"/>
-
-    <rect x="56" y="646" width="608" height="158" rx="4" fill="#171b1b"/>
-    <text x="84" y="688" fill="#82bbb5" font-size="17" font-weight="700">内核接口</text>
-    <text x="84" y="735" fill="#f4f0e7" font-size="34" font-weight="800">TTY interface</text>
-    <text x="84" y="772" fill="#b8c2bd" font-size="21">termios · signals · job control</text>
-  </g>
-  <text x="56" y="842" fill="#69706b" font-family="system-ui,sans-serif" font-size="17">终端模拟器通过 PTY 使用内核提供的 TTY 接口。</text>
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="1010" viewBox="0 0 720 1010" role="img" aria-labelledby="title desc">
+<title id="title">Console、Terminal、PTY 与 TTY：四个不同维度</title><desc id="desc">四张独立概念卡：Console 是系统角色，Terminal 是交互端点，PTY 是虚拟连接，TTY 是内核接口；它们不是四级串行数据链路。</desc>
+<rect width="720" height="1010" fill="#ebe7dc"/>
+<text x="56" y="60" fill="#555c55" font-family="Noto Sans CJK SC,system-ui,sans-serif" font-size="20" font-weight="600" text-anchor="start">FOUR TERMS · FOUR PERSPECTIVES</text>
+<rect x="56" y="100" width="608" height="178" rx="6" fill="#fbfaf6" stroke="#cbc5b8" stroke-width="2"/>
+<text x="84" y="138" fill="#8d5824" font-family="Noto Sans CJK SC,system-ui,sans-serif" font-size="22" font-weight="700" text-anchor="start">系统角色</text>
+<text x="84" y="182" fill="#171916" font-family="Noto Sans CJK SC,system-ui,sans-serif" font-size="34" font-weight="800" text-anchor="start">Console</text>
+<text x="84" y="221" fill="#555c55" font-family="Noto Sans CJK SC,system-ui,sans-serif" font-size="24" font-weight="400" text-anchor="start">系统指定的控制台</text>
+<text x="84" y="255" fill="#555c55" font-family="Noto Sans CJK SC,system-ui,sans-serif" font-size="22" font-weight="400" text-anchor="start">用于系统管理、日志与故障恢复</text>
+<rect x="56" y="302" width="608" height="178" rx="6" fill="#f2e4d2" stroke="#d0b184" stroke-width="2"/>
+<text x="84" y="340" fill="#8d5824" font-family="Noto Sans CJK SC,system-ui,sans-serif" font-size="22" font-weight="700" text-anchor="start">交互端点</text>
+<text x="84" y="384" fill="#171916" font-family="Noto Sans CJK SC,system-ui,sans-serif" font-size="34" font-weight="800" text-anchor="start">Terminal</text>
+<text x="84" y="423" fill="#555c55" font-family="Noto Sans CJK SC,system-ui,sans-serif" font-size="24" font-weight="400" text-anchor="start">接收输入，解释输出并显示</text>
+<text x="84" y="457" fill="#555c55" font-family="Noto Sans CJK SC,system-ui,sans-serif" font-size="22" font-weight="400" text-anchor="start">现代桌面中通常是终端模拟器</text>
+<rect x="56" y="504" width="608" height="178" rx="6" fill="#dce9e6" stroke="#79aaa6" stroke-width="2"/>
+<text x="84" y="542" fill="#24696e" font-family="Noto Sans CJK SC,system-ui,sans-serif" font-size="22" font-weight="700" text-anchor="start">虚拟连接</text>
+<text x="84" y="586" fill="#171916" font-family="Noto Sans CJK SC,system-ui,sans-serif" font-size="34" font-weight="800" text-anchor="start">PTY master / slave</text>
+<text x="84" y="625" fill="#555c55" font-family="Noto Sans CJK SC,system-ui,sans-serif" font-size="24" font-weight="400" text-anchor="start">一对相互连接的伪终端端点</text>
+<text x="84" y="659" fill="#555c55" font-family="Noto Sans CJK SC,system-ui,sans-serif" font-size="22" font-weight="400" text-anchor="start">模拟器使用 master，应用使用 slave</text>
+<rect x="56" y="706" width="608" height="178" rx="6" fill="#171b1b"/>
+<text x="84" y="744" fill="#8fd0c7" font-family="Noto Sans CJK SC,system-ui,sans-serif" font-size="22" font-weight="700" text-anchor="start">内核接口</text>
+<text x="84" y="788" fill="#f4f0e7" font-family="Noto Sans CJK SC,system-ui,sans-serif" font-size="34" font-weight="800" text-anchor="start">TTY</text>
+<text x="84" y="827" fill="#b8c2bd" font-family="Noto Sans CJK SC,system-ui,sans-serif" font-size="24" font-weight="400" text-anchor="start">行规程、termios 与作业控制</text>
+<text x="84" y="861" fill="#b8c2bd" font-family="Noto Sans CJK SC,system-ui,sans-serif" font-size="22" font-weight="400" text-anchor="start">PTY 的 slave 端提供 TTY 语义</text>
+<text x="56" y="946" fill="#555c55" font-family="Noto Sans CJK SC,system-ui,sans-serif" font-size="24" font-weight="600" text-anchor="start">这是概念对照，不是必须依次经过的四层。</text>
 </svg>

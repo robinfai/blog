@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="1430" viewBox="0 0 720 1430" role="img" aria-labelledby="title desc">
+<title id="title">Terminal、TTY 和应用各有自己的状态</title>
+<desc id="desc">Terminal 的2004模式决定粘贴时是否添加边界；PTY和内核Line Discipline仍按当前termios设置传输、转换、缓冲或处理输入字节；应用识别边界并决定如何编辑和提交。设置2004不会切换Raw Mode，设置Raw Mode也不会自动启用2004。</desc>
+<rect width="720" height="1430" fill="#ebe7dc"/>
+<text x="44" y="48" font-family="'Noto Sans CJK SC',system-ui,sans-serif" font-size="24" font-weight="600" fill="#515b55" text-anchor="start">08 / INPUT LAYERS</text>
+<text x="44" y="100" font-family="'Noto Sans CJK SC',system-ui,sans-serif" font-size="36" font-weight="800" fill="#171916" text-anchor="start">标记不会绕过 TTY</text>
+<text x="44" y="144" font-family="'Noto Sans CJK SC',system-ui,sans-serif" font-size="26" font-weight="400" fill="#515b55" text-anchor="start">三处状态，分别负责不同的事</text>
+<rect x="44" y="187" width="632" height="261" rx="12" fill="#203332" stroke="#2d7e82" stroke-width="2"/>
+<text x="76" y="238" font-family="'Noto Sans CJK SC',system-ui,sans-serif" font-size="34" font-weight="700" fill="#f4f0e7" text-anchor="start">1  Terminal</text>
+<text x="76" y="291" font-family="'Noto Sans CJK SC',system-ui,sans-serif" font-size="29" font-weight="600" fill="#9edbd0" text-anchor="start">2004 模式：是否添加粘贴边界</text>
+<text x="76" y="349" font-family="'DejaVu Sans Mono',ui-monospace,monospace" font-size="30" font-weight="600" fill="#f4f0e7" text-anchor="start">ESC[200~helloESC[201~</text>
+<text x="76" y="407" font-family="'Noto Sans CJK SC',system-ui,sans-serif" font-size="27" font-weight="400" fill="#f4f0e7" text-anchor="start">模式由应用输出的控制序列设置</text>
+<path d="M360 453L360 508" stroke="#2d7e82" stroke-width="5" fill="none" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M350 495L360 508L370 495" stroke="#2d7e82" stroke-width="5" fill="none" stroke-linejoin="round" stroke-linecap="round"/>
+<rect x="44" y="521" width="632" height="334" rx="12" fill="#fbfaf6" stroke="#cbc5b8" stroke-width="2"/>
+<text x="76" y="574" font-family="'Noto Sans CJK SC',system-ui,sans-serif" font-size="32" font-weight="700" fill="#171916" text-anchor="start">2  PTY / Line Discipline</text>
+<text x="76" y="621" font-family="'Noto Sans CJK SC',system-ui,sans-serif" font-size="29" font-weight="600" fill="#171916" text-anchor="start">仍按当前 termios 设置处理输入</text>
+<text x="76" y="678" font-family="'DejaVu Sans Mono',ui-monospace,monospace" font-size="30" font-weight="700" fill="#2d7e82" text-anchor="start">ICANON</text>
+<text x="278" y="678" font-family="'Noto Sans CJK SC',system-ui,sans-serif" font-size="28" font-weight="400" fill="#515b55" text-anchor="start">按行缓冲</text>
+<text x="76" y="735" font-family="'DejaVu Sans Mono',ui-monospace,monospace" font-size="30" font-weight="700" fill="#2d7e82" text-anchor="start">ICRNL</text>
+<text x="278" y="735" font-family="'Noto Sans CJK SC',system-ui,sans-serif" font-size="28" font-weight="400" fill="#515b55" text-anchor="start">把 CR 转为 LF</text>
+<text x="76" y="792" font-family="'DejaVu Sans Mono',ui-monospace,monospace" font-size="30" font-weight="700" fill="#2d7e82" text-anchor="start">ISIG</text>
+<text x="278" y="792" font-family="'Noto Sans CJK SC',system-ui,sans-serif" font-size="28" font-weight="400" fill="#515b55" text-anchor="start">识别信号控制字符</text>
+<path d="M360 860L360 915" stroke="#2d7e82" stroke-width="5" fill="none" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M350 902L360 915L370 902" stroke="#2d7e82" stroke-width="5" fill="none" stroke-linejoin="round" stroke-linecap="round"/>
+<rect x="44" y="928" width="632" height="242" rx="12" fill="#203332" stroke="#2d7e82" stroke-width="2"/>
+<text x="76" y="981" font-family="'Noto Sans CJK SC',system-ui,sans-serif" font-size="32" font-weight="700" fill="#f4f0e7" text-anchor="start">3  应用的输入解析器</text>
+<text x="76" y="1036" font-family="'Noto Sans CJK SC',system-ui,sans-serif" font-size="28" font-weight="400" fill="#f4f0e7" text-anchor="start">识别并消费边界标记</text>
+<text x="76" y="1083" font-family="'Noto Sans CJK SC',system-ui,sans-serif" font-size="28" font-weight="400" fill="#f4f0e7" text-anchor="start">插入文本、编辑和提交由应用决定</text>
+<text x="76" y="1132" font-family="'Noto Sans CJK SC',system-ui,sans-serif" font-size="27" font-weight="400" fill="#9edbd0" text-anchor="start">边界不会替应用检查命令内容</text>
+<rect x="44" y="1210" width="632" height="168" rx="12" fill="#eedfb6" stroke="#b49459" stroke-width="2"/>
+<text x="76" y="1256" font-family="'Noto Sans CJK SC',system-ui,sans-serif" font-size="29" font-weight="700" fill="#8a6529" text-anchor="start">两组设置彼此独立</text>
+<text x="76" y="1303" font-family="'Noto Sans CJK SC',system-ui,sans-serif" font-size="27" font-weight="400" fill="#171916" text-anchor="start">启用 2004，不会自动切换 Raw Mode</text>
+<text x="76" y="1347" font-family="'Noto Sans CJK SC',system-ui,sans-serif" font-size="27" font-weight="400" fill="#171916" text-anchor="start">进入 Raw Mode，不会自动启用 2004</text>
+</svg>

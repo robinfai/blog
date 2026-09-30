@@ -1,34 +1,35 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="720" height="900" viewBox="0 0 720 900" role="img" aria-labelledby="title desc">
-  <title id="title">TTY Line Discipline 处理输入</title>
-  <desc id="desc">输入字节依次经过回显、规范模式、控制字符与信号处理，最后成为文本或信号</desc>
-  <rect width="720" height="900" fill="#ebe7dc"/>
-  <text x="56" y="64" fill="#69706b" font-family="system-ui,sans-serif" font-size="18" letter-spacing="3">TTY · MORE THAN A BYTE STREAM</text>
-  <g font-family="system-ui,sans-serif">
-    <rect x="70" y="110" width="580" height="120" rx="4" fill="#fbfaf6" stroke="#cbc5b8" stroke-width="2"/>
-    <text x="100" y="151" fill="#2d7e82" font-size="17" font-weight="800">输入字节</text>
-    <text x="100" y="198" fill="#171916" font-family="monospace" font-size="28">Ctrl-C · a · b · Enter</text>
-    <path d="M360 230v58" stroke="#2d7e82" stroke-width="4"/>
-    <path d="m348 274 12 15 12-15" fill="none" stroke="#2d7e82" stroke-width="4"/>
-
-    <rect x="70" y="290" width="580" height="310" rx="4" fill="#171b1b"/>
-    <text x="100" y="340" fill="#8bc2bb" font-size="18" font-weight="800" letter-spacing="2">LINE DISCIPLINE</text>
-    <text x="100" y="386" fill="#f4f0e7" font-size="32" font-weight="800">内核中的终端行为</text>
-    <g font-size="19" font-weight="700">
-      <rect x="100" y="432" width="240" height="58" rx="3" fill="#2d3734"/><text x="126" y="469" fill="#dce8e4">Echo · 输入回显</text>
-      <rect x="380" y="432" width="240" height="58" rx="3" fill="#2d3734"/><text x="406" y="469" fill="#dce8e4">Canonical · 行编辑</text>
-      <rect x="100" y="516" width="240" height="58" rx="3" fill="#2d3734"/><text x="126" y="553" fill="#dce8e4">Control characters</text>
-      <rect x="380" y="516" width="240" height="58" rx="3" fill="#2d3734"/><text x="406" y="553" fill="#dce8e4">Signals · 作业控制</text>
-    </g>
-    <path d="M360 600v58" stroke="#2d7e82" stroke-width="4"/>
-    <path d="m348 644 12 15 12-15" fill="none" stroke="#2d7e82" stroke-width="4"/>
-
-    <rect x="70" y="660" width="270" height="130" rx="4" fill="#dce9e6" stroke="#79aaa6" stroke-width="2"/>
-    <text x="98" y="704" fill="#2d7e82" font-size="17" font-weight="800">路径 A</text>
-    <text x="98" y="750" fill="#171916" font-size="25" font-weight="800">一行文本</text>
-    <rect x="380" y="660" width="270" height="130" rx="4" fill="#f2e4d2" stroke="#d0b184" stroke-width="2"/>
-    <text x="408" y="704" fill="#ad6a26" font-size="17" font-weight="800">路径 B</text>
-    <text x="408" y="750" fill="#171916" font-size="25" font-weight="800">SIGINT 等信号</text>
-    <path d="M360 620 205 660M360 620l155 40" stroke="#2d7e82" stroke-width="3" fill="none"/>
-    <text x="70" y="842" fill="#69706b" font-size="18">Raw 模式会关闭其中的大部分处理，把解释权交还给应用。</text>
-  </g>
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="1080" viewBox="0 0 720 1080" role="img" aria-labelledby="title desc">
+<title id="title">TTY Line Discipline 按配置处理输入</title><desc id="desc">两个独立例子：ICANON 开启时 ab 加换行形成可读的一行；ISIG 开启且 VINTR 为 Ctrl-C 时产生发给前台进程组的 SIGINT。回显、行编辑和控制字符识别由配置决定，不是固定流水线。</desc>
+<rect width="720" height="1080" fill="#ebe7dc"/>
+<text x="56" y="60" fill="#555c55" font-family="Noto Sans CJK SC,system-ui,sans-serif" font-size="20" font-weight="600" text-anchor="start">TTY · CONFIGURABLE INPUT HANDLING</text>
+<rect x="56" y="100" width="608" height="176" rx="6" fill="#fbfaf6" stroke="#cbc5b8" stroke-width="2"/>
+<text x="84" y="138" fill="#24696e" font-family="Noto Sans CJK SC,system-ui,sans-serif" font-size="24" font-weight="700" text-anchor="start">两个独立的输入例子</text>
+<text x="84" y="184" fill="#171916" font-family="DejaVu Sans Mono,ui-monospace,monospace" font-size="28" font-weight="700" text-anchor="start">A  a b Enter</text>
+<text x="84" y="234" fill="#171916" font-family="DejaVu Sans Mono,ui-monospace,monospace" font-size="28" font-weight="700" text-anchor="start">B  Ctrl-C</text>
+<path d="M360 276V330" stroke="#24696e" stroke-width="4" fill="none" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M350 318L360 330l10 -12" stroke="#24696e" stroke-width="4" fill="none" stroke-linejoin="round" stroke-linecap="round"/>
+<rect x="56" y="330" width="608" height="260" rx="6" fill="#171b1b"/>
+<text x="84" y="372" fill="#8fd0c7" font-family="Noto Sans CJK SC,system-ui,sans-serif" font-size="22" font-weight="700" text-anchor="start">LINE DISCIPLINE</text>
+<text x="84" y="421" fill="#f4f0e7" font-family="Noto Sans CJK SC,system-ui,sans-serif" font-size="30" font-weight="800" text-anchor="start">按 termios 配置处理输入</text>
+<text x="84" y="470" fill="#b8c2bd" font-family="Noto Sans CJK SC,system-ui,sans-serif" font-size="25" font-weight="400" text-anchor="start">ECHO：输入回显</text>
+<text x="84" y="513" fill="#b8c2bd" font-family="Noto Sans CJK SC,system-ui,sans-serif" font-size="25" font-weight="400" text-anchor="start">ICANON：行编辑与按行提交</text>
+<text x="84" y="556" fill="#b8c2bd" font-family="Noto Sans CJK SC,system-ui,sans-serif" font-size="25" font-weight="400" text-anchor="start">ISIG：识别信号控制字符</text>
+<path d="M360 590V628H204V670" stroke="#24696e" stroke-width="4" fill="none" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M360 628H516V670" stroke="#24696e" stroke-width="4" fill="none" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M194 658l10 12 10 -12" stroke="#24696e" stroke-width="4" fill="none" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M506 658l10 12 10 -12" stroke="#24696e" stroke-width="4" fill="none" stroke-linejoin="round" stroke-linecap="round"/>
+<rect x="56" y="672" width="296" height="256" rx="6" fill="#dce9e6" stroke="#79aaa6" stroke-width="2"/>
+<rect x="368" y="672" width="296" height="256" rx="6" fill="#f2e4d2" stroke="#d0b184" stroke-width="2"/>
+<text x="80" y="714" fill="#24696e" font-family="Noto Sans CJK SC,system-ui,sans-serif" font-size="22" font-weight="700" text-anchor="start">例子 A · ICANON 开</text>
+<text x="80" y="765" fill="#171916" font-family="Noto Sans CJK SC,system-ui,sans-serif" font-size="29" font-weight="800" text-anchor="start">ab + 换行</text>
+<text x="80" y="812" fill="#555c55" font-family="Noto Sans CJK SC,system-ui,sans-serif" font-size="24" font-weight="400" text-anchor="start">应用可读到一行</text>
+<text x="80" y="854" fill="#555c55" font-family="Noto Sans CJK SC,system-ui,sans-serif" font-size="20" font-weight="400" text-anchor="start">Enter 转换为换行</text>
+<text x="80" y="890" fill="#555c55" font-family="Noto Sans CJK SC,system-ui,sans-serif" font-size="20" font-weight="400" text-anchor="start">取决于输入映射配置</text>
+<text x="392" y="714" fill="#8d5824" font-family="Noto Sans CJK SC,system-ui,sans-serif" font-size="22" font-weight="700" text-anchor="start">例子 B · ISIG 开</text>
+<text x="392" y="765" fill="#171916" font-family="Noto Sans CJK SC,system-ui,sans-serif" font-size="29" font-weight="800" text-anchor="start">SIGINT</text>
+<text x="392" y="812" fill="#555c55" font-family="Noto Sans CJK SC,system-ui,sans-serif" font-size="24" font-weight="400" text-anchor="start">发给前台进程组</text>
+<text x="392" y="854" fill="#555c55" font-family="Noto Sans CJK SC,system-ui,sans-serif" font-size="20" font-weight="400" text-anchor="start">此例 VINTR = Ctrl-C</text>
+<text x="392" y="890" fill="#555c55" font-family="Noto Sans CJK SC,system-ui,sans-serif" font-size="20" font-weight="400" text-anchor="start">该字节不作为文本提交</text>
+<text x="56" y="984" fill="#555c55" font-family="Noto Sans CJK SC,system-ui,sans-serif" font-size="24" font-weight="400" text-anchor="start">Raw 配置通常关闭这些处理，</text>
+<text x="56" y="1022" fill="#555c55" font-family="Noto Sans CJK SC,system-ui,sans-serif" font-size="24" font-weight="400" text-anchor="start">由应用直接解释输入字节。</text>
 </svg>

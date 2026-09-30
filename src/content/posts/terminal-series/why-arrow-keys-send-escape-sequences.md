@@ -1,6 +1,7 @@
 ---
 author: Robin
 pubDatetime: 2026-09-21T08:00:00+08:00
+modDatetime: 2026-09-30T10:45:00+08:00
 title: 方向键为什么会变成 ESC[A？
 featured: false
 draft: false
@@ -12,8 +13,6 @@ tags:
   - TUI
 description: 《五彩斑斓的黑》第六篇：从方向键的三个字节开始，理解 Terminal 如何编码按键、应用光标模式为何改变输入，以及传统键盘协议为什么存在歧义。
 ---
-
-> 本文是《五彩斑斓的黑》系列第六篇。上一篇解释了 [Terminal 为什么会有第二块屏幕](/blog/posts/terminal-series/why-terminal-has-an-alternate-screen/)；这一篇转向输入侧，看看按下方向键以后，程序实际读到了什么。
 
 在 Shell 中运行：
 
@@ -35,7 +34,7 @@ od -An -tx1
 41    A
 ```
 
-程序没有收到一个名为“ArrowUp”的键盘事件，只读到了字节 `ESC[A`。这是因为 Terminal 与运行在 PTY 另一端的程序之间没有 GUI 键盘事件接口。Terminal 必须先把按键编码成字节，程序再按当前终端类型和模式解释这些字节。
+程序读到的是 `ESC[A` 这三个字节。Terminal 先把上方向键编码成这串数据，通过 PTY 送给程序；程序再按当前终端类型和模式解释它。
 
 ## Terminal 接收按键事件，程序读取字节
 
@@ -50,9 +49,7 @@ od -An -tx1
 
 按下普通字母 `a` 时，Terminal 通常写入字符 `a` 的编码；按下中文输入法候选词时，写入的是最终文本的 UTF-8 字节。方向键、Home、F1 等按键不直接产生文本，Terminal 便使用控制序列表示它们。
 
-PTY 不会把 `1b 5b 41` 标注成“方向键”。Line Discipline 也不会为它补上事件边界。程序每次 `read()` 可能读到完整序列，也可能只读到其中一部分，因此输入解析器必须跨多次读取保存状态。
-
-这也意味着，同一串字节不一定来自真实键盘。粘贴、宏、测试程序或远端连接都可以写入完全相同的数据。只观察 PTY 输入，无法证明用户按过哪一个物理键。
+一次 `read()` 可能只读到 `ESC`，下一次才收到 `[A`。PTY 传来的是字节，解析器得把前一次没读完的部分记住。
 
 ## `ESC[A` 沿用了视频终端的控制语言
 
@@ -71,7 +68,7 @@ VT100 系列把普通光标键编码为：
 
 这里的 `A`、`B`、`C`、`D` 与输出侧的光标移动命令相同。程序输出 `CSI A` 是要求 Terminal 把屏幕光标上移；Terminal 向程序发送 `CSI A` 则报告上方向键。[XTerm 控制序列文档](https://invisible-island.net/xterm/ctlseqs/ctlseqs.html)分别列出了这两种用途。
 
-Shell 的行编辑器收到上方向键后，通常选择上一条历史命令，再输出擦除、光标移动和新文本来更新命令行。Vim 收到相同按键则可能移动编辑位置。Terminal 负责编码按键，具体执行什么操作由应用决定。
+Shell 的行编辑器收到上方向键后，通常选择上一条历史命令，再输出擦除、光标移动和新文本来更新命令行。Vim 收到相同按键则可能移动编辑位置。
 
 ## 上方向键也可能是 `ESCOA`
 
@@ -91,11 +88,15 @@ CSI ? 1 l    重置 DECCKM，回到 Normal Cursor Keys
 | →    | `CSI C`     | `SS3 C`，即 `ESCOC` |
 | ←    | `CSI D`     | `SS3 D`，即 `ESCOD` |
 
-`ESCOA` 表示 `1b 4f 41`，中间没有空格，`O` 是大写字母。程序发送到 Terminal 的输出序列，可以改变 Terminal 随后如何编码输入。这里的 Normal/Application 是光标键模式，与上一篇的 Normal/Alternate 屏幕缓冲区是两个独立开关。
+`ESCOA` 表示 `1b 4f 41`，中间没有空格，`O` 是大写字母。
+
+![同一个上方向键在 Normal 与 Application 光标键模式下生成不同字节](./images/06-keyboard-modes.svg)
+
+_图 1：应用输出 `CSI ?1 h/l` 切换光标键模式，终端随后用 `ESC[A` 或 `ESCOA` 报告上方向键。Normal/Application 光标键模式与 Normal/Alternate 屏幕缓冲区分别设置。_
 
 全屏程序通常不直接写死这些序列。terminfo 使用 `smkx` 和 `rmkx` 表示进入、退出键盘传输模式，使用 `kcuu1`、`kcud1`、`kcuf1`、`kcub1` 描述四个方向键会发送什么。curses 之类的库根据 `$TERM` 查询这些能力，再配置 Terminal 和输入解析器。
 
-因此，调试方向键问题时只问“它是不是 `ESC[A`”还不够，还要确认：
+方向键出现乱码或失灵时，可以顺着这几项排查：
 
 - 当前 `$TERM` 对应哪份 terminfo；
 - 应用是否启用了 application cursor mode；
@@ -154,32 +155,27 @@ ESC + text               常见的 Alt 前缀形式
 
 xterm 的 `modifyOtherKeys` 为普通按键补充了带参数的转义序列，但它仍要兼容既有序列和历史解析器。现代键盘协议进一步把按键值、修饰键、事件类型和关联文本放进结构化的 CSI 序列。
 
-Kitty keyboard protocol 使用的完整形式是：
+[Kitty keyboard protocol](https://sw.kovidgoyal.net/kitty/keyboard-protocol/) 的核心 CSI u 形式是：
 
 ```text
-CSI key-code:alternate-keys ; modifiers:event-type ; text u
+CSI unicode-key-code:alternate-key-codes ; modifiers:event-type ; text-as-codepoints u
 ```
+
+其中关联文本使用十进制 Unicode 码点表示，多个码点用冒号分隔；除主键码外的字段按需省略。方向键等功能键仍有规范规定的兼容形式，包括以 `A/B/C/D` 或 `~` 结尾的 CSI，并非全部改用 `u`。
 
 应用可以按需启用几项增强能力，包括消除 Escape 编码重合、报告 repeat/release、报告不同布局下的按键值，以及把所有键都编码成序列。默认仍保留传统模式，让旧 Shell 和旧程序继续工作；支持新协议的应用进入 TUI 时主动启用，退出时再恢复之前的模式。
 
-这类协议让接收端可以明确区分按键、文本、修饰键和事件阶段；序列变长只是编码这些信息的结果。
+## 录下字节以后，能还原哪些操作
 
-## 输入录制无法自动还原成按键事件
+一份 PTY 输入记录保留了采集点的字节，却未必能还原原来的按键：`09` 可能是 Tab，也可能是 `Ctrl-I`；粘贴、宏或程序注入也能送来同一串数据。
 
-终端录制器保存的 PTY 输入字节，并不一定能还原用户的原始操作。重放还需要考虑采集位置、当时的 TTY 配置、终端模式和时序：master 端写入的字节可能被 Line Discipline 转换、消耗或解释为信号，应用最终读到的内容未必相同。
-
-- `09` 可能来自 Tab，也可能来自 `Ctrl-I`；
-- `1b` 可能是 Escape，也可能是未读完整的序列开头；
-- 同一串字节可能来自按键、粘贴、宏或程序注入；
-- 当前终端模式不同，相同物理按键可能生成不同序列。
-
-需要记录真实键盘行为时，应在 Terminal 把平台事件编码为字节之前采集语义事件，并同时记录当时生效的键盘模式。只接入 PTY 的 Agent 也应把输入看作带状态的终端协议，不能把每次 `read()` 直接等同于一次用户操作。
+若要记录原始键盘行为，应在 Terminal 把平台输入事件编码为字节之前采集。若要重放应用收到的输入，则还要保留当时的终端模式、TTY 设置和时序，并明确采集位置：写入 master 端的字节，可能先被 Line Discipline 转换、消耗或解释为信号，与应用最终读到的内容不同。
 
 ## 在本机观察按键编码
 
-### 实验一：观察短时间内收到的字节
+### 观察短时间内收到的字节
 
-在 macOS 或 Linux 的交互式终端里运行下面的脚本。它通过 `/dev/tty` 读取当前控制终端，临时进入 Raw Mode，并在读取结束后恢复原来的 TTY 设置。启动后按一次键；没有输入时，十秒后也会退出。
+在 macOS 或 Linux 的交互式终端里运行下面的脚本。它通过 `/dev/tty` 读取当前控制终端，临时进入 Raw Mode，读取结束后恢复原来的 TTY 设置。启动后按一次键；没有输入时，十秒后也会退出。
 
 ```bash
 python3 - <<'PY'
@@ -213,9 +209,11 @@ print(" ".join(f"{b:02x}" for b in data))
 PY
 ```
 
-运行后按一次方向键。常见结果是 `1b 5b 41`，但当前模式和 Terminal 配置可能让结果不同。脚本在首批字节到达后继续收集 200 毫秒；这个时间窗只为方便观察，既可能收进多个按键，也可能漏掉延迟更久的后续字节，不是按键边界。Raw Mode 下按 `Ctrl-C` 会显示 `03`，由脚本结束并恢复设置。
+运行后按一次方向键。常见结果是 `1b 5b 41`，但当前模式和 Terminal 配置可能让结果不同。脚本在首批字节到达后继续收集 200 毫秒；这个时间窗只为方便观察，既可能收进多个按键，也可能漏掉延迟更久的后续字节，不是按键边界。Raw Mode 下按 `Ctrl-C` 会记录 `03`，脚本结束后再显示。
 
-### 实验二：查看 terminfo 中的方向键能力
+这里的 `finally` 能覆盖正常返回和 Python 异常；未处理的 `SIGTERM`、`SIGHUP` 或 `SIGKILL` 可能跳过恢复。如果回到 Shell 后仍不回显或不按行输入，可以运行 `stty sane` 恢复常用 TTY 设置。
+
+### 对照 terminfo 的声明
 
 ```bash
 infocmp -1 "$TERM" | grep -E '^[[:space:]]*(kcuu1|kcud1|kcuf1|kcub1|smkx|rmkx)='
@@ -224,20 +222,16 @@ tput kcuu1 | od -An -tx1
 
 `infocmp` 显示当前终端描述；`tput kcuu1` 输出该描述中上方向键对应的字符串，再由 `od` 显示其十六进制字节。它说明 terminfo 声明了什么，不等于已经验证 Terminal 在当前模式下实际发送了同一结果。
 
-### 实验三：比较 Escape 与 Alt 字符
+### 比较 Escape 与 Alt 字符
 
-重复运行实验一，分别按 Escape 和 Alt-x。常见结果是：
+重复运行上面的 Python 脚本，分别按 Escape 和 Alt-x。常见结果是：
 
 ```text
 Escape    1b
 Alt-x     1b 78
 ```
 
-如果 macOS 的 Option-x 输入了字符，先检查 Terminal 是否把 Option 配置为 Alt/Meta。桌面系统或终端快捷键也可能先拦截组合键。读到第一个 `1b` 时，程序无法立即确定输入是否结束；更换终端或键盘配置后，也不能假设 Alt-x 一定产生上述字节。
-
-> **下一篇：《鼠标点击为什么也会变成控制序列？》**
->
-> 下一篇继续沿输入侧展开：应用如何启用鼠标跟踪，Terminal 怎样编码按下、释放、移动和滚轮事件，以及为什么日志、录制和 Agent 容易把这些输入误认成乱码。
+如果 macOS 的 Option-x 输入了字符，先检查 Terminal 是否把 Option 配置为 Alt/Meta；桌面快捷键也可能先截走它。以脚本读到的字节为准。
 
 ## 资料参考
 

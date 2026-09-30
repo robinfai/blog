@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="1460" viewBox="0 0 720 1460" role="img" aria-labelledby="title desc">
+<title id="title">2004 是模式，200~ 与 201~ 是粘贴边界</title>
+<desc id="desc">应用输出 ESC[?2004h 后，Terminal 向应用发送 ESC[200~、粘贴内容和 ESC[201~。示例内容为 hello。ESC 是0x1b；开始标记的字节为1b 5b 32 30 30 7e，结束标记为1b 5b 32 30 31 7e。每次粘贴用一对标记，不需要每行一对。</desc>
+<rect width="720" height="1460" fill="#ebe7dc"/>
+<text x="44" y="48" font-family="'Noto Sans CJK SC',system-ui,sans-serif" font-size="24" font-weight="600" fill="#515b55" text-anchor="start">08 / PASTE MARKERS</text>
+<text x="44" y="100" font-family="'Noto Sans CJK SC',system-ui,sans-serif" font-size="36" font-weight="800" fill="#171916" text-anchor="start">开关和边界，分清方向</text>
+<rect x="44" y="141" width="632" height="186" rx="12" fill="#eedfb6" stroke="#b49459" stroke-width="2"/>
+<text x="76" y="188" font-family="'Noto Sans CJK SC',system-ui,sans-serif" font-size="28" font-weight="700" fill="#8a6529" text-anchor="start">应用输出给 Terminal：开启模式</text>
+<text x="76" y="244" font-family="'DejaVu Sans Mono',ui-monospace,monospace" font-size="42" font-weight="700" fill="#171916" text-anchor="start">ESC[?2004h</text>
+<text x="76" y="293" font-family="'Noto Sans CJK SC',system-ui,sans-serif" font-size="27" font-weight="400" fill="#515b55" text-anchor="start">关闭时把末尾 h 换成 l</text>
+<text x="44" y="386" font-family="'Noto Sans CJK SC',system-ui,sans-serif" font-size="30" font-weight="700" fill="#171916" text-anchor="start">随后：Terminal 输入给应用</text>
+<rect x="44" y="424" width="632" height="238" rx="12" fill="#203332" stroke="#2d7e82" stroke-width="2"/>
+<text x="76" y="472" font-family="'Noto Sans CJK SC',system-ui,sans-serif" font-size="30" font-weight="700" fill="#9edbd0" text-anchor="start">粘贴开始</text>
+<rect x="76" y="500" width="174" height="67" rx="6" fill="#142624" stroke="#53827d" stroke-width="2"/>
+<text x="163.0" y="547" font-family="'DejaVu Sans Mono',ui-monospace,monospace" font-size="34" font-weight="700" fill="#f4f0e7" text-anchor="middle">ESC[</text>
+<rect x="267" y="500" width="175" height="67" rx="6" fill="#142624" stroke="#53827d" stroke-width="2"/>
+<text x="354.5" y="547" font-family="'DejaVu Sans Mono',ui-monospace,monospace" font-size="34" font-weight="700" fill="#f4f0e7" text-anchor="middle">200</text>
+<rect x="459" y="500" width="90" height="67" rx="6" fill="#142624" stroke="#53827d" stroke-width="2"/>
+<text x="504.0" y="547" font-family="'DejaVu Sans Mono',ui-monospace,monospace" font-size="34" font-weight="700" fill="#f4f0e7" text-anchor="middle">~</text>
+<text x="76" y="608" font-family="'DejaVu Sans Mono',ui-monospace,monospace" font-size="29" font-weight="400" fill="#9edbd0" text-anchor="start">1b 5b 32 30 30 7e</text>
+<text x="76" y="646" font-family="'Noto Sans CJK SC',system-ui,sans-serif" font-size="25" font-weight="400" fill="#f4f0e7" text-anchor="start">ESC 是 0x1b；~ 是标记的最终字节</text>
+<rect x="44" y="1011" width="632" height="238" rx="12" fill="#203332" stroke="#2d7e82" stroke-width="2"/>
+<text x="76" y="1059" font-family="'Noto Sans CJK SC',system-ui,sans-serif" font-size="30" font-weight="700" fill="#9edbd0" text-anchor="start">粘贴结束</text>
+<rect x="76" y="1087" width="174" height="67" rx="6" fill="#142624" stroke="#53827d" stroke-width="2"/>
+<text x="163.0" y="1134" font-family="'DejaVu Sans Mono',ui-monospace,monospace" font-size="34" font-weight="700" fill="#f4f0e7" text-anchor="middle">ESC[</text>
+<rect x="267" y="1087" width="175" height="67" rx="6" fill="#142624" stroke="#53827d" stroke-width="2"/>
+<text x="354.5" y="1134" font-family="'DejaVu Sans Mono',ui-monospace,monospace" font-size="34" font-weight="700" fill="#f4f0e7" text-anchor="middle">201</text>
+<rect x="459" y="1087" width="90" height="67" rx="6" fill="#142624" stroke="#53827d" stroke-width="2"/>
+<text x="504.0" y="1134" font-family="'DejaVu Sans Mono',ui-monospace,monospace" font-size="34" font-weight="700" fill="#f4f0e7" text-anchor="middle">~</text>
+<text x="76" y="1195" font-family="'DejaVu Sans Mono',ui-monospace,monospace" font-size="29" font-weight="400" fill="#9edbd0" text-anchor="start">1b 5b 32 30 31 7e</text>
+<text x="76" y="1233" font-family="'Noto Sans CJK SC',system-ui,sans-serif" font-size="25" font-weight="400" fill="#f4f0e7" text-anchor="start">ESC 是 0x1b；~ 是标记的最终字节</text>
+<path d="M360 671L360 709" stroke="#2d7e82" stroke-width="5" fill="none" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M350 696L360 709L370 696" stroke="#2d7e82" stroke-width="5" fill="none" stroke-linejoin="round" stroke-linecap="round"/>
+<rect x="44" y="719" width="632" height="230" rx="12" fill="#fbfaf6" stroke="#cbc5b8" stroke-width="2"/>
+<text x="76" y="767" font-family="'Noto Sans CJK SC',system-ui,sans-serif" font-size="30" font-weight="700" fill="#171916" text-anchor="start">粘贴内容</text>
+<text x="76" y="824" font-family="'DejaVu Sans Mono',ui-monospace,monospace" font-size="44" font-weight="700" fill="#2d7e82" text-anchor="start">hello</text>
+<text x="76" y="877" font-family="'DejaVu Sans Mono',ui-monospace,monospace" font-size="29" font-weight="400" fill="#515b55" text-anchor="start">68 65 6c 6c 6f</text>
+<text x="76" y="922" font-family="'Noto Sans CJK SC',system-ui,sans-serif" font-size="27" font-weight="400" fill="#515b55" text-anchor="start">内容可以有多行</text>
+<path d="M360 958L360 997" stroke="#2d7e82" stroke-width="5" fill="none" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M350 984L360 997L370 984" stroke="#2d7e82" stroke-width="5" fill="none" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="44" y="1312" font-family="'Noto Sans CJK SC',system-ui,sans-serif" font-size="32" font-weight="700" fill="#171916" text-anchor="start">一对标记，围住一次粘贴</text>
+<text x="44" y="1363" font-family="'Noto Sans CJK SC',system-ui,sans-serif" font-size="26" font-weight="400" fill="#515b55" text-anchor="start">2004 是模式编号；200 / 201 是边界参数</text>
+<text x="44" y="1406" font-family="'Noto Sans CJK SC',system-ui,sans-serif" font-size="26" font-weight="400" fill="#515b55" text-anchor="start">图中方框用于分段，实际字节之间没有空格</text>
+</svg>

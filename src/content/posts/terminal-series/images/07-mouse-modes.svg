@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="1460" viewBox="0 0 720 1460" role="img" aria-labelledby="title desc">
+<title id="title">鼠标跟踪和鼠标编码是两项设置</title>
+<desc id="desc">应用需要选择事件跟踪模式，并设置鼠标报告的编码格式。1000 上报按钮按下与释放，1002 增加按住按钮移动，1003 还增加未按按钮移动。1006 选择 SGR 编码，不会单独开启跟踪。应用向 Terminal 发出设置，Terminal 把符合所选条件的报告沿相反方向发回应用。</desc>
+<rect width="720" height="1460" fill="#ebe7dc"/>
+<text x="44" y="48" font-family="'Noto Sans CJK SC',system-ui,sans-serif" font-size="24" font-weight="600" fill="#515b55" text-anchor="start">07 / MOUSE MODES</text>
+<text x="44" y="100" font-family="'Noto Sans CJK SC',system-ui,sans-serif" font-size="36" font-weight="800" fill="#171916" text-anchor="start">先选事件，再选编码</text>
+<text x="44" y="144" font-family="'Noto Sans CJK SC',system-ui,sans-serif" font-size="26" font-weight="400" fill="#515b55" text-anchor="start">两项设置各回答一个问题</text>
+<rect x="44" y="184" width="632" height="432" rx="12" fill="#fbfaf6" stroke="#cbc5b8" stroke-width="2"/>
+<text x="76" y="231" font-family="'Noto Sans CJK SC',system-ui,sans-serif" font-size="30" font-weight="700" fill="#171916" text-anchor="start">1  跟踪模式：哪些事件要上报？</text>
+<rect x="76" y="276" width="118" height="77" rx="8" fill="#203332" stroke="#2d7e82" stroke-width="2"/>
+<text x="135" y="326" font-family="'DejaVu Sans Mono',ui-monospace,monospace" font-size="30" font-weight="700" fill="#9edbd0" text-anchor="middle">1000</text>
+<text x="220" y="305" font-family="'Noto Sans CJK SC',system-ui,sans-serif" font-size="28" font-weight="700" fill="#171916" text-anchor="start">按钮事件</text>
+<text x="220" y="346" font-family="'Noto Sans CJK SC',system-ui,sans-serif" font-size="27" font-weight="400" fill="#515b55" text-anchor="start">按下、释放</text>
+<rect x="76" y="382" width="118" height="77" rx="8" fill="#203332" stroke="#2d7e82" stroke-width="2"/>
+<text x="135" y="432" font-family="'DejaVu Sans Mono',ui-monospace,monospace" font-size="30" font-weight="700" fill="#9edbd0" text-anchor="middle">1002</text>
+<text x="220" y="411" font-family="'Noto Sans CJK SC',system-ui,sans-serif" font-size="28" font-weight="700" fill="#171916" text-anchor="start">加上拖动</text>
+<text x="220" y="452" font-family="'Noto Sans CJK SC',system-ui,sans-serif" font-size="27" font-weight="400" fill="#515b55" text-anchor="start">按住按钮时移动</text>
+<rect x="76" y="488" width="118" height="77" rx="8" fill="#203332" stroke="#2d7e82" stroke-width="2"/>
+<text x="135" y="538" font-family="'DejaVu Sans Mono',ui-monospace,monospace" font-size="30" font-weight="700" fill="#9edbd0" text-anchor="middle">1003</text>
+<text x="220" y="517" font-family="'Noto Sans CJK SC',system-ui,sans-serif" font-size="28" font-weight="700" fill="#171916" text-anchor="start">加上悬停</text>
+<text x="220" y="558" font-family="'Noto Sans CJK SC',system-ui,sans-serif" font-size="27" font-weight="400" fill="#515b55" text-anchor="start">未按按钮时移动</text>
+<text x="76" y="595" font-family="'Noto Sans CJK SC',system-ui,sans-serif" font-size="26" font-weight="400" fill="#515b55" text-anchor="start">选择需要的一种，不必把三种都打开</text>
+<rect x="44" y="650" width="632" height="235" rx="12" fill="#203332" stroke="#2d7e82" stroke-width="2"/>
+<text x="76" y="702" font-family="'Noto Sans CJK SC',system-ui,sans-serif" font-size="30" font-weight="700" fill="#f4f0e7" text-anchor="start">2  编码格式：事件怎样写成字节？</text>
+<text x="76" y="765" font-family="'DejaVu Sans Mono',ui-monospace,monospace" font-size="42" font-weight="700" fill="#e4c06b" text-anchor="start">1006</text>
+<text x="227" y="763" font-family="'Noto Sans CJK SC',system-ui,sans-serif" font-size="32" font-weight="700" fill="#f4f0e7" text-anchor="start">SGR 鼠标编码</text>
+<text x="76" y="812" font-family="'DejaVu Sans Mono',ui-monospace,monospace" font-size="36" font-weight="600" fill="#9edbd0" text-anchor="start">ESC[&lt;0;12;5M</text>
+<text x="76" y="857" font-family="'Noto Sans CJK SC',system-ui,sans-serif" font-size="27" font-weight="400" fill="#f4f0e7" text-anchor="start">只开启 1006，不会开始跟踪鼠标</text>
+<rect x="44" y="923" width="632" height="410" rx="12" fill="#fbfaf6" stroke="#cbc5b8" stroke-width="2"/>
+<text x="76" y="973" font-family="'Noto Sans CJK SC',system-ui,sans-serif" font-size="30" font-weight="700" fill="#171916" text-anchor="start">例：启用拖动 + SGR 格式</text>
+<text x="76" y="1037" font-family="'Noto Sans CJK SC',system-ui,sans-serif" font-size="30" font-weight="700" fill="#171916" text-anchor="start">应用</text>
+<text x="643" y="1037" font-family="'Noto Sans CJK SC',system-ui,sans-serif" font-size="30" font-weight="700" fill="#171916" text-anchor="end">Terminal</text>
+<path d="M185 1027L446 1027" stroke="#8a6529" stroke-width="5" fill="none" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M433 1017L446 1027L433 1037" stroke="#8a6529" stroke-width="5" fill="none" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="360" y="1094" font-family="'DejaVu Sans Mono',ui-monospace,monospace" font-size="30" font-weight="600" fill="#8a6529" text-anchor="middle">ESC[?1002h  ESC[?1006h</text>
+<text x="76" y="1170" font-family="'Noto Sans CJK SC',system-ui,sans-serif" font-size="30" font-weight="700" fill="#171916" text-anchor="start">应用</text>
+<text x="643" y="1170" font-family="'Noto Sans CJK SC',system-ui,sans-serif" font-size="30" font-weight="700" fill="#171916" text-anchor="end">Terminal</text>
+<path d="M446 1160L185 1160" stroke="#2d7e82" stroke-width="5" fill="none" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M198 1150L185 1160L198 1170" stroke="#2d7e82" stroke-width="5" fill="none" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="360" y="1225" font-family="'DejaVu Sans Mono',ui-monospace,monospace" font-size="34" font-weight="600" fill="#2d7e82" text-anchor="middle">ESC[&lt;32;13;5M</text>
+<text x="76" y="1284" font-family="'Noto Sans CJK SC',system-ui,sans-serif" font-size="27" font-weight="400" fill="#515b55" text-anchor="start">左键拖动到第 13 列、第 5 行</text>
+<text x="44" y="1381" font-family="'Noto Sans CJK SC',system-ui,sans-serif" font-size="28" font-weight="600" fill="#171916" text-anchor="start">h 开启对应设置，l 关闭对应设置</text>
+<text x="44" y="1423" font-family="'Noto Sans CJK SC',system-ui,sans-serif" font-size="26" font-weight="400" fill="#515b55" text-anchor="start">字符单元模式的移动按网格位置上报</text>
+</svg>
