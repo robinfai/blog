@@ -1,0 +1,838 @@
+<!DOCTYPE html><html dir="ltr" lang="zh-CN" class="overflow-y-scroll scroll-smooth"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" type="image/svg+xml" href="/blog/favicon.svg"><link rel="canonical" href="https://robinfai.github.io/blog/posts/terminal-series/why-paste-is-not-fast-typing/"><meta name="generator" content="Astro v6.4.2"><!-- Font --><style>@font-face{font-family:"Google Sans Code-1a30c214885cb404";src:url("/blog/_astro/fonts/a4c21a8d91968bbf.woff") format("woff"), url("/blog/_astro/fonts/74a6edc26edd9ff6.ttf") format("truetype");font-display:swap;font-weight:300;font-style:italic;}@font-face{font-family:"Google Sans Code-1a30c214885cb404";src:url("/blog/_astro/fonts/dec1a3b014f3bf46.woff") format("woff"), url("/blog/_astro/fonts/477482919d0fce11.ttf") format("truetype");font-display:swap;font-weight:400;font-style:italic;}@font-face{font-family:"Google Sans Code-1a30c214885cb404";src:url("/blog/_astro/fonts/06513ee23ac124e6.woff") format("woff"), url("/blog/_astro/fonts/6427620335ca1545.ttf") format("truetype");font-display:swap;font-weight:500;font-style:italic;}@font-face{font-family:"Google Sans Code-1a30c214885cb404";src:url("/blog/_astro/fonts/009f225421728171.woff") format("woff"), url("/blog/_astro/fonts/72d41e770f677f8c.ttf") format("truetype");font-display:swap;font-weight:600;font-style:italic;}@font-face{font-family:"Google Sans Code-1a30c214885cb404";src:url("/blog/_astro/fonts/0799028f625146ce.woff") format("woff"), url("/blog/_astro/fonts/9e77bb79fd6a7073.ttf") format("truetype");font-display:swap;font-weight:700;font-style:italic;}@font-face{font-family:"Google Sans Code-1a30c214885cb404";src:url("/blog/_astro/fonts/9a12102299eddd06.woff") format("woff"), url("/blog/_astro/fonts/4d40f707f405b972.ttf") format("truetype");font-display:swap;font-weight:300;font-style:normal;}@font-face{font-family:"Google Sans Code-1a30c214885cb404";src:url("/blog/_astro/fonts/f08d826bacca1c9c.woff") format("woff"), url("/blog/_astro/fonts/3eddf4b958ce524e.ttf") format("truetype");font-display:swap;font-weight:400;font-style:normal;}@font-face{font-family:"Google Sans Code-1a30c214885cb404";src:url("/blog/_astro/fonts/3ca4bdf91ca6a31c.woff") format("woff"), url("/blog/_astro/fonts/f3ef341a3cf6041c.ttf") format("truetype");font-display:swap;font-weight:500;font-style:normal;}@font-face{font-family:"Google Sans Code-1a30c214885cb404";src:url("/blog/_astro/fonts/16ff619eb852efb9.woff") format("woff"), url("/blog/_astro/fonts/d9be1f5ac7be38e1.ttf") format("truetype");font-display:swap;font-weight:600;font-style:normal;}@font-face{font-family:"Google Sans Code-1a30c214885cb404";src:url("/blog/_astro/fonts/839d915c0b8d6ad9.woff") format("woff"), url("/blog/_astro/fonts/ccb04ae3845cb484.ttf") format("truetype");font-display:swap;font-weight:700;font-style:normal;}@font-face{font-family:"Google Sans Code-1a30c214885cb404 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:300;font-style:italic;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-1a30c214885cb404 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:400;font-style:italic;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-1a30c214885cb404 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:500;font-style:italic;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-1a30c214885cb404 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:600;font-style:italic;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-1a30c214885cb404 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:700;font-style:italic;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-1a30c214885cb404 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:300;font-style:normal;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-1a30c214885cb404 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:400;font-style:normal;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-1a30c214885cb404 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:500;font-style:normal;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-1a30c214885cb404 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:600;font-style:normal;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-1a30c214885cb404 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:700;font-style:normal;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}:root{--font-google-sans-code:"Google Sans Code-1a30c214885cb404","Google Sans Code-1a30c214885cb404 fallback: Courier New",monospace;}</style><!-- Primary meta --><title>粘贴一段文字，为什么不能当作快速打字？ | Robin 的笔记</title><meta name="title" content="粘贴一段文字，为什么不能当作快速打字？ | Robin 的笔记"><meta name="description" content="《五彩斑斓的黑》第八篇：从多行粘贴开始，解释 2004 模式、200~ 与 201~ 边界标记，以及 Shell、编辑器和自动化工具如何区分粘贴文本与按键操作。"><meta name="author" content="Robin"><link rel="sitemap" href="/blog/sitemap-index.xml"><!-- Open Graph --><meta property="og:type" content="website"><meta property="og:site_name" content="Robin 的笔记"><meta property="og:title" content="粘贴一段文字，为什么不能当作快速打字？ | Robin 的笔记"><meta property="og:description" content="《五彩斑斓的黑》第八篇：从多行粘贴开始，解释 2004 模式、200~ 与 201~ 边界标记，以及 Shell、编辑器和自动化工具如何区分粘贴文本与按键操作。"><meta property="og:url" content="https://robinfai.github.io/blog/posts/terminal-series/why-paste-is-not-fast-typing/"><meta property="og:image" content="https://robinfai.github.io/blog/_astro/08-paste-hero.9S9ePDGC.svg"><!-- Twitter / X --><meta property="twitter:card" content="summary_large_image"><meta property="twitter:url" content="https://robinfai.github.io/blog/posts/terminal-series/why-paste-is-not-fast-typing/"><meta property="twitter:title" content="粘贴一段文字，为什么不能当作快速打字？ | Robin 的笔记"><meta property="twitter:description" content="《五彩斑斓的黑》第八篇：从多行粘贴开始，解释 2004 模式、200~ 与 201~ 边界标记，以及 Shell、编辑器和自动化工具如何区分粘贴文本与按键操作。"><meta property="twitter:image" content="https://robinfai.github.io/blog/_astro/08-paste-hero.9S9ePDGC.svg"><!-- RSS autodiscovery --><link rel="alternate" type="application/rss+xml" title="Robin 的笔记" href="https://robinfai.github.io/blog/rss.xml"><!-- Filled at runtime by theme.ts to match the current background colour --><meta name="theme-color" content=""><!-- Extra head content injected by child layouts (e.g. JSON-LD, article meta) -->  <meta property="og:type" content="article"> <meta property="article:published_time" content="2026-09-30T02:57:00.000Z"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"粘贴一段文字，为什么不能当作快速打字？ | Robin 的笔记","image":"https://robinfai.github.io/blog/_astro/08-paste-hero.9S9ePDGC.svg","datePublished":"2026-09-30T02:57:00.000Z","author":[{"@type":"Person","name":"Robin","url":"https://github.com/robinfai"}]}</script> <!--
+      Inline FOUC-prevention script: sets data-theme on <html> before
+      the browser paints. Runs synchronously, no defer/async.
+    --><script>
+      (function () {
+        const stored = localStorage.getItem("theme");
+        const prefersDark = window.matchMedia(
+          "(prefers-color-scheme: dark)"
+        ).matches;
+        const theme = stored ?? (prefersDark ? "dark" : "light");
+        const root = document.firstElementChild;
+        root?.setAttribute("data-theme", theme);
+        root?.classList.toggle("dark", theme === "dark");
+        // Expose value so theme.ts can skip re-detection.
+        window.__theme = { value: theme };
+      })();
+    </script><meta name="astro-view-transitions-enabled" content="true"><meta name="astro-view-transitions-fallback" content="animate"><script type="module" src="/blog/_astro/ClientRouter.astro_astro_type_script_index_0_lang.CAqDO0tx.js"></script><link rel="stylesheet" href="/blog/_astro/Footer.Ksk86upH.css">
+<style>@keyframes astroFadeInOut{0%{opacity:1}to{opacity:0}}@keyframes astroFadeIn{0%{opacity:0;mix-blend-mode:plus-lighter}to{opacity:1;mix-blend-mode:plus-lighter}}@keyframes astroFadeOut{0%{opacity:1;mix-blend-mode:plus-lighter}to{opacity:0;mix-blend-mode:plus-lighter}}@keyframes astroSlideFromRight{0%{transform:translate(100%)}}@keyframes astroSlideFromLeft{0%{transform:translate(-100%)}}@keyframes astroSlideToRight{to{transform:translate(100%)}}@keyframes astroSlideToLeft{to{transform:translate(-100%)}}@media(prefers-reduced-motion){::view-transition-group(*),::view-transition-old(*),::view-transition-new(*){animation:none!important}[data-astro-transition-scope]{animation:none!important}}
+</style><style>[data-astro-transition-scope="astro-36ssibgs-1"] { view-transition-name: \4E94\5F69\6591\6593\7684\9ED1; }@layer astro { ::view-transition-old(\4E94\5F69\6591\6593\7684\9ED1) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }::view-transition-new(\4E94\5F69\6591\6593\7684\9ED1) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back]::view-transition-old(\4E94\5F69\6591\6593\7684\9ED1) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back]::view-transition-new(\4E94\5F69\6591\6593\7684\9ED1) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; } }[data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-36ssibgs-1"],
+			[data-astro-transition-fallback="old"][data-astro-transition-scope="astro-36ssibgs-1"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-36ssibgs-1"],
+			[data-astro-transition-fallback="new"][data-astro-transition-scope="astro-36ssibgs-1"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back][data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-36ssibgs-1"],
+			[data-astro-transition=back][data-astro-transition-fallback="old"][data-astro-transition-scope="astro-36ssibgs-1"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back][data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-36ssibgs-1"],
+			[data-astro-transition=back][data-astro-transition-fallback="new"][data-astro-transition-scope="astro-36ssibgs-1"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }</style><style>[data-astro-transition-scope="astro-36ssibgs-2"] { view-transition-name: terminal; }@layer astro { ::view-transition-old(terminal) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }::view-transition-new(terminal) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back]::view-transition-old(terminal) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back]::view-transition-new(terminal) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; } }[data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-36ssibgs-2"],
+			[data-astro-transition-fallback="old"][data-astro-transition-scope="astro-36ssibgs-2"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-36ssibgs-2"],
+			[data-astro-transition-fallback="new"][data-astro-transition-scope="astro-36ssibgs-2"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back][data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-36ssibgs-2"],
+			[data-astro-transition=back][data-astro-transition-fallback="old"][data-astro-transition-scope="astro-36ssibgs-2"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back][data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-36ssibgs-2"],
+			[data-astro-transition=back][data-astro-transition-fallback="new"][data-astro-transition-scope="astro-36ssibgs-2"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }</style><style>[data-astro-transition-scope="astro-36ssibgs-3"] { view-transition-name: bracketed-paste; }@layer astro { ::view-transition-old(bracketed-paste) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }::view-transition-new(bracketed-paste) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back]::view-transition-old(bracketed-paste) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back]::view-transition-new(bracketed-paste) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; } }[data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-36ssibgs-3"],
+			[data-astro-transition-fallback="old"][data-astro-transition-scope="astro-36ssibgs-3"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-36ssibgs-3"],
+			[data-astro-transition-fallback="new"][data-astro-transition-scope="astro-36ssibgs-3"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back][data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-36ssibgs-3"],
+			[data-astro-transition=back][data-astro-transition-fallback="old"][data-astro-transition-scope="astro-36ssibgs-3"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back][data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-36ssibgs-3"],
+			[data-astro-transition=back][data-astro-transition-fallback="new"][data-astro-transition-scope="astro-36ssibgs-3"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }</style><style>[data-astro-transition-scope="astro-36ssibgs-4"] { view-transition-name: shell; }@layer astro { ::view-transition-old(shell) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }::view-transition-new(shell) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back]::view-transition-old(shell) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back]::view-transition-new(shell) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; } }[data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-36ssibgs-4"],
+			[data-astro-transition-fallback="old"][data-astro-transition-scope="astro-36ssibgs-4"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-36ssibgs-4"],
+			[data-astro-transition-fallback="new"][data-astro-transition-scope="astro-36ssibgs-4"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back][data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-36ssibgs-4"],
+			[data-astro-transition=back][data-astro-transition-fallback="old"][data-astro-transition-scope="astro-36ssibgs-4"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back][data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-36ssibgs-4"],
+			[data-astro-transition=back][data-astro-transition-fallback="new"][data-astro-transition-scope="astro-36ssibgs-4"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }</style><style>[data-astro-transition-scope="astro-36ssibgs-5"] { view-transition-name: tui; }@layer astro { ::view-transition-old(tui) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }::view-transition-new(tui) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back]::view-transition-old(tui) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back]::view-transition-new(tui) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; } }[data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-36ssibgs-5"],
+			[data-astro-transition-fallback="old"][data-astro-transition-scope="astro-36ssibgs-5"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-36ssibgs-5"],
+			[data-astro-transition-fallback="new"][data-astro-transition-scope="astro-36ssibgs-5"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back][data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-36ssibgs-5"],
+			[data-astro-transition=back][data-astro-transition-fallback="old"][data-astro-transition-scope="astro-36ssibgs-5"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back][data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-36ssibgs-5"],
+			[data-astro-transition=back][data-astro-transition-fallback="new"][data-astro-transition-scope="astro-36ssibgs-5"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }</style></head> <body class="bg-background font-app text-foreground selection:bg-accent/75 selection:text-accent-foreground flex min-h-svh flex-col">    <a id="skip-to-content" href="#main-content" class="bg-background text-accent absolute inset-s-16 -top-full z-50 px-3 py-2 backdrop-blur-lg transition-all focus:top-4"> 跳到正文 </a> <header class="app-layout flex flex-col items-center justify-between sm:flex-row"> <div class="border-border bg-background relative flex w-full items-baseline justify-between border-b py-4 sm:items-center sm:py-6"> <a href="/blog/" class="absolute py-1 text-xl leading-8 font-semibold whitespace-nowrap sm:static sm:my-auto sm:text-2xl sm:leading-none"> Robin 的笔记 </a> <nav id="nav-menu" class="flex w-full flex-col items-center sm:ms-2 sm:flex-row sm:justify-end sm:space-x-4 sm:py-0"> <button id="menu-btn" class="focus-outline self-end p-2 sm:hidden" aria-label="打开菜单" aria-expanded="false" aria-controls="menu-items" data-label-open="打开菜单" data-label-close="关闭菜单"> <svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="hidden" viewBox="0 0 24 24" id="close-icon"><path stroke="none" d="M0 0h24v24H0z" /><path d="M18 6 6 18M6 6l12 12" /></svg> <svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="icon icon-tabler icons-tabler-outline icon-tabler-menu-deep" viewBox="0 0 24 24" id="menu-icon"><path stroke="none" d="M0 0h24v24H0z" /><path d="M4 6h16M7 12h13M10 18h10" /></svg> </button> <ul id="menu-items" class="[&>li>a]:hover:text-accent mt-4 hidden w-44 grid-cols-2 place-content-center gap-2 sm:mt-0 sm:flex sm:w-auto sm:gap-x-5 sm:gap-y-0 sm:[&>li]:h-8 [&>li>a]:block [&>li>a]:px-4 [&>li>a]:py-3 [&>li>a]:text-center [&>li>a]:font-medium sm:[&>li>a]:px-2 sm:[&>li>a]:py-1"> <li class="col-span-2"> <a href="/blog/posts/" class="active-nav"> 文章 </a> </li> <li class="col-span-2"> <a href="/blog/tags/"> 标签 </a> </li> <li class="col-span-2"> <a href="/blog/about/"> 关于 </a> </li> <li class="col-span-2"> <a href="/blog/archives/" title="归档" aria-label="归档" class="group inline-flex items-center gap-1 hover:text-accent focus-outline flex size-full justify-center p-3 sm:relative sm:size-8 sm:p-0">  <svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="hidden sm:absolute sm:top-1/2 sm:left-1/2 sm:block sm:size-6 sm:-translate-x-1/2 sm:-translate-y-1/2" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M3 6a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v0a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8M10 12h4" /></svg> <span class="sm:sr-only">归档</span>  </a> </li> <li class="col-span-1 flex items-center justify-center"> <a href="/blog/search/" title="搜索" aria-label="搜索" class="group inline-flex items-center gap-1 hover:text-accent focus-outline relative size-8">  <svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="absolute top-1/2 left-1/2 size-6 -translate-x-1/2 -translate-y-1/2" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M3 10a7 7 0 1 0 14 0 7 7 0 1 0-14 0M21 21l-6-6" /></svg> <span class="sr-only">搜索</span>  </a> </li> <li class="col-span-1 flex items-center justify-center"> <button id="theme-btn" class="focus-outline hover:[&>svg]:stroke-accent relative size-12 p-4 sm:size-8" title="切换主题" aria-label="auto" aria-live="polite"> <svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="absolute top-[50%] left-[50%] translate-[-50%] scale-100 rotate-0 transition-all dark:scale-0 dark:-rotate-90" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M12 3h.393a7.5 7.5 0 0 0 7.92 12.446A9 9 0 1 1 12 2.992z" /></svg> <svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="absolute top-[50%] left-[50%] translate-[-50%] scale-0 rotate-90 transition-all dark:scale-100 dark:rotate-0" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M14.828 14.828a4 4 0 1 0-5.656-5.656 4 4 0 0 0 5.656 5.656M6.343 17.657l-1.414 1.414M6.343 6.343 4.929 4.929M17.657 6.343l1.414-1.414M17.657 17.657l1.414 1.414M4 12H2M12 4V2M20 12h2M12 20v2" /></svg> </button> </li> </ul> </nav> </div> </header> <script type="module">function c(){const e=document.querySelector("#menu-btn"),t=document.querySelector("#menu-items"),n=document.querySelector("#menu-icon"),s=document.querySelector("#close-icon");if(!e||!t||!n||!s)return;const a=e.dataset.labelOpen??"Open menu",l=e.dataset.labelClose??"Close menu";e.addEventListener("click",()=>{const o=e.getAttribute("aria-expanded")==="true";e.setAttribute("aria-expanded",o?"false":"true"),e.setAttribute("aria-label",o?a:l),t.classList.toggle("hidden"),t.classList.toggle("grid"),n.classList.toggle("hidden"),s.classList.toggle("hidden")})}c();document.addEventListener("astro:after-swap",c);</script> <div class="app-layout flex items-center justify-start"><a id="back-button" href="/blog/" class="group inline-flex items-center gap-1 hover:text-accent focus-outline hover:text-foreground/75 -ms-2 mt-8 mb-2"> <svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="inline-block size-6 rtl:rotate-180" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="m15 6-6 6 6 6" /></svg><span>返回</span> </a></div><script type="module">function o(){const t=document.querySelector("#back-button"),e=sessionStorage.getItem("backUrl");e&&t&&(t.href=e)}document.addEventListener("astro:page-load",o);o();</script> <main id="main-content" class="app-layout" data-pagefind-body> <h1 style="view-transition-name:u007c98u008d34u004e00u006bb5u006587u005b57u00ff0cu004e3au004ec0u004e48u004e0du0080fdu005f53u004f5cu005febu00901fu006253u005b57u00ff1f" class="text-accent inline-block text-2xl font-bold sm:text-3xl"> 粘贴一段文字，为什么不能当作快速打字？ </h1> <div class="my-2 flex items-center gap-2"> <div class="text-muted-foreground flex items-center gap-x-2"> <svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="inline-block size-6 min-w-5.5" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M4 7a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zM16 3v4M8 3v4M4 11h16M7 14h.013M10.01 14h.005M13.01 14h.005M16.015 14h.005M13.015 17h.005M7.01 17h.005M10.01 17h.005" /></svg>  <time class="text-sm sm:text-base" datetime="2026-09-30T02:57:00.000Z"> 2026年9月30日 </time> </div> <span aria-hidden="true" class="text-muted-foreground max-sm:hidden">
+|
+</span> <a href="https://github.com/robinfai/blog/edit/main/src/content/posts/terminal-series/why-paste-is-not-fast-typing.md" target="_blank" rel="noopener noreferrer" class="hover:text-accent text-muted-foreground flex justify-baseline gap-1.5 max-sm:hidden"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="inline-block" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M7 7H6a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2-2v-1" /><path d="M20.385 6.585a2.1 2.1 0 0 0-2.97-2.97L9 12v3h3zM16 5l3 3" /></svg><span>编辑页面</span></a> </div> <nav aria-label="五彩斑斓的黑系列目录" data-pagefind-ignore class="series-nav border-border mt-6 rounded-lg border p-4"> <details> <summary class="text-accent cursor-pointer font-medium">
+五彩斑斓的黑 · 第 8 / 8 篇
+<span class="text-muted-foreground ms-2 text-sm">系列目录</span> </summary> <ol class="mt-3 list-decimal space-y-2 ps-6"> <li> <a href="/blog/posts/terminal-series/why-terminal-still-exists/" class="hover:text-accent block py-1"> 为什么今天还有 Terminal？ </a> </li><li> <a href="/blog/posts/terminal-series/why-tty-still-exists/" class="hover:text-accent block py-1"> 硬件终端早已消失，为什么操作系统里还有 TTY？ </a> </li><li> <a href="/blog/posts/terminal-series/why-terminal-can-display-colors/" class="hover:text-accent block py-1"> Terminal 为什么能显示彩色文字？ </a> </li><li> <a href="/blog/posts/terminal-series/why-terminal-can-update-screen-in-place/" class="hover:text-accent block py-1"> Terminal 为什么可以原地更新屏幕？ </a> </li><li> <a href="/blog/posts/terminal-series/why-terminal-has-an-alternate-screen/" class="hover:text-accent block py-1"> Terminal 为什么会有第二块屏幕？ </a> </li><li> <a href="/blog/posts/terminal-series/why-arrow-keys-send-escape-sequences/" class="hover:text-accent block py-1"> 方向键为什么会变成 ESC[A？ </a> </li><li> <a href="/blog/posts/terminal-series/why-mouse-clicks-send-escape-sequences/" class="hover:text-accent block py-1"> 鼠标点击为什么也会变成控制序列？ </a> </li><li> <a href="/blog/posts/terminal-series/why-paste-is-not-fast-typing/" aria-current="page" class="hover:text-accent block py-1 text-accent font-semibold"> 粘贴一段文字，为什么不能当作快速打字？ </a> </li> </ol> </details> </nav> <article id="article" class="mt-8 w-full app-prose max-w-app prose-pre:bg-(--shiki-light-bg) dark:prose-pre:bg-(--shiki-dark-bg)"> <p><img alt="终端添加粘贴边界，行编辑器插入文本后由用户提交" loading="lazy" decoding="async" width="1200" height="675" src="/blog/_astro/08-paste-hero.9S9ePDGC_2c1zFv.svg" srcset=""></p>
+<p><em>题图：先把多行文本放进输入区，再决定何时提交。</em></p>
+<p>把两行命令粘贴到终端里，有时它们会先完整地停在提示符后面，等待确认；有时第一行刚出现，就已经开始执行。</p>
+<p>例如，剪贴板里有这段内容：</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="bash"><code><span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#C5E478;--shiki-dark-font-style:italic">printf</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD"> '</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">one\n</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">'</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#C5E478;--shiki-dark-font-style:italic">printf</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD"> '</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">two\n</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">'</span></span></code></pre>
+<p>如果行编辑器把两行之间的换行当作一次提交操作，第一条命令就可能立即执行。最后一条是否也执行，还取决于粘贴内容末尾有没有换行，以及当前输入处理方式。</p>
+<p>你只粘贴了一次，程序却可能把中间的换行当成 Enter。它需要先知道：接下来这段文字是一起贴进来的。</p>
+<h2 id="字节相同编辑操作却可能不同">字节相同，编辑操作却可能不同</h2>
+<p>行编辑器收到 Tab，可能去补全；收到 Enter，通常会提交当前命令。编辑器还会帮你缩进、补括号。手敲时这些是便利，粘贴一段排好的文本时，它们却可能把内容改乱，甚至提前执行命令。</p>
+<p>Terminal 在用户调用粘贴操作时，可以知道这是一次剪贴板输入。但如果它只把文本编码后写入 PTY，接收端就失去了这个来源信息。</p>
+<p>靠速度判断也不可靠。远程连接会把几个按键攒在一起送来，长粘贴也可能分批到达。</p>
+<h2 id="2004-是开关200-和-201-是边界">2004 是开关，200~ 和 201~ 是边界</h2>
+<p>Bracketed Paste 为粘贴增加了开始和结束标记。它最初作为 xterm 面向 Readline 的扩展加入，后来被更多终端和编辑器采用；<a href="https://invisible-island.net/xterm/xterm-paste64.html">XTerm 的历史记录</a>保留了这段演变。</p>
+<p>支持它的应用先向 Terminal 输出：</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="text"><code><span class="line"><span>ESC[?2004h</span></span></code></pre>
+<p>此后，Terminal 处理粘贴操作时，会在文本前后加上标记再发送给应用。关闭模式的序列是 <code>ESC[?2004l</code>。四条相关序列分别用于：</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>序列</th><th>方向</th><th>含义</th></tr></thead><tbody><tr><td><code>ESC[?2004h</code></td><td>应用 → Terminal</td><td>开启 Bracketed Paste</td></tr><tr><td><code>ESC[?2004l</code></td><td>应用 → Terminal</td><td>关闭 Bracketed Paste</td></tr><tr><td><code>ESC[200~</code></td><td>Terminal → 应用</td><td>一次粘贴开始</td></tr><tr><td><code>ESC[201~</code></td><td>Terminal → 应用</td><td>一次粘贴结束</td></tr></tbody></table>
+<p>表里的 <code>ESC</code> 都代表一个 <code>0x1b</code> 字节。<code>2004</code> 是模式编号，<code>200</code> 和 <code>201</code> 是输入标记里的参数，不能互换。<a href="https://invisible-island.net/xterm/ctlseqs/ctlseqs.html#h2-Bracketed-Paste-Mode">XTerm 控制序列文档</a>定义了这组行为。</p>
+<p>假设粘贴内容只有 <code>hello</code>，发送到应用的输入就是：</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="text"><code><span class="line"><span>ESC[200~helloESC[201~</span></span></code></pre>
+<p>对应十六进制字节：</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="text"><code><span class="line"><span>1b 5b 32 30 30 7e  68 65 6c 6c 6f  1b 5b 32 30 31 7e</span></span></code></pre>
+<p><code>~</code> 是每条标记的最终字节。开头的 <code>ESC[200~</code> 完成后，接下来是粘贴文本；直到完整的 <code>ESC[201~</code> 出现，接收端才结束这段粘贴处理。</p>
+<p><img alt="粘贴开始与结束标记的字节拆解" loading="lazy" decoding="async" width="720" height="1460" src="/blog/_astro/08-paste-markers.Zi_btArE_2gdfWK.svg" srcset=""></p>
+<p><em>图 1：一对开始、结束标记围住整次粘贴；即使文本有多行，也无需逐行添加标记。</em></p>
+<h2 id="terminal-加标记行编辑器决定怎样使用">Terminal 加标记，行编辑器决定怎样使用</h2>
+<p>Bash 的交互式命令行通常使用 Readline。支持并启用 Bracketed Paste 后，Readline 把标记之间的文本整体插入编辑缓冲区，避免按普通键绑定执行其中的编辑动作。多行内容可以先留在输入区，让用户修改，再提交给 Shell。<a href="https://tiswww.case.edu/php/chet/readline/readline.html">Readline 文档</a>分别说明了 <code>enable-bracketed-paste</code> 设置和 <code>bracketed-paste-begin</code> 编辑命令。</p>
+<p>Readline 消费边界标记后，Shell 语法解析器得到的是编辑后的命令文本。标记本身不属于 Shell 命令，也不应该出现在命令参数中。</p>
+<p>zsh 使用自己的 ZLE 行编辑器，提供 <code>bracketed-paste</code> widget。它可以把粘贴内容插入编辑缓冲区，也支持供其他 widget 调用的处理方式。因此，即使 Terminal 发送相同序列，插件和应用配置也可能改变粘贴后的表现。<a href="https://zsh.sourceforge.io/Doc/Release/Zsh-Line-Editor.html">ZLE 文档</a>描述了这个接口。</p>
+<p>对于文本编辑器，这段边界还可以用于临时调整自动缩进、集中更新界面，或把一次粘贴作为一个撤销单元。这些是编辑器可以采用的策略，协议本身没有规定每个应用都必须这样做。</p>
+<h2 id="标记经过-tty-时会发生什么">标记经过 TTY 时会发生什么</h2>
+<p>TTY 仍按当前 termios 设置处理字节：<code>ICANON</code> 控制按行输入，<code>ICRNL</code> 控制 CR 到 LF 的转换，<code>ISIG</code> 等设置决定中断字符是否触发信号。Bracketed Paste 没有改变这些开关。<a href="https://man7.org/linux/man-pages/man3/termios.3.html">termios 文档</a>列出了各项规则。</p>
+<p>启用 Raw Mode 不会自动打开 Bracketed Paste；输出 <code>CSI ? 2004 h</code> 也不会自动切换 Raw Mode。应用要分别准备 TTY 输入设置和粘贴解析器。</p>
+<p><img alt="终端模式、TTY 输入处理与应用解析的职责" loading="lazy" decoding="async" width="720" height="1430" src="/blog/_astro/08-paste-layers.Cxejm95n_fR60P.svg" srcset=""></p>
+<p><em>图 2：Terminal 给粘贴加上边界，TTY 按 termios 配置处理输入，应用再解析标记并插入文本。</em></p>
+<p>如果字符在 TTY 这一层就被转换了，或触发信号而没有交给应用，后面的粘贴解析器便拿不到原始字节。</p>
+<h2 id="一次粘贴仍可能分成多次读取">一次粘贴仍可能分成多次读取</h2>
+<p>即使终端发送了完整标记，应用也可能分三次才读完：</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>读取</th><th>收到的内容</th></tr></thead><tbody><tr><td>第一次</td><td><code>ESC[20</code></td></tr><tr><td>第二次</td><td><code>0~helloESC[2</code></td></tr><tr><td>第三次</td><td><code>01~</code></td></tr></tbody></table>
+<p><img alt="三次读取如何拼出完整的开始与结束标记" loading="lazy" decoding="async" width="720" height="1580" src="/blog/_astro/08-paste-chunks.DPAY7tWw_NoxvM.svg" srcset=""></p>
+<p><em>图 3：<code>read()</code> 的分块可以落在标记中间。解析器保存未完成的前缀，直到后续字节补齐。</em></p>
+<p>第一批数据甚至没有包含完整的开始标记。解析器需要跨读取保存尚未匹配完的前缀，识别开始后进入粘贴状态，再持续寻找结束标记。若每次都对收到的字符串独立做一次替换，分段的标记就可能漏掉。</p>
+<p>结束标记后还可能紧跟普通输入。例如，用户粘贴后立即按 Enter，这个按键可能与结束标记一起被读到。解析器必须在正确位置退出粘贴状态，再按普通输入规则处理剩余字节。</p>
+<p>对长文本，也不能无限等待并积累数据。实现需要约束缓存大小，处理连接关闭、输入被截断等情况，并明确未完成的粘贴如何取消。这里没有一个适用于所有应用的固定等待时间：SSH 传输延迟不应该直接被解释为粘贴结束。</p>
+<h2 id="为什么会在命令行看到-200">为什么会在命令行看到 200~</h2>
+<p>如果模式已经开启，但当前接收输入的程序没有正确处理标记，用户可能看到 <code>^[[200~</code>、<code>200~</code> 或残缺的类似内容。具体显示形式取决于哪些字节被回显、哪些被当作快捷键处理。</p>
+<p>先查是谁打开了 <code>2004</code> 模式、现在又是谁在读输入。前一个程序退出时没关，或者当前程序不认识标记，都可能留下这些字符。经过 tmux 等终端复用器时，还要核对内外层的模式是否一致。删掉屏幕上的 <code>200~</code>，下一次粘贴仍会出现。</p>
+<p>应用应在解析器就绪后启用模式，在交还终端前关闭；暂停后恢复运行，也要重新准备自己的输入设置。</p>
+<p>如果已经回到普通 Shell，且确认粘贴标记是异常残留，可以尝试：</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="bash"><code><span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#C5E478;--shiki-dark-font-style:italic">printf</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD"> '</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">\033[?2004l</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">'</span></span></code></pre>
+<p>这条命令关闭 Terminal 的模式。行编辑器下一次启动输入时，可能又按自己的配置重新打开它，因此它适合恢复现场，不等于永久配置方法。</p>
+<h2 id="提交前仍要检查命令">提交前仍要检查命令</h2>
+<p>粘贴标记帮应用把文本放进输入区，命令是否安全仍要自己检查。按下提交后，Shell 照样处理重定向、命令替换等语法。</p>
+<p>和<a href="/blog/posts/terminal-series/why-arrow-keys-send-escape-sequences/#%E5%BD%95%E4%B8%8B%E5%AD%97%E8%8A%82%E4%BB%A5%E5%90%8E%E8%83%BD%E8%BF%98%E5%8E%9F%E5%93%AA%E4%BA%9B%E6%93%8D%E4%BD%9C">键盘输入记录</a>一样，标记不能证明操作来源。能向目标应用的终端输入路径注入字节的一方，例如能写入 PTY master 的程序，也能生成这对标记。普通应用向 slave 写入通常走的是输出方向，不能据此把它当作另一个应用的输入。</p>
+<p>实现解析器时还需注意：基本格式没有长度字段或通用转义机制。如果文本包含与结束标记相同的控制字节，结果取决于终端的过滤和应用解析策略，不能把它当作任意二进制数据的透明容器。<a href="https://invisible-island.net/xterm/xterm-paste64.html">XTerm 对粘贴限制的说明</a>也讨论了结束标记与正文冲突的问题。</p>
+<h2 id="自动化里把粘贴和提交分开">自动化里，把粘贴和提交分开</h2>
+<p>“粘贴一段文本”和“按下 Enter”应当是两个动作。尤其是多行内容，直接向输入路径写入文本再追加一个换行，可能早在中间的换行处就触发了执行。</p>
+<p>先确认目标程序是否启用了 Bracketed Paste，按它当前使用的格式送入文本，检查输入区里的内容，再决定是否提交。不能无条件添加 <code>ESC[200~</code> 和 <code>ESC[201~</code>：目标程序如果不认识它们，只会收到额外字节。</p>
+<h2 id="附在本机比较键入和粘贴">附：在本机比较键入和粘贴</h2>
+<p>在 macOS 或 Linux 的交互式终端里运行下面的脚本。它临时打开 Bracketed Paste，收集八秒输入后显示字节表示。先复制短文本 <code>hello</code>，再运行脚本并使用终端的粘贴快捷键。</p>
+<p>脚本通过 <code>/dev/tty</code> 读取当前控制终端。这里不能直接从 Python 的标准输入读按键，因为标准输入已经被下面的 heredoc 用来提供脚本源码。</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="bash"><code><span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">python3</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> -</span><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA"> &#x3C;&#x3C;</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D9F5DD">'PY'</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">import os</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">import select</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">import termios</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">import time</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">import tty</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">data = bytearray()</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">with open('/dev/tty', 'rb+', buffering=0) as terminal:</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">    fd = terminal.fileno()</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">    old = termios.tcgetattr(fd)</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">    terminal.write(b'Paste a short text. Waiting 8 seconds.\r\n')</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">    try:</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">        tty.setraw(fd)</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">        terminal.write(b'\x1b[?2004h')</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">        deadline = time.monotonic() + 8</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">        while len(data) &#x3C; 65536:</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">            remaining = deadline - time.monotonic()</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">            if remaining &#x3C;= 0 or not select.select([fd], [], [], remaining)[0]:</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">                break</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">            chunk = os.read(fd, min(4096, 65536 - len(data)))</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">            if not chunk:</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">                break</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">            data.extend(chunk)</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">    finally:</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">        try:</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">            terminal.write(b'\x1b[?2004l')</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">        finally:</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">            termios.tcsetattr(fd, termios.TCSANOW, old)</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">print(repr(bytes(data)))</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D9F5DD">PY</span></span></code></pre>
+<p>在支持该模式的终端里，粘贴 <code>hello</code> 的典型结果是：</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="text"><code><span class="line"><span>b'\x1b[200~hello\x1b[201~'</span></span></code></pre>
+<p>再运行一次，改为逐个键入 <code>hello</code>，通常只会得到：</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="text"><code><span class="line"><span>b'hello'</span></span></code></pre>
+<p>两次都不需要按 Enter。脚本把八秒内收到的字节合在一起显示；Raw Mode 下的 <code>Ctrl-C</code> 也会被记录为字节，等待八秒结束即可。<code>repr()</code> 会转义控制字符，避免把收集到的内容再次作为终端控制序列输出。</p>
+<p>第三次可以粘贴两行普通文本 <code>one</code> 和 <code>two</code>，观察一对标记如何围住多行内容。行分隔可能显示为 <code>\r</code>、<code>\n</code> 或相应组合，要以当前终端实际发送的字节为准；边界标记不要求所有实现采用同一种换行转换方式。</p>
+<p>脚本只用于短文本观察，最多收集 64 KiB。退出时，它关闭自己启用的模式并恢复先前的 termios 设置，但不查询或恢复运行前其他程序设置的终端模式。正常结束和 Python 异常会执行清理；未处理的 <code>SIGTERM</code>、<code>SIGHUP</code> 或 <code>SIGKILL</code> 可能跳过。先在普通 Shell 中直接运行，可以减少外层复用器对观察结果的影响。</p>
+<h2 id="资料参考">资料参考</h2>
+<ul>
+<li><a href="https://invisible-island.net/xterm/ctlseqs/ctlseqs.html#h2-Bracketed-Paste-Mode">XTerm Control Sequences：Bracketed Paste Mode</a>：模式开关与输入边界标记。</li>
+<li><a href="https://invisible-island.net/xterm/xterm-paste64.html">XTerm：Bracketed Paste 背景</a>：早期 Readline 扩展、采用过程与粘贴协议的限制。</li>
+<li><a href="https://tiswww.case.edu/php/chet/readline/readline.html">GNU Readline Library</a>：<code>enable-bracketed-paste</code> 与粘贴文本的插入行为。</li>
+<li><a href="https://zsh.sourceforge.io/Doc/Release/Zsh-Line-Editor.html">Zsh Line Editor</a>：<code>bracketed-paste</code> widget。</li>
+<li><a href="https://man7.org/linux/man-pages/man3/termios.3.html">termios(3)</a>：TTY 输入处理与 Raw Mode。</li>
+</ul> </article> <hr class="my-8 border-dashed"> <a href="https://github.com/robinfai/blog/edit/main/src/content/posts/terminal-series/why-paste-is-not-fast-typing.md" target="_blank" rel="noopener noreferrer" class="hover:text-accent text-muted-foreground flex justify-baseline gap-1.5 sm:hidden"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="inline-block" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M7 7H6a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2-2v-1" /><path d="M20.385 6.585a2.1 2.1 0 0 0-2.97-2.97L9 12v3h3zM16 5l3 3" /></svg><span>编辑页面</span></a> <div id="btt-btn-container" class="fixed inset-e-4 bottom-8 z-50 md:sticky md:inset-e-auto md:float-end md:me-1 translate-y-14 opacity-0 transition duration-500"> <button data-button="back-to-top" class="group bg-background relative px-2 py-1 size-14 rounded-full shadow-xl md:h-8 md:w-fit md:rounded-md md:shadow-none md:focus-visible:rounded-none md:bg-background/35 md:bg-clip-padding md:backdrop-blur-lg"> <span id="progress-indicator" class="absolute inset-0 -z-10 block size-14 scale-110 rounded-full bg-transparent md:hidden md:h-8 md:rounded-md"></span> <svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="inline-block rotate-90 md:hidden" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M5 12h14M5 12l6 6M5 12l6-6" /></svg> <span class="group-hover:text-accent sr-only text-sm md:not-sr-only"> <svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="inline-block size-4" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M12 5v14M16 9l-4-4M8 9l4-4" /></svg> 回到顶部 </span> </button> </div> <script data-astro-rerun>
+  function backToTop() {
+    const rootElement = document.documentElement;
+    const btnContainer = document.querySelector("#btt-btn-container");
+    const backToTopBtn = document.querySelector("[data-button='back-to-top']");
+    const progressIndicator = document.querySelector("#progress-indicator");
+
+    if (!rootElement || !btnContainer || !backToTopBtn || !progressIndicator)
+      return;
+
+    backToTopBtn.addEventListener("click", () => {
+      document.body.scrollTop = 0;
+      document.documentElement.scrollTop = 0;
+    });
+
+    let lastVisible = null;
+    function handleScroll() {
+      const scrollTotal = rootElement.scrollHeight - rootElement.clientHeight;
+      const scrollTop = rootElement.scrollTop;
+      const scrollPercent = Math.floor((scrollTop / scrollTotal) * 100);
+
+      progressIndicator.style.setProperty(
+        "background-image",
+        `conic-gradient(var(--accent), var(--accent) ${scrollPercent}%, transparent ${scrollPercent}%)`
+      );
+
+      const isVisible = scrollTop / scrollTotal > 0.3;
+
+      if (isVisible !== lastVisible) {
+        btnContainer.classList.toggle("opacity-100", isVisible);
+        btnContainer.classList.toggle("translate-y-0", isVisible);
+        btnContainer.classList.toggle("opacity-0", !isVisible);
+        btnContainer.classList.toggle("translate-y-14", !isVisible);
+        lastVisible = isVisible;
+      }
+    }
+
+    let ticking = false;
+    document.addEventListener("scroll", () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          handleScroll();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    });
+  }
+  backToTop();
+</script> <ul class="mt-4 mb-8 flex flex-wrap gap-4 sm:my-8"> <li> <a href="/blog/tags/五彩斑斓的黑/" class="flex items-center gap-0.5 border-foreground border-b-2 border-dashed hover:border-accent hover:text-accent hover:-mt-0.5 focus-visible:text-accent focus-visible:border-none text-sm" data-astro-transition-scope="astro-36ssibgs-1"> <svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="opacity-80 size-4" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M5 9h14M5 15h14M11 4 7 20M17 4l-4 16" /></svg> 五彩斑斓的黑 </a> </li><li> <a href="/blog/tags/terminal/" class="flex items-center gap-0.5 border-foreground border-b-2 border-dashed hover:border-accent hover:text-accent hover:-mt-0.5 focus-visible:text-accent focus-visible:border-none text-sm" data-astro-transition-scope="astro-36ssibgs-2"> <svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="opacity-80 size-4" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M5 9h14M5 15h14M11 4 7 20M17 4l-4 16" /></svg> Terminal </a> </li><li> <a href="/blog/tags/bracketed-paste/" class="flex items-center gap-0.5 border-foreground border-b-2 border-dashed hover:border-accent hover:text-accent hover:-mt-0.5 focus-visible:text-accent focus-visible:border-none text-sm" data-astro-transition-scope="astro-36ssibgs-3"> <svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="opacity-80 size-4" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M5 9h14M5 15h14M11 4 7 20M17 4l-4 16" /></svg> Bracketed Paste </a> </li><li> <a href="/blog/tags/shell/" class="flex items-center gap-0.5 border-foreground border-b-2 border-dashed hover:border-accent hover:text-accent hover:-mt-0.5 focus-visible:text-accent focus-visible:border-none text-sm" data-astro-transition-scope="astro-36ssibgs-4"> <svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="opacity-80 size-4" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M5 9h14M5 15h14M11 4 7 20M17 4l-4 16" /></svg> Shell </a> </li><li> <a href="/blog/tags/tui/" class="flex items-center gap-0.5 border-foreground border-b-2 border-dashed hover:border-accent hover:text-accent hover:-mt-0.5 focus-visible:text-accent focus-visible:border-none text-sm" data-astro-transition-scope="astro-36ssibgs-5"> <svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="opacity-80 size-4" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M5 9h14M5 15h14M11 4 7 20M17 4l-4 16" /></svg> TUI </a> </li> </ul> <div class="flex flex-none flex-col items-center justify-center gap-1 md:items-start"><span class="italic">分享这篇文章：</span><div class="text-center"><a href="https://wa.me/?text=https://robinfai.github.io/blog/posts/terminal-series/why-paste-is-not-fast-typing/" title="分享到 Whatsapp" target="_blank" rel="noopener noreferrer" class="group inline-flex items-center gap-1 hover:text-accent scale-90 p-2 hover:rotate-6 sm:p-1"> <svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="m3 21 1.65-3.8a9 9 0 1 1 3.4 2.9z" /><path d="M9 10a.5.5 0 0 0 1 0V9a.5.5 0 0 0-1 0za5 5 0 0 0 5 5h1a.5.5 0 0 0 0-1h-1a.5.5 0 0 0 0 1" /></svg><span class="sr-only">分享到 Whatsapp</span> </a><a href="https://www.facebook.com/sharer.php?u=https://robinfai.github.io/blog/posts/terminal-series/why-paste-is-not-fast-typing/" title="分享到 Facebook" target="_blank" rel="noopener noreferrer" class="group inline-flex items-center gap-1 hover:text-accent scale-90 p-2 hover:rotate-6 sm:p-1"> <svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M7 10v4h3v7h4v-7h3l1-4h-4V8a1 1 0 0 1 1-1h3V3h-3a5 5 0 0 0-5 5v2z" /></svg><span class="sr-only">分享到 Facebook</span> </a><a href="https://x.com/intent/post?url=https://robinfai.github.io/blog/posts/terminal-series/why-paste-is-not-fast-typing/" title="分享到 X" target="_blank" rel="noopener noreferrer" class="group inline-flex items-center gap-1 hover:text-accent scale-90 p-2 hover:rotate-6 sm:p-1"> <svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="m4 4 11.733 16H20L8.267 4zM4 20l6.768-6.768m2.46-2.46L20 4" /></svg><span class="sr-only">分享到 X</span> </a><a href="https://t.me/share/url?url=https://robinfai.github.io/blog/posts/terminal-series/why-paste-is-not-fast-typing/" title="分享到 Telegram" target="_blank" rel="noopener noreferrer" class="group inline-flex items-center gap-1 hover:text-accent scale-90 p-2 hover:rotate-6 sm:p-1"> <svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="m15 10-4 4 6 6 4-16-18 7 4 2 2 6 3-4" /></svg><span class="sr-only">分享到 Telegram</span> </a><a href="https://pinterest.com/pin/create/button/?url=https://robinfai.github.io/blog/posts/terminal-series/why-paste-is-not-fast-typing/" title="分享到 Pinterest" target="_blank" rel="noopener noreferrer" class="group inline-flex items-center gap-1 hover:text-accent scale-90 p-2 hover:rotate-6 sm:p-1"> <svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="m8 20 4-9M10.7 14c.437 1.263 1.43 2 2.55 2 2.071 0 3.75-1.554 3.75-4a5 5 0 1 0-9.7 1.7" /><path d="M3 12a9 9 0 1 0 18 0 9 9 0 1 0-18 0" /></svg><span class="sr-only">分享到 Pinterest</span> </a><a href="mailto:?subject=See%20this%20post&amp;body=https://robinfai.github.io/blog/posts/terminal-series/why-paste-is-not-fast-typing/" title="通过邮件分享" target="_blank" rel="noopener noreferrer" class="group inline-flex items-center gap-1 hover:text-accent scale-90 p-2 hover:rotate-6 sm:p-1"> <svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M3 7a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" /><path d="m3 7 9 6 9-6" /></svg><span class="sr-only">通过邮件分享</span> </a></div></div>  <hr class="my-8 border-dashed"> <section class="mt-8 scroll-mt-20" aria-label="评论"><div id="giscus-comments" class="giscus" data-repo="robinfai/blog" data-repo-id="R_kgDOKA0OfA" data-category="Announcements" data-category-id="DIC_kwDOKA0OfM4C_HMr" data-mapping="pathname" data-strict="1" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="auto" data-lang="zh-CN" data-loading="lazy"></div></section><script data-astro-rerun>
+(function () {
+  const host = document.getElementById("giscus-comments");
+  if (!host || host.dataset.loaded === "true") return;
+
+  function getTheme() {
+    const configuredTheme = host.dataset.theme || "auto";
+    if (configuredTheme !== "auto") return configuredTheme;
+    return document.documentElement.dataset.theme === "dark" ? "dark" : "light";
+  }
+
+  function syncTheme() {
+    const frame = document.querySelector("iframe.giscus-frame");
+    if (!frame || !frame.contentWindow) return;
+    frame.contentWindow.postMessage(
+      { giscus: { setConfig: { theme: getTheme() } } },
+      "https://giscus.app"
+    );
+  }
+
+  const script = document.createElement("script");
+  script.src = "https://giscus.app/client.js";
+  script.async = true;
+  script.crossOrigin = "anonymous";
+
+  const attrs = {
+    "data-repo": host.dataset.repo,
+    "data-repo-id": host.dataset.repoId,
+    "data-category": host.dataset.category,
+    "data-category-id": host.dataset.categoryId,
+    "data-mapping": host.dataset.mapping,
+    "data-term": host.dataset.term,
+    "data-strict": host.dataset.strict,
+    "data-reactions-enabled": host.dataset.reactionsEnabled,
+    "data-emit-metadata": host.dataset.emitMetadata,
+    "data-input-position": host.dataset.inputPosition,
+    "data-theme": getTheme(),
+    "data-lang": host.dataset.lang,
+    "data-loading": host.dataset.loading,
+  };
+
+  for (const [name, value] of Object.entries(attrs)) {
+    if (value) script.setAttribute(name, value);
+  }
+
+  script.addEventListener("load", function () {
+    window.setTimeout(syncTheme, 250);
+  });
+
+  host.dataset.loaded = "true";
+  host.appendChild(script);
+
+  if (!window.__giscusThemeObserver) {
+    window.__giscusThemeObserver = new MutationObserver(syncTheme);
+    window.__giscusThemeObserver.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["data-theme"],
+    });
+  }
+})();
+</script>  <hr class="my-8 border-dashed"> <div data-pagefind-ignore class="my-8 grid grid-cols-1 gap-6 sm:grid-cols-2"> <a href="/blog/posts/terminal-series/why-mouse-clicks-send-escape-sequences/" class="flex w-full gap-1 hover:opacity-75"> <svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="inline-block flex-none rtl:rotate-180" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M5 12h14M5 12l6 6M5 12l6-6" /></svg> <div> <span>系列上一篇</span> <div class="text-accent/85 text-sm">鼠标点击为什么也会变成控制序列？</div> </div> </a>  </div> </main> <footer class="app-layout mt-auto"> <div class="border-border flex flex-col items-center justify-between border-t py-6 sm:flex-row-reverse sm:py-4"> <div class="flex flex-wrap items-center gap-1"> <a href="https://github.com/robinfai/blog" title="Robin 的笔记 on Github" class="group inline-flex items-center gap-1 hover:text-accent p-2 hover:rotate-6 sm:p-1">  <svg width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110" viewBox="0 0 24 24"><path stroke="none" d="M0 0h24v24H0z" /><path d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6 0 0 0-1.3-3.2 4.2 4.2 0 0 0-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3 0 0 0-6.2 0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2 0 0 0-.1 3.2A4.6 4.6 0 0 0 4 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21" /></svg> <span class="sr-only">Robin 的笔记 on Github</span>  </a> </div> <div class="my-2 flex flex-col items-center whitespace-nowrap sm:flex-row"> <span>版权 &#169; 2026</span> <span class="hidden sm:inline">&nbsp;|&nbsp;</span> <span>保留所有权利。</span> </div> </div> </footer>   <script type="module">const c="theme",r="light",n="dark";function s(){const e=localStorage.getItem(c);return e||(window.matchMedia("(prefers-color-scheme: dark)").matches?n:r)}let t=window.__theme?.value??s();function a(){localStorage.setItem(c,t),m()}function m(){const e=document.firstElementChild;e?.setAttribute("data-theme",t),e?.classList.toggle("dark",t===n),document.querySelector("#theme-btn")?.setAttribute("aria-label",t);const o=window.getComputedStyle(document.body).backgroundColor;document.querySelector("meta[name='theme-color']")?.setAttribute("content",o)}function d(){m(),document.querySelector("#theme-btn")?.addEventListener("click",()=>{t=t===r?n:r,a()})}d();document.addEventListener("astro:after-swap",d);document.addEventListener("astro:before-swap",e=>{const o=document.querySelector("meta[name='theme-color']")?.getAttribute("content");o&&e.newDocument.querySelector("meta[name='theme-color']")?.setAttribute("content",o)});window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change",({matches:e})=>{t=e?n:r,a()});</script> </body> </html> <script data-astro-rerun>
+  function createProgressBar() {
+    const progressContainer = document.createElement("div");
+    progressContainer.className =
+      "progress-container fixed top-0 z-10 h-1 w-full bg-background";
+
+    const progressBar = document.createElement("div");
+    progressBar.className = "progress-bar h-1 w-0 bg-accent";
+    progressBar.id = "myBar";
+
+    progressContainer.appendChild(progressBar);
+    document.body.appendChild(progressContainer);
+  }
+  createProgressBar();
+
+  function updateScrollProgress() {
+    document.addEventListener("scroll", () => {
+      const winScroll =
+        document.body.scrollTop || document.documentElement.scrollTop;
+      const height =
+        document.documentElement.scrollHeight -
+        document.documentElement.clientHeight;
+      const scrolled = (winScroll / height) * 100;
+      if (document) {
+        const myBar = document.getElementById("myBar");
+        if (myBar) {
+          myBar.style.width = scrolled + "%";
+        }
+      }
+    });
+  }
+  updateScrollProgress();
+
+  function addHeadingLinks() {
+    const headings = Array.from(
+      document.querySelectorAll("h2, h3, h4, h5, h6")
+    );
+    for (const heading of headings) {
+      heading.classList.add("group");
+      const link = document.createElement("a");
+      link.className =
+        "heading-link ms-2 no-underline opacity-75 md:opacity-0 md:group-hover:opacity-100 md:focus:opacity-100";
+      link.href = "#" + heading.id;
+
+      const span = document.createElement("span");
+      span.ariaHidden = "true";
+      span.innerText = "#";
+      link.appendChild(span);
+      heading.appendChild(link);
+    }
+  }
+  addHeadingLinks();
+
+  function attachCopyButtons() {
+    const copyButtonLabel = "Copy";
+    const codeBlocks = Array.from(document.querySelectorAll("pre"));
+
+    for (const codeBlock of codeBlocks) {
+      const wrapper = document.createElement("div");
+      wrapper.style.position = "relative";
+
+      const computedStyle = getComputedStyle(codeBlock);
+      const hasFileNameOffset =
+        computedStyle.getPropertyValue("--file-name-offset").trim() !== "";
+
+      const topClass = hasFileNameOffset
+        ? "top-(--file-name-offset)"
+        : "-top-3";
+
+      const copyButton = document.createElement("button");
+      copyButton.className = `copy-code absolute end-3 ${topClass} rounded bg-muted border border-muted px-2 py-1 text-xs leading-4 text-foreground font-medium`;
+      copyButton.innerHTML = copyButtonLabel;
+      codeBlock.setAttribute("tabindex", "0");
+      codeBlock.appendChild(copyButton);
+
+      codeBlock?.parentNode?.insertBefore(wrapper, codeBlock);
+      wrapper.appendChild(codeBlock);
+
+      copyButton.addEventListener("click", async () => {
+        await copyCode(codeBlock, copyButton);
+      });
+    }
+
+    async function copyCode(block, button) {
+      const code = block.querySelector("code");
+      const text = code?.innerText;
+
+      await navigator.clipboard.writeText(text ?? "");
+
+      button.innerText = "Copied";
+
+      setTimeout(() => {
+        button.innerText = copyButtonLabel;
+      }, 700);
+    }
+  }
+  attachCopyButtons();
+
+  /** Accessible image lightbox for article images. */
+  function initLightbox() {
+    const article = document.getElementById("article");
+    if (!article) return;
+
+    const prefersReducedMotion = () =>
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    let overlay = null;
+    let lastFocused = null;
+
+    // Defer attribute mutations so they don't push the LCP timestamp.
+    // Event listeners below use delegation and don't need the attributes to exist yet.
+    requestAnimationFrame(() => {
+      const images = Array.from(article.querySelectorAll("img"));
+      for (const image of images) {
+        if (image.closest("a")) continue;
+        image.setAttribute("role", "button");
+        image.setAttribute("tabindex", "0");
+        image.setAttribute("aria-haspopup", "dialog");
+        image.setAttribute(
+          "aria-label",
+          image.alt ? `Zoom image: ${image.alt}` : "Zoom image"
+        );
+      }
+    });
+
+    function open(src, alt, trigger) {
+      if (overlay) return;
+      lastFocused = trigger ?? document.activeElement;
+
+      overlay = document.createElement("div");
+      overlay.setAttribute("role", "dialog");
+      overlay.setAttribute("aria-modal", "true");
+      overlay.setAttribute(
+        "aria-label",
+        alt ? `Image preview: ${alt}` : "Image preview"
+      );
+      overlay.className =
+        "fixed inset-0 z-50 flex cursor-zoom-out items-center justify-center bg-black/70 backdrop-blur-sm opacity-0 transition-opacity duration-200 motion-reduce:transition-none";
+
+      const closeButton = document.createElement("button");
+      closeButton.type = "button";
+      closeButton.setAttribute("aria-label", "Close image preview");
+      closeButton.className =
+        "absolute end-4 top-4 rounded p-2 text-3xl leading-none text-white";
+      closeButton.innerHTML = "&#10005;";
+      closeButton.addEventListener("click", close);
+
+      const image = document.createElement("img");
+      image.src = src;
+      image.alt = "";
+      image.className =
+        "max-h-[90dvh] max-w-[90dvw] cursor-default object-contain";
+
+      overlay.append(closeButton, image);
+      overlay.addEventListener("click", e => {
+        if (e.target === overlay && currentScale <= 1) close();
+      });
+
+      let currentScale = 1;
+      let translateX = 0;
+      let translateY = 0;
+      let initialDist = 0;
+      let initialScale = 1;
+      let panStartX = 0;
+      let panStartY = 0;
+      let panStartTranslateX = 0;
+      let panStartTranslateY = 0;
+      let lastTapTime = 0;
+
+      function applyTransform() {
+        image.style.transform = `scale(${currentScale}) translate(${translateX}px, ${translateY}px)`;
+      }
+
+      function resetTransform() {
+        currentScale = 1;
+        translateX = 0;
+        translateY = 0;
+        image.style.transform = "";
+      }
+
+      overlay.addEventListener(
+        "touchstart",
+        e => {
+          const t = e.touches;
+          if (t.length === 2) {
+            initialDist = Math.hypot(
+              t[1].clientX - t[0].clientX,
+              t[1].clientY - t[0].clientY
+            );
+            initialScale = currentScale;
+          } else if (t.length === 1) {
+            const now = Date.now();
+            if (now - lastTapTime < 300) {
+              e.preventDefault();
+              if (currentScale > 1) {
+                resetTransform();
+              } else {
+                currentScale = 2;
+                translateX = 0;
+                translateY = 0;
+                applyTransform();
+              }
+              lastTapTime = 0;
+              panStartX = t[0].clientX;
+              panStartY = t[0].clientY;
+              panStartTranslateX = translateX;
+              panStartTranslateY = translateY;
+            } else {
+              lastTapTime = now;
+              if (currentScale > 1) {
+                panStartX = t[0].clientX;
+                panStartY = t[0].clientY;
+                panStartTranslateX = translateX;
+                panStartTranslateY = translateY;
+              }
+            }
+          }
+        },
+        { passive: false }
+      );
+
+      overlay.addEventListener(
+        "touchmove",
+        e => {
+          const t = e.touches;
+          if (t.length === 2) {
+            e.preventDefault();
+            const dist = Math.hypot(
+              t[1].clientX - t[0].clientX,
+              t[1].clientY - t[0].clientY
+            );
+            currentScale = Math.min(
+              4,
+              Math.max(1, initialScale * (dist / initialDist))
+            );
+            applyTransform();
+          } else if (t.length === 1) {
+            if (currentScale > 1) {
+              e.preventDefault();
+              translateX =
+                panStartTranslateX + (t[0].clientX - panStartX) / currentScale;
+              translateY =
+                panStartTranslateY + (t[0].clientY - panStartY) / currentScale;
+              const maxX = Math.max(
+                0,
+                (image.clientWidth - overlay.clientWidth / currentScale) / 2
+              );
+              const maxY = Math.max(
+                0,
+                (image.clientHeight - overlay.clientHeight / currentScale) / 2
+              );
+              translateX = Math.min(maxX, Math.max(-maxX, translateX));
+              translateY = Math.min(maxY, Math.max(-maxY, translateY));
+              applyTransform();
+            } else {
+              e.preventDefault();
+            }
+          }
+        },
+        { passive: false }
+      );
+
+      overlay.addEventListener("touchend", e => {
+        if (e.touches.length === 0 && currentScale <= 1.05) {
+          resetTransform();
+        }
+      });
+
+      overlay.addEventListener("touchcancel", e => {
+        if (e.touches.length === 0 && currentScale <= 1.05) {
+          resetTransform();
+        }
+      });
+
+      document.body.appendChild(overlay);
+      document.body.style.overflow = "hidden";
+      document.addEventListener("keydown", onKeyDown);
+      window.__closeLightbox = close;
+
+      requestAnimationFrame(() => overlay?.classList.add("opacity-100"));
+      closeButton.focus();
+    }
+
+    function close() {
+      if (!overlay) return;
+      const el = overlay;
+      overlay = null;
+      window.__closeLightbox = null;
+
+      document.removeEventListener("keydown", onKeyDown);
+      document.body.style.overflow = "";
+      lastFocused?.focus();
+      lastFocused = null;
+
+      if (prefersReducedMotion()) {
+        el.remove();
+        return;
+      }
+      const remove = () => el.remove();
+      el.addEventListener("transitionend", remove, { once: true });
+      setTimeout(remove, 250); // fallback in case transitionend never fires
+      el.classList.remove("opacity-100");
+    }
+
+    function onKeyDown(e) {
+      if (e.key === "Escape") {
+        close();
+      } else if (e.key === "Tab") {
+        trapFocus(e);
+      }
+    }
+
+    // Keep keyboard focus inside the open dialog.
+    function trapFocus(e) {
+      if (!overlay) return;
+      const focusables = overlay.querySelectorAll(
+        'a[href], button, [tabindex]:not([tabindex="-1"])'
+      );
+      if (focusables.length === 0) return;
+      const first = focusables[0];
+      const last = focusables[focusables.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    }
+
+    function triggerFromEvent(e) {
+      const image = e.target.closest("img");
+      if (!image || !article.contains(image) || image.closest("a")) return null;
+      return image;
+    }
+
+    function activate(image) {
+      open(image.currentSrc || image.src, image.alt, image);
+    }
+
+    article.addEventListener("click", e => {
+      const image = triggerFromEvent(e);
+      if (!image) return;
+      e.preventDefault();
+      activate(image);
+    });
+
+    article.addEventListener("keydown", e => {
+      if (e.key !== "Enter" && e.key !== " " && e.key !== "Spacebar") return;
+      const image = triggerFromEvent(e);
+      if (!image) return;
+      e.preventDefault();
+      activate(image);
+    });
+  }
+  initLightbox();
+
+  if (!window.__lightboxSwapBound) {
+    window.__lightboxSwapBound = true;
+    document.addEventListener("astro:before-swap", () =>
+      window.__closeLightbox?.()
+    );
+  }
+
+  document.addEventListener("astro:after-swap", () =>
+    window.scrollTo({ left: 0, top: 0, behavior: "instant" })
+  );
+</script>

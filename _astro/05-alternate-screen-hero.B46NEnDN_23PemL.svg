@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc">
+<title id="title">同一个 Terminal 中的两份 Screen Buffer</title><desc id="desc">Normal Buffer 保存 Shell 画面；CSI ? 1049 h 进入 Alternate Buffer，CSI ? 1049 l 返回保留的 Normal Buffer。Buffer 切换发生在同一个 Terminal 内，不创建新的 PTY。</desc>
+<rect width="1200" height="675" fill="#ebe7dc"/>
+<text x="76" y="65" fill="#555c55" font-family="Noto Sans CJK SC,system-ui,sans-serif" font-size="27" font-weight="700" text-anchor="start">SAME TERMINAL · TWO BUFFERS</text>
+<rect x="76" y="108" width="1048" height="444" rx="18" fill="#171b1b"/>
+<rect x="118" y="232" width="420" height="218" rx="12" fill="#242b2a" stroke="#a38443" stroke-width="2"/>
+<text x="152" y="290" fill="#e4c06b" font-family="Noto Sans CJK SC,system-ui,sans-serif" font-size="36" font-weight="800" text-anchor="start">Normal Buffer</text>
+<text x="152" y="363" fill="#f4f0e7" font-family="DejaVu Sans Mono,ui-monospace,monospace" font-size="38" font-weight="500" text-anchor="start">$ vim notes.md</text>
+<text x="152" y="417" fill="#b8c2bd" font-family="Noto Sans CJK SC,system-ui,sans-serif" font-size="32" font-weight="400" text-anchor="start">Shell 画面保留</text>
+<rect x="662" y="232" width="420" height="218" rx="12" fill="#203332" stroke="#53827d" stroke-width="2"/>
+<text x="696" y="290" fill="#8fd0c7" font-family="Noto Sans CJK SC,system-ui,sans-serif" font-size="36" font-weight="800" text-anchor="start">Alternate Buffer</text>
+<text x="696" y="363" fill="#f4f0e7" font-family="DejaVu Sans Mono,ui-monospace,monospace" font-size="42" font-weight="500" text-anchor="start"># Notes</text>
+<text x="696" y="417" fill="#b8c2bd" font-family="Noto Sans CJK SC,system-ui,sans-serif" font-size="32" font-weight="400" text-anchor="start">全屏应用在这里绘制</text>
+<path d="M330 187H872" stroke="#8fd0c7" stroke-width="4" fill="none" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M860 177l12 10 -12 10" stroke="#8fd0c7" stroke-width="4" fill="none" stroke-linejoin="round" stroke-linecap="round"/>
+<rect x="401" y="154" width="398" height="50" rx="0" fill="#171b1b"/>
+<text x="600" y="191" fill="#8fd0c7" font-family="DejaVu Sans Mono,ui-monospace,monospace" font-size="32" font-weight="700" text-anchor="middle">CSI ? 1049 h · 进入</text>
+<path d="M872 492H330" stroke="#e4c06b" stroke-width="4" fill="none" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M342 482l-12 10 12 10" stroke="#e4c06b" stroke-width="4" fill="none" stroke-linejoin="round" stroke-linecap="round"/>
+<rect x="401" y="465" width="398" height="50" rx="0" fill="#171b1b"/>
+<text x="600" y="502" fill="#e4c06b" font-family="DejaVu Sans Mono,ui-monospace,monospace" font-size="32" font-weight="700" text-anchor="middle">CSI ? 1049 l · 返回</text>
+<text x="76" y="624" fill="#171916" font-family="Noto Sans CJK SC,system-ui,sans-serif" font-size="42" font-weight="800" text-anchor="start">退出全屏程序，重新显示保留的画面</text>
+</svg>

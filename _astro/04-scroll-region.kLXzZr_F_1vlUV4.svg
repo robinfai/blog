@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="1320" viewBox="0 0 720 1320" role="img" aria-labelledby="title desc">
+<title id="title">滚动区域只移动第3至8行</title><desc id="desc">设置 CSI 3;8 r 后把光标定位到第8行第1列。收到单独 LF 时，区域内六行向上滚动一行，底行变为空白，光标留在第8行第1列。第1、2、9行完全不变。</desc>
+<rect width="720" height="1320" fill="#ebe7dc"/>
+<text x="56" y="60" fill="#555c55" font-family="Noto Sans CJK SC,system-ui,sans-serif" font-size="20" font-weight="600" text-anchor="start">SCROLL INSIDE ROWS 3–8</text>
+<rect x="56" y="100" width="608" height="132" rx="6" fill="#fbfaf6" stroke="#cbc5b8" stroke-width="2"/>
+<text x="84" y="141" fill="#171916" font-family="DejaVu Sans Mono,ui-monospace,monospace" font-size="25" font-weight="700" text-anchor="start">CSI 3;8 r  →  CSI 8;1 H</text>
+<text x="84" y="182" fill="#555c55" font-family="Noto Sans CJK SC,system-ui,sans-serif" font-size="23" font-weight="400" text-anchor="start">设置边界后，再定位到第 8 行第 1 列</text>
+<text x="84" y="214" fill="#555c55" font-family="Noto Sans CJK SC,system-ui,sans-serif" font-size="20" font-weight="400" text-anchor="start">此例：绝对行号，LF 不含 CR</text>
+<text x="84" y="282" fill="#24696e" font-family="Noto Sans CJK SC,system-ui,sans-serif" font-size="25" font-weight="700" text-anchor="start">滚动前：6 个逻辑行</text>
+<rect x="82" y="308" width="582" height="410" rx="6" fill="#171b1b"/>
+<rect x="144" y="408" width="496" height="252" rx="2" fill="#26231e" stroke="#a38443" stroke-width="2"/>
+<text x="112" y="346" fill="#b8c2bd" font-family="DejaVu Sans Mono,ui-monospace,monospace" font-size="22" font-weight="400" text-anchor="middle">1</text>
+<rect x="144" y="318" width="496" height="38" rx="2" fill="#203332"/>
+<text x="164" y="346" fill="#8fd0c7" font-family="DejaVu Sans Mono,ui-monospace,monospace" font-size="23" font-weight="500" text-anchor="start">BUILD LOG</text>
+<text x="112" y="388" fill="#b8c2bd" font-family="DejaVu Sans Mono,ui-monospace,monospace" font-size="22" font-weight="400" text-anchor="middle">2</text>
+<path d="M162 379H620" stroke="#52605d" stroke-width="2" fill="none" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="112" y="430" fill="#b8c2bd" font-family="DejaVu Sans Mono,ui-monospace,monospace" font-size="22" font-weight="400" text-anchor="middle">3</text>
+<text x="164" y="430" fill="#f4f0e7" font-family="DejaVu Sans Mono,ui-monospace,monospace" font-size="23" font-weight="500" text-anchor="start">log A</text>
+<text x="112" y="472" fill="#b8c2bd" font-family="DejaVu Sans Mono,ui-monospace,monospace" font-size="22" font-weight="400" text-anchor="middle">4</text>
+<text x="164" y="472" fill="#f4f0e7" font-family="DejaVu Sans Mono,ui-monospace,monospace" font-size="23" font-weight="500" text-anchor="start">log B</text>
+<text x="112" y="514" fill="#b8c2bd" font-family="DejaVu Sans Mono,ui-monospace,monospace" font-size="22" font-weight="400" text-anchor="middle">5</text>
+<text x="164" y="514" fill="#f4f0e7" font-family="DejaVu Sans Mono,ui-monospace,monospace" font-size="23" font-weight="500" text-anchor="start">log C</text>
+<text x="112" y="556" fill="#b8c2bd" font-family="DejaVu Sans Mono,ui-monospace,monospace" font-size="22" font-weight="400" text-anchor="middle">6</text>
+<text x="164" y="556" fill="#f4f0e7" font-family="DejaVu Sans Mono,ui-monospace,monospace" font-size="23" font-weight="500" text-anchor="start">log D</text>
+<text x="112" y="598" fill="#b8c2bd" font-family="DejaVu Sans Mono,ui-monospace,monospace" font-size="22" font-weight="400" text-anchor="middle">7</text>
+<text x="164" y="598" fill="#f4f0e7" font-family="DejaVu Sans Mono,ui-monospace,monospace" font-size="23" font-weight="500" text-anchor="start">log E</text>
+<text x="112" y="640" fill="#b8c2bd" font-family="DejaVu Sans Mono,ui-monospace,monospace" font-size="22" font-weight="400" text-anchor="middle">8</text>
+<text x="164" y="640" fill="#f4f0e7" font-family="DejaVu Sans Mono,ui-monospace,monospace" font-size="23" font-weight="500" text-anchor="start">log F</text>
+<text x="112" y="682" fill="#b8c2bd" font-family="DejaVu Sans Mono,ui-monospace,monospace" font-size="22" font-weight="400" text-anchor="middle">9</text>
+<rect x="144" y="654" width="496" height="38" rx="2" fill="#30273a"/>
+<text x="164" y="682" fill="#d2a3ed" font-family="DejaVu Sans Mono,ui-monospace,monospace" font-size="23" font-weight="500" text-anchor="start">STATUS · 72% · 00:18</text>
+<rect x="161" y="614" width="16" height="32" rx="0" fill="none" stroke="#e4c06b" stroke-width="2"/>
+<text x="384" y="640" fill="#e4c06b" font-family="Noto Sans CJK SC,system-ui,sans-serif" font-size="22" font-weight="400" text-anchor="start">光标 (8,1)</text>
+<path d="M360 718V796" stroke="#24696e" stroke-width="4" fill="none" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M350 784L360 796l10 -12" stroke="#24696e" stroke-width="4" fill="none" stroke-linejoin="round" stroke-linecap="round"/>
+<rect x="174" y="734" width="372" height="43" rx="22" fill="#dce9e6"/>
+<text x="360" y="764" fill="#24696e" font-family="Noto Sans CJK SC,system-ui,sans-serif" font-size="22" font-weight="700" text-anchor="middle">底边界收到 LF：区域上滚一行</text>
+<text x="84" y="833" fill="#24696e" font-family="Noto Sans CJK SC,system-ui,sans-serif" font-size="24" font-weight="700" text-anchor="start">滚动后：第 8 行空白，光标仍在底行</text>
+<rect x="82" y="858" width="582" height="410" rx="6" fill="#171b1b"/>
+<rect x="144" y="958" width="496" height="252" rx="2" fill="#26231e" stroke="#a38443" stroke-width="2"/>
+<text x="112" y="896" fill="#b8c2bd" font-family="DejaVu Sans Mono,ui-monospace,monospace" font-size="22" font-weight="400" text-anchor="middle">1</text>
+<rect x="144" y="868" width="496" height="38" rx="2" fill="#203332"/>
+<text x="164" y="896" fill="#8fd0c7" font-family="DejaVu Sans Mono,ui-monospace,monospace" font-size="23" font-weight="500" text-anchor="start">BUILD LOG</text>
+<text x="112" y="938" fill="#b8c2bd" font-family="DejaVu Sans Mono,ui-monospace,monospace" font-size="22" font-weight="400" text-anchor="middle">2</text>
+<path d="M162 929H620" stroke="#52605d" stroke-width="2" fill="none" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="112" y="980" fill="#b8c2bd" font-family="DejaVu Sans Mono,ui-monospace,monospace" font-size="22" font-weight="400" text-anchor="middle">3</text>
+<text x="164" y="980" fill="#f4f0e7" font-family="DejaVu Sans Mono,ui-monospace,monospace" font-size="23" font-weight="500" text-anchor="start">log B</text>
+<text x="112" y="1022" fill="#b8c2bd" font-family="DejaVu Sans Mono,ui-monospace,monospace" font-size="22" font-weight="400" text-anchor="middle">4</text>
+<text x="164" y="1022" fill="#f4f0e7" font-family="DejaVu Sans Mono,ui-monospace,monospace" font-size="23" font-weight="500" text-anchor="start">log C</text>
+<text x="112" y="1064" fill="#b8c2bd" font-family="DejaVu Sans Mono,ui-monospace,monospace" font-size="22" font-weight="400" text-anchor="middle">5</text>
+<text x="164" y="1064" fill="#f4f0e7" font-family="DejaVu Sans Mono,ui-monospace,monospace" font-size="23" font-weight="500" text-anchor="start">log D</text>
+<text x="112" y="1106" fill="#b8c2bd" font-family="DejaVu Sans Mono,ui-monospace,monospace" font-size="22" font-weight="400" text-anchor="middle">6</text>
+<text x="164" y="1106" fill="#f4f0e7" font-family="DejaVu Sans Mono,ui-monospace,monospace" font-size="23" font-weight="500" text-anchor="start">log E</text>
+<text x="112" y="1148" fill="#b8c2bd" font-family="DejaVu Sans Mono,ui-monospace,monospace" font-size="22" font-weight="400" text-anchor="middle">7</text>
+<text x="164" y="1148" fill="#f4f0e7" font-family="DejaVu Sans Mono,ui-monospace,monospace" font-size="23" font-weight="500" text-anchor="start">log F</text>
+<text x="112" y="1190" fill="#b8c2bd" font-family="DejaVu Sans Mono,ui-monospace,monospace" font-size="22" font-weight="400" text-anchor="middle">8</text>
+<text x="164" y="1190" fill="#f4f0e7" font-family="DejaVu Sans Mono,ui-monospace,monospace" font-size="23" font-weight="500" text-anchor="start"></text>
+<text x="112" y="1232" fill="#b8c2bd" font-family="DejaVu Sans Mono,ui-monospace,monospace" font-size="22" font-weight="400" text-anchor="middle">9</text>
+<rect x="144" y="1204" width="496" height="38" rx="2" fill="#30273a"/>
+<text x="164" y="1232" fill="#d2a3ed" font-family="DejaVu Sans Mono,ui-monospace,monospace" font-size="23" font-weight="500" text-anchor="start">STATUS · 72% · 00:18</text>
+<rect x="161" y="1164" width="16" height="32" rx="0" fill="none" stroke="#e4c06b" stroke-width="2"/>
+<text x="384" y="1190" fill="#e4c06b" font-family="Noto Sans CJK SC,system-ui,sans-serif" font-size="22" font-weight="400" text-anchor="start">光标 (8,1)</text>
+<text x="56" y="1300" fill="#555c55" font-family="Noto Sans CJK SC,system-ui,sans-serif" font-size="22" font-weight="400" text-anchor="start">第 1、2、9 行不参与滚动，前后内容完全相同。</text>
+</svg>

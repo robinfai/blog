@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc">
+<title id="title">控制序列改变状态，文字继承颜色</title><desc id="desc">同一条字节流先发送 ESC [ 31 m，把当前前景色设为红色，再发送普通文本 red。终端按当前显示属性写入字符。</desc>
+<rect width="1200" height="675" fill="#ebe7dc"/>
+<text x="76" y="65" fill="#555c55" font-family="Noto Sans CJK SC,system-ui,sans-serif" font-size="27" font-weight="700" text-anchor="start">ONE BYTE STREAM</text>
+<rect x="76" y="108" width="1048" height="444" rx="18" fill="#171b1b"/>
+<rect x="76" y="108" width="1048" height="56" rx="18" fill="#242b2a"/>
+<circle cx="113" cy="136" r="8" fill="#d66559"/>
+<circle cx="143" cy="136" r="8" fill="#d7a24c"/>
+<circle cx="173" cy="136" r="8" fill="#66a967"/>
+<rect x="124" y="208" width="566" height="270" rx="12" fill="#203332" stroke="#53827d" stroke-width="2"/>
+<text x="160" y="262" fill="#8fd0c7" font-family="Noto Sans CJK SC,system-ui,sans-serif" font-size="34" font-weight="700" text-anchor="start">控制序列</text>
+<text x="407" y="355" fill="#f4f0e7" font-family="DejaVu Sans Mono,ui-monospace,monospace" font-size="62" font-weight="700" text-anchor="middle">ESC [ 31 m</text>
+<text x="407" y="435" fill="#b8c2bd" font-family="Noto Sans CJK SC,system-ui,sans-serif" font-size="34" font-weight="400" text-anchor="middle">把前景色设为红色</text>
+<path d="M708 340H770" stroke="#8fd0c7" stroke-width="4" fill="none" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M758 330l12 10 -12 10" stroke="#8fd0c7" stroke-width="4" fill="none" stroke-linejoin="round" stroke-linecap="round"/>
+<rect x="790" y="208" width="282" height="270" rx="12" fill="#242b2a" stroke="#52605d" stroke-width="2"/>
+<text x="931" y="262" fill="#b8c2bd" font-family="Noto Sans CJK SC,system-ui,sans-serif" font-size="34" font-weight="700" text-anchor="middle">普通文字</text>
+<text x="931" y="355" fill="#ff766b" font-family="DejaVu Sans Mono,ui-monospace,monospace" font-size="78" font-weight="700" text-anchor="middle">red</text>
+<text x="931" y="435" fill="#b8c2bd" font-family="Noto Sans CJK SC,system-ui,sans-serif" font-size="34" font-weight="400" text-anchor="middle">继承颜色</text>
+<text x="76" y="624" fill="#171916" font-family="Noto Sans CJK SC,system-ui,sans-serif" font-size="42" font-weight="800" text-anchor="start">控制序列改状态，文字使用当前属性</text>
+</svg>

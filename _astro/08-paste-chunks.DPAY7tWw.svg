@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="1580" viewBox="0 0 720 1580" role="img" aria-labelledby="title desc">
+<title id="title">一次粘贴可以跨三次读取</title>
+<desc id="desc">以粘贴hello为例。第一次读取ESC[20，只有开始标记前缀，需暂存。第二次读取0~helloESC[2，拼成完整开始标记ESC[200~后进入粘贴状态，消费hello，并保存结束标记的部分前缀ESC[2。第三次读取01~，拼成ESC[201~，结束粘贴。读取返回的块不是用户操作的边界。</desc>
+<rect width="720" height="1580" fill="#ebe7dc"/>
+<text x="44" y="48" font-family="'Noto Sans CJK SC',system-ui,sans-serif" font-size="24" font-weight="600" fill="#515b55" text-anchor="start">08 / STREAM PARSING</text>
+<text x="44" y="100" font-family="'Noto Sans CJK SC',system-ui,sans-serif" font-size="36" font-weight="800" fill="#171916" text-anchor="start">一次粘贴，三次读取</text>
+<text x="44" y="144" font-family="'Noto Sans CJK SC',system-ui,sans-serif" font-size="26" font-weight="400" fill="#515b55" text-anchor="start">解析器要把未完成的前缀留到下一次</text>
+<rect x="44" y="188" width="632" height="320" rx="12" fill="#fbfaf6" stroke="#cbc5b8" stroke-width="2"/>
+<text x="76" y="236" font-family="'Noto Sans CJK SC',system-ui,sans-serif" font-size="30" font-weight="700" fill="#171916" text-anchor="start">第 1 次 read()</text>
+<rect x="76" y="264" width="568" height="83" rx="8" fill="#203332" stroke="#2d7e82" stroke-width="2"/>
+<text x="105" y="320" font-family="'DejaVu Sans Mono',ui-monospace,monospace" font-size="38" font-weight="700" fill="#9edbd0" text-anchor="start">ESC[20</text>
+<text x="76" y="398" font-family="'Noto Sans CJK SC',system-ui,sans-serif" font-size="26" font-weight="700" fill="#8a6529" text-anchor="start">解析进度</text>
+<text x="76" y="449" font-family="'Noto Sans CJK SC',system-ui,sans-serif" font-size="27" font-weight="400" fill="#171916" text-anchor="start">开始标记还没读全</text>
+<text x="76" y="496" font-family="'Noto Sans CJK SC',system-ui,sans-serif" font-size="27" font-weight="400" fill="#171916" text-anchor="start">保留前缀 ESC[20</text>
+<rect x="44" y="576" width="632" height="366" rx="12" fill="#fbfaf6" stroke="#cbc5b8" stroke-width="2"/>
+<text x="76" y="624" font-family="'Noto Sans CJK SC',system-ui,sans-serif" font-size="30" font-weight="700" fill="#171916" text-anchor="start">第 2 次 read()</text>
+<rect x="76" y="652" width="568" height="83" rx="8" fill="#203332" stroke="#2d7e82" stroke-width="2"/>
+<text x="105" y="708" font-family="'DejaVu Sans Mono',ui-monospace,monospace" font-size="38" font-weight="700" fill="#9edbd0" text-anchor="start">0~helloESC[2</text>
+<text x="76" y="786" font-family="'Noto Sans CJK SC',system-ui,sans-serif" font-size="26" font-weight="700" fill="#8a6529" text-anchor="start">解析进度</text>
+<text x="76" y="837" font-family="'Noto Sans CJK SC',system-ui,sans-serif" font-size="27" font-weight="400" fill="#171916" text-anchor="start">拼出 ESC[200~，进入粘贴状态</text>
+<text x="76" y="884" font-family="'Noto Sans CJK SC',system-ui,sans-serif" font-size="27" font-weight="400" fill="#171916" text-anchor="start">消费 hello；保留结束前缀 ESC[2</text>
+<text x="76" y="922" font-family="'Noto Sans CJK SC',system-ui,sans-serif" font-size="26" font-weight="400" fill="#515b55" text-anchor="start">不是从头独立解析这一块</text>
+<rect x="44" y="1010" width="632" height="320" rx="12" fill="#fbfaf6" stroke="#cbc5b8" stroke-width="2"/>
+<text x="76" y="1058" font-family="'Noto Sans CJK SC',system-ui,sans-serif" font-size="30" font-weight="700" fill="#171916" text-anchor="start">第 3 次 read()</text>
+<rect x="76" y="1086" width="568" height="83" rx="8" fill="#203332" stroke="#2d7e82" stroke-width="2"/>
+<text x="105" y="1142" font-family="'DejaVu Sans Mono',ui-monospace,monospace" font-size="38" font-weight="700" fill="#9edbd0" text-anchor="start">01~</text>
+<text x="76" y="1220" font-family="'Noto Sans CJK SC',system-ui,sans-serif" font-size="26" font-weight="700" fill="#8a6529" text-anchor="start">解析进度</text>
+<text x="76" y="1271" font-family="'Noto Sans CJK SC',system-ui,sans-serif" font-size="27" font-weight="400" fill="#171916" text-anchor="start">拼出 ESC[201~，结束粘贴</text>
+<text x="76" y="1318" font-family="'Noto Sans CJK SC',system-ui,sans-serif" font-size="27" font-weight="400" fill="#171916" text-anchor="start">回到普通输入解析状态</text>
+<path d="M360 515L360 562" stroke="#2d7e82" stroke-width="5" fill="none" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M350 549L360 562L370 549" stroke="#2d7e82" stroke-width="5" fill="none" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M360 950L360 996" stroke="#2d7e82" stroke-width="5" fill="none" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M350 983L360 996L370 983" stroke="#2d7e82" stroke-width="5" fill="none" stroke-linejoin="round" stroke-linecap="round"/>
+<rect x="44" y="1371" width="632" height="160" rx="12" fill="#eedfb6" stroke="#b49459" stroke-width="2"/>
+<text x="76" y="1421" font-family="'Noto Sans CJK SC',system-ui,sans-serif" font-size="31" font-weight="700" fill="#171916" text-anchor="start">读取边界不等于协议边界</text>
+<text x="76" y="1469" font-family="'Noto Sans CJK SC',system-ui,sans-serif" font-size="27" font-weight="400" fill="#515b55" text-anchor="start">结束标记后若还有输入，继续解析</text>
+<text x="76" y="1512" font-family="'Noto Sans CJK SC',system-ui,sans-serif" font-size="27" font-weight="400" fill="#515b55" text-anchor="start">不要把后续 Enter 一并当成粘贴内容</text>
+</svg>

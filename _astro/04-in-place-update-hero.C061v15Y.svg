@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc">
+<title id="title">用新的输出改写终端同一行</title><desc id="desc">先显示 progress: 20%，随后输出 CR、EL 和新文本。CR 回到行首，EL 擦除到行尾，再写入 progress: 80%。前后使用相同的前景色，光标在文本后的空格。</desc>
+<rect width="1200" height="675" fill="#ebe7dc"/>
+<text x="76" y="65" fill="#555c55" font-family="Noto Sans CJK SC,system-ui,sans-serif" font-size="27" font-weight="700" text-anchor="start">MOVE · ERASE · WRITE</text>
+<rect x="76" y="108" width="1048" height="444" rx="18" fill="#171b1b"/>
+<text x="140" y="171" fill="#b8c2bd" font-family="Noto Sans CJK SC,system-ui,sans-serif" font-size="32" font-weight="700" text-anchor="start">更新前</text>
+<text x="300" y="268" fill="#f4f0e7" font-family="DejaVu Sans Mono,ui-monospace,monospace" font-size="64" font-weight="500" text-anchor="start">progress: 20%</text>
+<rect x="822" y="217" width="12" height="64" rx="0" fill="#e4c06b"/>
+<path d="M240 304V379" stroke="#8fd0c7" stroke-width="4" fill="none" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M230 367L240 379l10 -12" stroke="#8fd0c7" stroke-width="4" fill="none" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="312" y="353" fill="#8fd0c7" font-family="DejaVu Sans Mono,ui-monospace,monospace" font-size="40" font-weight="700" text-anchor="start">CR  +  EL  +  TEXT</text>
+<text x="140" y="424" fill="#b8c2bd" font-family="Noto Sans CJK SC,system-ui,sans-serif" font-size="32" font-weight="700" text-anchor="start">更新后</text>
+<text x="300" y="510" fill="#f4f0e7" font-family="DejaVu Sans Mono,ui-monospace,monospace" font-size="64" font-weight="500" text-anchor="start">progress: 80%</text>
+<rect x="822" y="459" width="12" height="64" rx="0" fill="#e4c06b"/>
+<text x="76" y="624" fill="#171916" font-family="Noto Sans CJK SC,system-ui,sans-serif" font-size="42" font-weight="800" text-anchor="start">新的输出，改写同一行的字符单元</text>
+</svg>

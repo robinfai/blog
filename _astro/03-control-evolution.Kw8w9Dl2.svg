@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="1080" viewBox="0 0 720 1080" role="img" aria-labelledby="title desc">
+<title id="title">终端控制需求与结构</title><desc id="desc">单字节控制字符、CSI 参数序列、OSC 和 DCS 控制字符串为不同需求提供不同结构；这些结构长期共存，现代模拟器沿用并扩展它们，并非三个互相替代的历史版本。</desc>
+<rect width="720" height="1080" fill="#ebe7dc"/>
+<text x="56" y="60" fill="#555c55" font-family="Noto Sans CJK SC,system-ui,sans-serif" font-size="20" font-weight="600" text-anchor="start">CONTROL NEEDS · CONTROL STRUCTURES</text>
+<rect x="56" y="104" width="608" height="252" rx="6" fill="#fbfaf6" stroke="#cbc5b8" stroke-width="2"/>
+<text x="84" y="146" fill="#8d5824" font-family="Noto Sans CJK SC,system-ui,sans-serif" font-size="23" font-weight="700" text-anchor="start">短小的固定动作</text>
+<text x="84" y="196" fill="#171916" font-family="Noto Sans CJK SC,system-ui,sans-serif" font-size="30" font-weight="800" text-anchor="start">单字节控制字符</text>
+<rect x="84" y="223" width="552" height="62" rx="6" fill="#171b1b"/>
+<text x="360" y="264" fill="#f4f0e7" font-family="DejaVu Sans Mono,ui-monospace,monospace" font-size="26" font-weight="600" text-anchor="middle">CR · LF · BS · BEL</text>
+<text x="84" y="325" fill="#555c55" font-family="Noto Sans CJK SC,system-ui,sans-serif" font-size="23" font-weight="400" text-anchor="start">回车、换行、退格、响铃</text>
+<rect x="56" y="386" width="608" height="252" rx="6" fill="#f2e4d2" stroke="#d0b184" stroke-width="2"/>
+<text x="84" y="428" fill="#8d5824" font-family="Noto Sans CJK SC,system-ui,sans-serif" font-size="23" font-weight="700" text-anchor="start">需要位置、数值或模式</text>
+<text x="84" y="478" fill="#171916" font-family="Noto Sans CJK SC,system-ui,sans-serif" font-size="30" font-weight="800" text-anchor="start">带参数的 CSI 序列</text>
+<rect x="84" y="505" width="552" height="62" rx="6" fill="#171b1b"/>
+<text x="360" y="546" fill="#f4f0e7" font-family="DejaVu Sans Mono,ui-monospace,monospace" font-size="26" font-weight="600" text-anchor="middle">ESC [ 12 ; 30 H</text>
+<text x="84" y="607" fill="#555c55" font-family="Noto Sans CJK SC,system-ui,sans-serif" font-size="23" font-weight="400" text-anchor="start">例如：把光标移到第 12 行、第 30 列</text>
+<rect x="56" y="668" width="608" height="252" rx="6" fill="#dce9e6" stroke="#79aaa6" stroke-width="2"/>
+<text x="84" y="710" fill="#24696e" font-family="Noto Sans CJK SC,system-ui,sans-serif" font-size="23" font-weight="700" text-anchor="start">需要携带字符串或较长数据</text>
+<text x="84" y="760" fill="#171916" font-family="Noto Sans CJK SC,system-ui,sans-serif" font-size="30" font-weight="800" text-anchor="start">OSC / DCS 控制字符串</text>
+<rect x="84" y="787" width="552" height="62" rx="6" fill="#171b1b"/>
+<text x="360" y="828" fill="#f4f0e7" font-family="Noto Sans CJK SC,system-ui,sans-serif" font-size="26" font-weight="600" text-anchor="middle">OSC 8：超链接扩展示例</text>
+<text x="84" y="889" fill="#555c55" font-family="Noto Sans CJK SC,system-ui,sans-serif" font-size="23" font-weight="400" text-anchor="start">同一结构可承载后来新增的用途</text>
+<text x="56" y="980" fill="#555c55" font-family="Noto Sans CJK SC,system-ui,sans-serif" font-size="24" font-weight="600" text-anchor="start">这些结构长期共存，并不按代际互相替代。</text>
+<text x="56" y="1020" fill="#555c55" font-family="Noto Sans CJK SC,system-ui,sans-serif" font-size="22" font-weight="400" text-anchor="start">现代模拟器沿用 CSI / OSC / DCS 并扩展用途。</text>
+</svg>

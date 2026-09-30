@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="1510" viewBox="0 0 720 1510" role="img" aria-labelledby="title desc">
+<title id="title">SGR 鼠标报告中的按钮、列和行</title>
+<desc id="desc">Terminal 发给应用的 ESC[&lt;0;12;5M 表示无修饰键左键在第12列第5行按下，ESC[&lt;0;12;5m 表示释放。坐标从左上角1,1开始，先列后行。大写M还用于移动和滚轮，需结合按钮字段判断。图示为1006字符单元坐标，不是1016像素坐标。</desc>
+<rect width="720" height="1510" fill="#ebe7dc"/>
+<text x="44" y="48" font-family="'Noto Sans CJK SC',system-ui,sans-serif" font-size="24" font-weight="600" fill="#515b55" text-anchor="start">07 / SGR MOUSE REPORT</text>
+<text x="44" y="100" font-family="'Noto Sans CJK SC',system-ui,sans-serif" font-size="36" font-weight="800" fill="#171916" text-anchor="start">一条报告里有什么？</text>
+<text x="44" y="144" font-family="'Noto Sans CJK SC',system-ui,sans-serif" font-size="26" font-weight="400" fill="#515b55" text-anchor="start">方向：Terminal 发给应用</text>
+<rect x="44" y="185" width="632" height="140" rx="12" fill="#203332" stroke="#2d7e82" stroke-width="2"/>
+<text x="360" y="242" font-family="'DejaVu Sans Mono',ui-monospace,monospace" font-size="44" font-weight="700" fill="#f4f0e7" text-anchor="middle">ESC[&lt;0;12;5M</text>
+<text x="360" y="291" font-family="'Noto Sans CJK SC',system-ui,sans-serif" font-size="28" font-weight="500" fill="#9edbd0" text-anchor="middle">无修饰键的左键按下</text>
+<rect x="44" y="361" width="632" height="73" rx="7" fill="#fbfaf6" stroke="#cbc5b8" stroke-width="2"/>
+<text x="76" y="409" font-family="'DejaVu Sans Mono',ui-monospace,monospace" font-size="30" font-weight="700" fill="#2d7e82" text-anchor="start">ESC[&lt;</text>
+<text x="225" y="409" font-family="'Noto Sans CJK SC',system-ui,sans-serif" font-size="27" font-weight="400" fill="#171916" text-anchor="start">CSI + 鼠标报告前缀</text>
+<rect x="44" y="446" width="632" height="73" rx="7" fill="#fbfaf6" stroke="#cbc5b8" stroke-width="2"/>
+<text x="76" y="494" font-family="'DejaVu Sans Mono',ui-monospace,monospace" font-size="30" font-weight="700" fill="#2d7e82" text-anchor="start">0</text>
+<text x="225" y="494" font-family="'Noto Sans CJK SC',system-ui,sans-serif" font-size="27" font-weight="400" fill="#171916" text-anchor="start">Cb：左键，无修饰键</text>
+<rect x="44" y="531" width="632" height="73" rx="7" fill="#fbfaf6" stroke="#cbc5b8" stroke-width="2"/>
+<text x="76" y="579" font-family="'DejaVu Sans Mono',ui-monospace,monospace" font-size="30" font-weight="700" fill="#2d7e82" text-anchor="start">12</text>
+<text x="225" y="579" font-family="'Noto Sans CJK SC',system-ui,sans-serif" font-size="27" font-weight="400" fill="#171916" text-anchor="start">Cx：第 12 列</text>
+<rect x="44" y="616" width="632" height="73" rx="7" fill="#fbfaf6" stroke="#cbc5b8" stroke-width="2"/>
+<text x="76" y="664" font-family="'DejaVu Sans Mono',ui-monospace,monospace" font-size="30" font-weight="700" fill="#2d7e82" text-anchor="start">5</text>
+<text x="225" y="664" font-family="'Noto Sans CJK SC',system-ui,sans-serif" font-size="27" font-weight="400" fill="#171916" text-anchor="start">Cy：第 5 行</text>
+<rect x="44" y="701" width="632" height="73" rx="7" fill="#fbfaf6" stroke="#cbc5b8" stroke-width="2"/>
+<text x="76" y="749" font-family="'DejaVu Sans Mono',ui-monospace,monospace" font-size="30" font-weight="700" fill="#2d7e82" text-anchor="start">M</text>
+<text x="225" y="749" font-family="'Noto Sans CJK SC',system-ui,sans-serif" font-size="27" font-weight="400" fill="#171916" text-anchor="start">此例表示按下</text>
+<rect x="44" y="814" width="632" height="175" rx="12" fill="#eedfb6" stroke="#b49459" stroke-width="2"/>
+<text x="76" y="861" font-family="'DejaVu Sans Mono',ui-monospace,monospace" font-size="35" font-weight="700" fill="#171916" text-anchor="start">ESC[&lt;0;12;5m</text>
+<text x="76" y="906" font-family="'Noto Sans CJK SC',system-ui,sans-serif" font-size="28" font-weight="700" fill="#171916" text-anchor="start">小写 m：按钮释放</text>
+<text x="76" y="950" font-family="'Noto Sans CJK SC',system-ui,sans-serif" font-size="25" font-weight="400" fill="#515b55" text-anchor="start">大写 M 也可表示移动或滚轮，须看 Cb</text>
+<text x="44" y="1043" font-family="'Noto Sans CJK SC',system-ui,sans-serif" font-size="29" font-weight="700" fill="#171916" text-anchor="start">坐标是（列，行），左上角为 (1, 1)</text>
+<rect x="137" y="1103" width="476" height="258" rx="2" fill="#203332" stroke="#2d7e82" stroke-width="2"/>
+<path d="M171 1103V1361" stroke="#54716b" stroke-width="1.2" fill="none" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M205 1103V1361" stroke="#54716b" stroke-width="1.2" fill="none" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M239 1103V1361" stroke="#54716b" stroke-width="1.2" fill="none" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M273 1103V1361" stroke="#54716b" stroke-width="1.2" fill="none" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M307 1103V1361" stroke="#54716b" stroke-width="1.2" fill="none" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M341 1103V1361" stroke="#54716b" stroke-width="1.2" fill="none" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M375 1103V1361" stroke="#54716b" stroke-width="1.2" fill="none" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M409 1103V1361" stroke="#54716b" stroke-width="1.2" fill="none" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M443 1103V1361" stroke="#54716b" stroke-width="1.2" fill="none" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M477 1103V1361" stroke="#54716b" stroke-width="1.2" fill="none" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M511 1103V1361" stroke="#54716b" stroke-width="1.2" fill="none" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M545 1103V1361" stroke="#54716b" stroke-width="1.2" fill="none" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M579 1103V1361" stroke="#54716b" stroke-width="1.2" fill="none" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M137 1146H613" stroke="#54716b" stroke-width="1.2" fill="none" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M137 1189H613" stroke="#54716b" stroke-width="1.2" fill="none" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M137 1232H613" stroke="#54716b" stroke-width="1.2" fill="none" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M137 1275H613" stroke="#54716b" stroke-width="1.2" fill="none" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M137 1318H613" stroke="#54716b" stroke-width="1.2" fill="none" stroke-linejoin="round" stroke-linecap="round"/>
+<rect x="511" y="1275" width="34" height="43" rx="0" fill="#e4c06b" stroke="#e4c06b" stroke-width="2"/>
+<text x="154.0" y="1087" font-family="'DejaVu Sans Mono',ui-monospace,monospace" font-size="25" font-weight="600" fill="#515b55" text-anchor="middle">1</text>
+<text x="528.0" y="1087" font-family="'DejaVu Sans Mono',ui-monospace,monospace" font-size="25" font-weight="700" fill="#8a6529" text-anchor="middle">12</text>
+<text x="108" y="1133" font-family="'DejaVu Sans Mono',ui-monospace,monospace" font-size="25" font-weight="600" fill="#515b55" text-anchor="end">1</text>
+<text x="108" y="1305" font-family="'DejaVu Sans Mono',ui-monospace,monospace" font-size="25" font-weight="700" fill="#8a6529" text-anchor="end">5</text>
+<text x="44" y="1412" font-family="'Noto Sans CJK SC',system-ui,sans-serif" font-size="27" font-weight="600" fill="#171916" text-anchor="start">1006：字符单元坐标，不是文件位置</text>
+<text x="44" y="1454" font-family="'Noto Sans CJK SC',system-ui,sans-serif" font-size="25" font-weight="400" fill="#515b55" text-anchor="start">注意：光标定位 CSI 行;列 H 的顺序相反</text>
+</svg>
